@@ -12,22 +12,26 @@ class ModelCatList {
   ModelCatList({
     this.id,
     this.name,
+    this.categoryImage,
     this.isActive,
   });
 
   int id;
   String name;
+  String categoryImage;
   int isActive;
 
   factory ModelCatList.fromJson(Map<String, dynamic> json) => ModelCatList(
     id: json["id"],
     name: json["name"],
+    categoryImage: json["category_image"],
     isActive: json["is_active"],
   );
 
   Map<String, dynamic> toJson() => {
     "id": id,
     "name": name,
+    "category_image": categoryImage,
     "is_active": isActive,
   };
 }
