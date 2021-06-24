@@ -17,9 +17,9 @@ class _DashboardClientState extends State<DashboardClient> {
     Colors.blue[300],
     Colors.red[300],
     Colors.green[300],
-    Colors.amber[300],
+    Colors.purple[300],
     Colors.brown[300],
-    Colors.yellow[300],
+    Colors.greenAccent,
     Colors.indigo[300],
     Colors.orange[300],
     Colors.pink[300],
@@ -313,20 +313,20 @@ class _DashboardClientState extends State<DashboardClient> {
                                 children: [
                                   Container(
                                     child: Text(
-                                     _controller.productList[1].name,
+                                     "product name name of product is as ",
                                       maxLines: 3,
                                       overflow: TextOverflow.ellipsis,
                                       style: TextStyle(
-                                        fontSize: 16,
+                                        fontSize: 18,
+                                        color: Colors.white,
                                         fontWeight: FontWeight.w500,
                                       ),
                                     ),
                                   ),
                                   Row(
-
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
                                       Container(
-                                        color: Colors.brown,
                                         width: 90,
                                         padding: EdgeInsets.only(
                                             left: 5, top: 8, bottom: 15),
@@ -334,7 +334,7 @@ class _DashboardClientState extends State<DashboardClient> {
                                           "৳ 5000",
                                           style: TextStyle(
                                               fontSize: 20,
-                                              fontWeight: FontWeight.w500),
+                                              fontWeight: FontWeight.w500,color: Colors.white),
                                         ),
                                       ),
                                       Container(
