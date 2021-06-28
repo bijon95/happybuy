@@ -42,10 +42,9 @@ class MainDrawer extends StatelessWidget {
                   size: 15.0,
                 ),
                 onTap:(){
-    Navigator.push(
-    context, MaterialPageRoute(builder: (context) =>Dashboard()));
-    }
-
+                  Navigator.push(
+                  context, MaterialPageRoute(builder: (context) =>Dashboard()));
+                  }
               ),
               ListTile(
                 contentPadding: EdgeInsets.only(top:0.0,left: 15.0,right: 14.0),
