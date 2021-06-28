@@ -62,7 +62,7 @@ class _SingleProductViewState extends State<SingleProductView> {
                       style: TextStyle(
                         color: Colors.black,
                         fontSize: 12,
-                        fontWeight: FontWeight.w400,
+                        fontWeight: FontWeight.bold,
                       )
                     ),
                     Text(
@@ -149,29 +149,373 @@ class _SingleProductViewState extends State<SingleProductView> {
                   ],
                 ),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: Colors.red,  // red as border color
-                      ),
-                      borderRadius: BorderRadius.circular(5),
-                    ),
-                    child: ClipOval(
+              Container(
+                padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    ClipOval(
                       child: Material(
-                        color: Colors.white, // Button color
+                        color: Colors.red, // Button color
                         child: InkWell(
-                          splashColor: Colors.green, // Splash color
+                          splashColor: Colors.white, // Splash color
                           onTap: () {},
-                          child: SizedBox(width: 56, height: 56, child: Icon(Icons.add)),
+                          child: Icon(Icons.add,color: Colors.white,),
+                        ),
+                      ),
+                    ),
+                    SizedBox(width: 15,),
+                    Text(
+                        " 1 ",
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          color: Colors.green,
+                          fontSize: 15,
+                          fontWeight: FontWeight.w400,
+                        )
+                    ),
+                    SizedBox(width: 15,),
+                    ClipOval(
+                      child: Material(
+                        color: Colors.green, // Button color
+                        child: InkWell(
+                          splashColor: Colors.white, // Splash color
+                          onTap: () {},
+                          child: Icon(Icons.add,color: Colors.white,),
                         ),
                       ),
                     )
+                  ],
+                ),
+              ),
+              Container(
+                padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text(
+                        "Variants",
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold,
+                        )
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                padding: EdgeInsets.fromLTRB(10, 5, 10, 0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    OutlinedButton(
+                      onPressed: () {},
+                      child: Row(
+                        children: [
+                          Icon(Icons.add),
+                          SizedBox(width: 5,),
+                          Text(
+                            "1 pc",
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                              color: Colors.green,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w400,
+                            )
+                          ),
+                        ],
+                      ),
+                      style: OutlinedButton.styleFrom(
+                        shape: StadiumBorder(),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text(
+                        "Description",
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 17,
+                          fontWeight: FontWeight.w400,
+                        )
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text(
+                        "Supplied by Happy Buy",
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 15,
+                          fontWeight: FontWeight.w400,
+                        )
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.only(top: 10, left: 10, right: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "Reviews (3)",
+                      style:
+                      TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    ),
+                    Text(
+                      "See All",
+                      style: TextStyle(fontWeight: FontWeight.w400,color: Colors.green),
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                width: MediaQuery.of(context).size.width,
+                padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
+                child:  Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    ElevatedButton(
+                      onPressed: () {},
+                      child: Text(' T ',style: TextStyle(color: Colors.white),),
+                      style: ElevatedButton.styleFrom(
+                        shape: CircleBorder(),
+                        padding: EdgeInsets.all(14),
+                      ),
+                    ),
+                    SizedBox(width: 10,),
+                    Container(
+                      // width: MediaQuery.of(context).size.width * .6,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                              "Zia Khan",
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w400,
+                              )
+                          ),
+                          Row(
+                            children: [
+                              Icon(Icons.star,color: Color(0xFFFFCF23),size: 15,),
+                              Icon(Icons.star,color: Color(0xFFFFCF23),size: 15,),
+                              Icon(Icons.star,color: Color(0xFFFFCF23),size: 15,),
+                              Icon(Icons.star,color: Color(0xFFFFCF23),size: 15,),
+                              Icon(Icons.star,color: Color(0xFFFFCF23),size: 15,),
+                            ],
+                          )
+                        ],
+                      ),
+                    ),
+                    SizedBox(width: MediaQuery.of(context).size.width * .38,),
+                    Text(
+                        "Jun 13, 2021",
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                        )
+                    ),
+                  ],
+                )
+              ),
+              Container(
+                  width: MediaQuery.of(context).size.width,
+                  padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
+                  child:  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      ElevatedButton(
+                        onPressed: () {},
+                        child: Text(' T ',style: TextStyle(color: Colors.white),),
+                        style: ElevatedButton.styleFrom(
+                          shape: CircleBorder(),
+                          padding: EdgeInsets.all(14),
+                        ),
+                      ),
+                      SizedBox(width: 10,),
+                      Container(
+                        // width: MediaQuery.of(context).size.width * .6,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                                "Zia Khan",
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w400,
+                                )
+                            ),
+                            Row(
+                              children: [
+                                Icon(Icons.star,color: Color(0xFFFFCF23),size: 15,),
+                                Icon(Icons.star,color: Color(0xFFFFCF23),size: 15,),
+                                Icon(Icons.star,color: Color(0xFFFFCF23),size: 15,),
+                                Icon(Icons.star,color: Color(0xFFFFCF23),size: 15,),
+                                Icon(Icons.star,color: Color(0xFFFFCF23),size: 15,),
+                              ],
+                            )
+                          ],
+                        ),
+                      ),
+                      SizedBox(width: MediaQuery.of(context).size.width * .38,),
+                      Text(
+                          "Jun 13, 2021",
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400,
+                          )
+                      ),
+                    ],
+                  )
+              ),
+              Container(
+                margin: EdgeInsets.only(top: 10, left: 10, right: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "Related Products",
+                      style:
+                      TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ),
+              ),
+              GridView.count(
+              padding: const EdgeInsets.only(left :15.0, right: 15,top: 2,bottom: 6),
+              primary: false,
+              crossAxisSpacing: 15,
+              mainAxisSpacing: 15,
+              crossAxisCount: 2,
+              shrinkWrap: true,
+              children: List.generate(_controller.productList.length, (index) {
+                return GestureDetector(
+                  child: Container(
+                    // height: MediaQuery.of(context).size.height* 20,
+                    decoration: BoxDecoration(color: Colors.white,borderRadius: BorderRadius.circular(10),),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        // SizedBox(height: 10,),
+                        Image.asset(
+                          'images/c.jpg',
+                          fit: BoxFit.fill,
+                          width: 60 * MediaQuery.of(context).devicePixelRatio,
+                          height: 35 * MediaQuery.of(context).devicePixelRatio,
+                        ),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Container(
+                              height: MediaQuery.of(context).size.height* .039,
+                              padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                              child: Text(
+                                _controller.productList[index].name,
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              ),
+                            ),
+                            // SizedBox(height: 2,),
+                            Container(
+                                padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Text(
+                                          "৳"+_controller.productList[index].price,
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w500),
+                                        ),
+                                        SizedBox(width: 15,),
+                                        Text(
+                                          "৳ 120",
+                                          style: TextStyle(
+                                              decoration: TextDecoration.lineThrough,
+                                              decorationStyle: TextDecorationStyle.solid,
+                                              color: Colors.black,
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w500),
+                                        ),
+                                      ],
+                                    ),
+                                    Text(
+                                      "1 pc",
+                                      style: TextStyle(
+                                          decorationStyle: TextDecorationStyle.solid,
+                                          color: Colors.black,
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w500),
+                                    ),
+                                  ],
+                                )
+                            ),
+                            GestureDetector(
+                              child: Container(
+                                  width: MediaQuery.of(context).size.width * .26,
+                                  height: MediaQuery.of(context).size.height * .02,
+                                  decoration: BoxDecoration(color: Colors.green,borderRadius: BorderRadius.circular(5)),
+                                  child : Text("Add to cart",style: TextStyle(color: Colors.white),textAlign: TextAlign.center,)
+                              ),
+                              onTap: (){
+
+                              },
+                            )
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
-                ],
-              )
+                  onTap: () => {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => SingleProductView(index)),
+                    )
+                  },
+                );
+              })
+          ),
             ],
           ),
         ),
