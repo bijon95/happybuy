@@ -415,13 +415,13 @@ class _SingleProductViewState extends State<SingleProductView> {
                 ),
               ),
               GridView.count(
-              padding: const EdgeInsets.only(left :15.0, right: 15,top: 2,bottom: 6),
-              primary: false,
-              crossAxisSpacing: 15,
-              mainAxisSpacing: 15,
-              crossAxisCount: 2,
-              shrinkWrap: true,
-              children: List.generate(_controller.productList.length, (index) {
+                padding: const EdgeInsets.only(left :15.0, right: 15,top: 2,bottom: 6),
+                primary: false,
+                crossAxisSpacing: 15,
+                mainAxisSpacing: 15,
+                crossAxisCount: 2,
+                shrinkWrap: true,
+                children: List.generate(_controller.productList.length, (index) {
                 return GestureDetector(
                   child: Container(
                     // height: MediaQuery.of(context).size.height* 20,
@@ -455,41 +455,41 @@ class _SingleProductViewState extends State<SingleProductView> {
                             ),
                             // SizedBox(height: 2,),
                             Container(
-                                padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Row(
-                                      children: [
-                                        Text(
-                                          "৳"+_controller.productList[index].price,
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 12,
-                                              fontWeight: FontWeight.w500),
-                                        ),
-                                        SizedBox(width: 15,),
-                                        Text(
-                                          "৳ 120",
-                                          style: TextStyle(
-                                              decoration: TextDecoration.lineThrough,
-                                              decorationStyle: TextDecorationStyle.solid,
-                                              color: Colors.black,
-                                              fontSize: 12,
-                                              fontWeight: FontWeight.w500),
-                                        ),
-                                      ],
-                                    ),
-                                    Text(
-                                      "1 pc",
-                                      style: TextStyle(
-                                          decorationStyle: TextDecorationStyle.solid,
-                                          color: Colors.black,
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.w500),
-                                    ),
-                                  ],
-                                )
+                              padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Row(
+                                    children: [
+                                      Text(
+                                        "৳"+_controller.productList[index].price,
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.w500),
+                                      ),
+                                      SizedBox(width: 15,),
+                                      Text(
+                                        "৳ 120",
+                                        style: TextStyle(
+                                            decoration: TextDecoration.lineThrough,
+                                            decorationStyle: TextDecorationStyle.solid,
+                                            color: Colors.black,
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.w500),
+                                      ),
+                                    ],
+                                  ),
+                                  Text(
+                                    "1 pc",
+                                    style: TextStyle(
+                                        decorationStyle: TextDecorationStyle.solid,
+                                        color: Colors.black,
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                ],
+                              )
                             ),
                             GestureDetector(
                               child: Container(
