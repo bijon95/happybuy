@@ -152,16 +152,24 @@ class _SingleProductViewState extends State<SingleProductView> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  ClipOval(
-                    child: Material(
-                      color: Colors.white, // Button color
-                      child: InkWell(
-                        splashColor: Colors.green, // Splash color
-                        onTap: () {},
-                        child: SizedBox(width: 56, height: 56, child: Icon(Icons.menu)),
+                  Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: Colors.red,  // red as border color
                       ),
+                      borderRadius: BorderRadius.circular(5),
                     ),
-                  )
+                    child: ClipOval(
+                      child: Material(
+                        color: Colors.white, // Button color
+                        child: InkWell(
+                          splashColor: Colors.green, // Splash color
+                          onTap: () {},
+                          child: SizedBox(width: 56, height: 56, child: Icon(Icons.add)),
+                        ),
+                      ),
+                    )
+                  ),
                 ],
               )
             ],
