@@ -36,10 +36,10 @@ class MainDrawer extends StatelessWidget {
 
               ListTile(
                 contentPadding: EdgeInsets.only(bottom:0.0,left: 15.0,right: 14.0),
-                title: Text('Today Orders'),
-                trailing: Icon(
-                  Icons.arrow_forward_ios,
-                  size: 15.0,
+                title: Text('Cart'),
+                leading: Icon(
+                  Icons.shopping_cart_outlined,
+                  size: 24.0,
                 ),
                 onTap:(){
                   Navigator.push(
@@ -48,48 +48,94 @@ class MainDrawer extends StatelessWidget {
               ),
               ListTile(
                 contentPadding: EdgeInsets.only(top:0.0,left: 15.0,right: 14.0),
-                title: Text('Product List'),
-                trailing: Icon(
-                  Icons.arrow_forward_ios,
-                  size: 15.0,
-                ),
+                title: Text('Orders'),
+                  leading: Icon(
+                    Icons.list_alt_rounded,
+                    size: 24.0,
+                  ),
                 onTap: (){
                   Navigator.push(
                       context, MaterialPageRoute(builder: (context) =>ProductList()));
                 }
               ),
               ListTile(
-                title: Text('Category List'),
-                trailing: Icon(
-                  Icons.arrow_forward_ios,
-                  size: 15.0,
-                ),
+                  title: Text('To Review'),
+                  leading: Icon(
+                    Icons.mode_edit,
+                    size: 24.0,
+                  ),
+                  onTap: (){
+                    Navigator.push(
+                        context, MaterialPageRoute(builder: (context) =>CategoryList()));
+                  }
+              ),
+              ListTile(
+                title: Text('Rate US'),
+                  leading: Icon(
+                    Icons.star_border,
+                    size: 24.0,
+                  ),
                 onTap: (){
                   Navigator.push(
                       context, MaterialPageRoute(builder: (context) =>CategoryList()));
                 }
               ),
-
-              SizedBox(height: 10.0),
               ListTile(
-                title: Text('Help?'),
+                  title: Text('Terms & Conditions'),
+                  leading: Icon(
+                    Icons.document_scanner_outlined,
+                    size: 24.0,
+                  ),
+                  onTap: (){
+                    Navigator.push(
+                        context, MaterialPageRoute(builder: (context) =>CategoryList()));
+                  }
+              ),
+
+
+              ListTile(
+                leading:    Icon( Icons.logout,color:Colors.red,size: 24,),
+                title: Text('Logout'),
                 onTap: (){
-                  launch("tel://+8801750118555");
+                  launch("tel://+8801680680000");
                 },
               ),
-              SizedBox(height: 30,),
-              GestureDetector(
+
+              SizedBox(height: 40.0),
+              ListTile(
+                leading: Icon(
+                  Icons.call,
+                  size: 24.0,
+                  color: Colors.green,
+                ),
+                title: Text('Whatsapp'),
                 onTap: (){
-                  removeData(context);
+                  launch("https://wa.me/+8801680680000/?text=${Uri.parse("This message from app")}");
                 },
-                child: Row(children: [
-                  SizedBox(width: 10,),
-                  Icon( Icons.info_outline,size: 18,),
-                  SizedBox(width: 10,),
-                  Text('Log Out'),
-                ],),
               ),
-            
+              ListTile(
+                leading: Icon(
+                  Icons.mail_outline,
+                  size: 24.0,
+                  color: Colors.red,
+                ),
+                title: Text('Email'),
+                onTap: (){
+                  launch('mailto:bijoninfo@gmail.com?subject=From App&body=Test Email');
+                },
+              ),
+              ListTile(
+                leading: Icon(
+                  Icons.call,
+                  size: 24.0,
+                  color: Colors.green,
+                ),
+                title: Text('Call'),
+                onTap: (){
+                  launch("tel://+8801680680000");
+                },
+              ),
+
 
             ],
           ),
