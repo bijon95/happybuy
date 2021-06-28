@@ -4,6 +4,7 @@ import 'package:happybuy/view/SplashScreen.dart';
 import 'package:happybuy/view/category_list.dart';
 import 'package:happybuy/view/product_view.dart';
 import 'package:happybuy/view_c/Dashboard_client.dart';
+import 'package:happybuy/view_c/Dashboard_client2.dart';
 
 void main() {
   runApp(MyApp());
@@ -14,12 +15,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Happy Buy',
       theme: ThemeData(
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: DashboardClient(),
+      home: DashboardClient2(),
     );
   }
 }

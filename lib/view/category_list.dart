@@ -44,7 +44,7 @@ class _CreateCategoryState extends State<CategoryList> {
             );
           } else {
             return ListView.builder(
-                itemCount: _controller.catList.length,
+                itemCount: _controller.cartList.length,
                 itemBuilder: (BuildContext contex, int index) {
                   return GestureDetector(
                     child: Container(
@@ -64,7 +64,7 @@ class _CreateCategoryState extends State<CategoryList> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            _controller.catList[index].name,
+                            _controller.cartList[index].name,
                             style:
                                 TextStyle(fontSize: 24, color: ripo.iconColor),
                           ),
@@ -75,7 +75,7 @@ class _CreateCategoryState extends State<CategoryList> {
                                     color: ripo.iconColor,
                                   ),
                             onTap: (){
-                              deleteAlertDialog(context, _controller.catList[index].name,);
+                              deleteAlertDialog(context, _controller.cartList[index].name,);
                             },
                               )
                               : Icon(

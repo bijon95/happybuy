@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:happybuy/Controller/controller.dart';
+import 'package:happybuy/Drawer/MainDrawer.dart';
 
 class DashboardClient extends StatefulWidget {
   @override
@@ -28,6 +29,28 @@ class _DashboardClientState extends State<DashboardClient> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text("Happy Buy",style: TextStyle(fontSize: 14),),
+        centerTitle: false,
+        backgroundColor: Colors.green,
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.search,color: Colors.white,),
+            tooltip: 'Search',
+            onPressed: (){
+
+            },
+          ),
+          IconButton(
+            icon: Icon(Icons.shopping_cart_outlined,color: Colors.white,),
+            tooltip: 'Cart',
+            onPressed: (){
+
+            },
+          ),
+        ],
+      ),
+      drawer: MainDrawer(),
       body: SingleChildScrollView(
         child: Container(
           color: Colors.grey[100],
@@ -35,9 +58,19 @@ class _DashboardClientState extends State<DashboardClient> {
             children: [
               //Slider
               Container(
+                height: 15,
+              ),
+              Container(
                 // margin: EdgeInsets.only(top: 30),
-                height: 300,
+                // height: 200,
                 child: CarouselSlider(
+                  options: CarouselOptions(
+                    height: 180,
+                    viewportFraction: 1.0,
+                    enlargeCenterPage: false,
+                    autoPlay: true,
+                    autoPlayAnimationDuration: Duration(seconds: 2),
+                  ),
                   items: [
                     FadeInImage(
                       image: NetworkImage(
@@ -65,10 +98,6 @@ class _DashboardClientState extends State<DashboardClient> {
                           color: Colors.red[200]),
                     )
                   ],
-                  //Slider Container properties
-                  options: CarouselOptions(
-                    autoPlay: true,
-                  ),
                 ),
               ),
               //cat list
@@ -86,9 +115,9 @@ class _DashboardClientState extends State<DashboardClient> {
                     );
                   } else {
                     return ListView.builder(
-                        itemCount: _controller.catList.length,
+                        itemCount: _controller.cartList.length,
                         scrollDirection: Axis.horizontal,
-                        itemBuilder: (BuildContext contex, int index) {
+                        itemBuilder: (BuildContext context, int index) {
                           return Container(
                             margin: EdgeInsets.only(left: 13, right: 5),
                             width: MediaQuery.of(context).size.width / 2 - 20,
@@ -133,7 +162,7 @@ class _DashboardClientState extends State<DashboardClient> {
                                 Container(
                                   margin: EdgeInsets.only(left: 13, top: 80),
                                   child: Text(
-                                    _controller.catList[index].name,
+                                    _controller.cartList[index].name,
                                     style: TextStyle(
                                         fontSize: 20,
                                         fontWeight: FontWeight.bold),
@@ -180,7 +209,7 @@ class _DashboardClientState extends State<DashboardClient> {
                     return ListView.builder(
                         itemCount: _controller.productList.length,
                         scrollDirection: Axis.horizontal,
-                        itemBuilder: (BuildContext contex, int index) {
+                        itemBuilder: (BuildContext context, int index) {
                           return Container(
                             margin: EdgeInsets.only(left: 10, right: 10),
                             width: 300,
@@ -191,11 +220,8 @@ class _DashboardClientState extends State<DashboardClient> {
                             child: Row(
                               children: [
                                 Container(
-                                  height:
-                                      MediaQuery.of(context).size.width / 2 -
-                                          40,
-                                  width: MediaQuery.of(context).size.width / 2 -
-                                      60,
+                                  height: MediaQuery.of(context).size.width / 2 - 40,
+                                  width: MediaQuery.of(context).size.width / 2 - 60,
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.only(
                                         topLeft: Radius.circular(15),
@@ -220,7 +246,7 @@ class _DashboardClientState extends State<DashboardClient> {
                                         child: Text(
                                           _controller.productList[index].name,
                                           maxLines: 3,
-                          overflow: TextOverflow.ellipsis,
+                                          overflow: TextOverflow.ellipsis,
                                           style: TextStyle(
                                             color: Colors.white,
                                             fontSize: 16,
