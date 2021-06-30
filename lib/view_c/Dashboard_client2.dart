@@ -64,45 +64,88 @@ class _DashboardClient2State extends State<DashboardClient2> {
             children: [
               //Slider
               Container(
-                height: 15,
-              ),
-              Container(
-                // margin: EdgeInsets.only(top: 30),
+                 margin: EdgeInsets.only(top: 10),
                 // height: 200,
                 child: CarouselSlider(
                   options: CarouselOptions(
-                    height: 180,
+                    height: 150,
                     viewportFraction: 1.0,
                     enlargeCenterPage: false,
                     autoPlay: true,
                     autoPlayAnimationDuration: Duration(seconds: 2),
                   ),
                   items: [
-                    FadeInImage(
-                      image: NetworkImage(
-                        "https://i0.wp.com/images-prod.healthline.com/hlcmsresource/images/AN_images/healthy-eating-ingredients-1296x728-header.jpg?w=1155&h=1528",
+                    Container(
+                      margin: EdgeInsets.only(left: 5,right: 5),
+                      width: MediaQuery.of(context).size.width,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(15.0),
+                        child: FadeInImage(
+                          image: NetworkImage(
+                            "https://i0.wp.com/images-prod.healthline.com/hlcmsresource/images/AN_images/healthy-eating-ingredients-1296x728-header.jpg?w=1155&h=1528",
+                          ),
+                          placeholder: AssetImage('images/gif-logo.gif'),
+                          fit: BoxFit.fitWidth,
+                        ),
                       ),
-                      placeholder: AssetImage('images/gif-logo.gif'),
-                      fit: BoxFit.fill,
                     ),
                     Container(
-                      margin: EdgeInsets.only(left: 10, right: 10),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(15),
-                          color: Colors.red[200]),
+                      margin: EdgeInsets.only(left: 5,right: 5),
+                      width: MediaQuery.of(context).size.width,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(15.0),
+                        child: FadeInImage(
+                          image: NetworkImage(
+                            "https://i0.wp.com/images-prod.healthline.com/hlcmsresource/images/AN_images/healthy-eating-ingredients-1296x728-header.jpg?w=1155&h=1528",
+                          ),
+                          placeholder: AssetImage('images/gif-logo.gif'),
+                          fit: BoxFit.fitWidth,
+                        ),
+                      ),
                     ),
                     Container(
-                      margin: EdgeInsets.only(left: 10, right: 10),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(15),
-                          color: Colors.red[200]),
+                      margin: EdgeInsets.only(left: 5,right: 5),
+                      width: MediaQuery.of(context).size.width,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(15.0),
+                        child: FadeInImage(
+                          image: NetworkImage(
+                            "https://i0.wp.com/images-prod.healthline.com/hlcmsresource/images/AN_images/healthy-eating-ingredients-1296x728-header.jpg?w=1155&h=1528",
+                          ),
+                          placeholder: AssetImage('images/gif-logo.gif'),
+                          fit: BoxFit.fitWidth,
+                        ),
+                      ),
                     ),
                     Container(
-                      margin: EdgeInsets.only(left: 10, right: 10),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(15),
-                          color: Colors.red[200]),
-                    )
+                      margin: EdgeInsets.only(left: 5,right: 5),
+                      width: MediaQuery.of(context).size.width,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(15.0),
+                        child: FadeInImage(
+                          image: NetworkImage(
+                            "https://i0.wp.com/images-prod.healthline.com/hlcmsresource/images/AN_images/healthy-eating-ingredients-1296x728-header.jpg?w=1155&h=1528",
+                          ),
+                          placeholder: AssetImage('images/gif-logo.gif'),
+                          fit: BoxFit.fitWidth,
+                        ),
+                      ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(left: 5,right: 5),
+                      width: MediaQuery.of(context).size.width,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(15.0),
+                        child: FadeInImage(
+                          image: NetworkImage(
+                            "https://i0.wp.com/images-prod.healthline.com/hlcmsresource/images/AN_images/healthy-eating-ingredients-1296x728-header.jpg?w=1155&h=1528",
+                          ),
+                          placeholder: AssetImage('images/gif-logo.gif'),
+                          fit: BoxFit.fitWidth,
+                        ),
+                      ),
+                    ),
+
                   ],
                 ),
               ),
