@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:happybuy/Controller/controller.dart';
 import 'package:happybuy/Drawer/MainDrawer.dart';
 import 'package:happybuy/Model/category_list.dart';
+import 'package:happybuy/view_c/checkoutPage.dart';
 import 'package:happybuy/view_c/single_product_view.dart';
 
 class DashboardClient2 extends StatefulWidget {
@@ -50,7 +51,7 @@ class _DashboardClient2State extends State<DashboardClient2> {
             icon: Icon(Icons.shopping_cart_outlined,color: Colors.white,),
             tooltip: 'Cart',
             onPressed: (){
-
+              Navigator.push(context, MaterialPageRoute(builder: (context) => CheckoutPageView(1)),);
             },
           ),
         ],

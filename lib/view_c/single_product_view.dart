@@ -414,9 +414,12 @@ class _SingleProductViewState extends State<SingleProductView> {
                   ],
                 ),
               ),
+
               GridView.count(
                 padding: const EdgeInsets.only(left :15.0, right: 15,top: 2,bottom: 6),
                 primary: false,
+                childAspectRatio: MediaQuery.of(context).size.width /
+                    (MediaQuery.of(context).size.height / 2),
                 crossAxisSpacing: 15,
                 mainAxisSpacing: 15,
                 crossAxisCount: 2,
