@@ -28,7 +28,7 @@ class RemoteServices {
 
     var response = await http.get(strurl);
 
-    print(response.statusCode.toString() + "By getx");
+    print(response.statusCode.toString() + "By getx product");
     if (response.statusCode == 200) {
       var jsonString = jsonDecode(response.body);
       var data = jsonEncode(jsonString['data']) ;

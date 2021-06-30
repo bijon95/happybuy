@@ -1,18 +1,382 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
-class ProductList extends StatefulWidget {
+import 'package:happybuy/Controller/controller.dart';
+import 'package:happybuy/helper.dart';
+import 'package:http/http.dart' as http;
+import 'package:image_picker/image_picker.dart';
+class ProductAdd extends StatefulWidget {
   @override
   _CreateCategoryState createState() => _CreateCategoryState();
 }
 
-class _CreateCategoryState extends State<ProductList> {
+class _CreateCategoryState extends State<ProductAdd> {
+
+  bool isProgress = false;
+
+  File _image1;
+  File _image2;
+  File _image3;
+  File _image4;
+  File _image5;
+
+  String msg="";
+
+
+  final picker = ImagePicker();
+
+  TextEditingController _etName =TextEditingController();
+  TextEditingController _etDesc =TextEditingController();
+  TextEditingController _etPrice =TextEditingController();
+  TextEditingController _etSell =TextEditingController();
+
+  Future getImage(serial) async {
+    print("Getting img");
+
+    final pickedFile =
+    await picker.getImage(source: ImageSource.gallery, imageQuality: 100);
+
+    if(serial==1){
+      setState(() {
+        if (pickedFile != null) {
+          _image1 = File(pickedFile.path);
+        } else {
+          print('No image selected.');
+        }
+      });
+    }
+    else if (serial==2){
+      setState(() {
+        if (pickedFile != null) {
+          _image2 = File(pickedFile.path);
+        } else {
+          print('No image selected.');
+        }
+      });
+    }
+    else if (serial==3){
+      setState(() {
+        if (pickedFile != null) {
+          _image3 = File(pickedFile.path);
+        } else {
+          print('No image selected.');
+        }
+      });
+    }
+
+    else if (serial==4){
+      setState(() {
+        if (pickedFile != null) {
+          _image4 = File(pickedFile.path);
+        } else {
+          print('No image selected.');
+        }
+      });
+    }
+
+    else if (serial==5){
+      setState(() {
+        if (pickedFile != null) {
+          _image5 = File(pickedFile.path);
+        } else {
+          print('No image selected.');
+        }
+      });
+    }
+    setState(() {
+
+    });
+  }
+
+  //upload product
+  Future createPostRequest() async {
+    setState(() {
+      isProgress = true;
+    });
+    var postUri = Uri.parse(Helper.baseurl+"insertproductdata");
+    var request = new http.MultipartRequest("POST", postUri);
+    request.fields['name'] =_etName.text;
+    request.fields['price'] =_etPrice.text;
+    request.fields['description'] =_etDesc.text;
+
+    if (_image1 != null) {
+      print('Not null');
+      http.MultipartFile multipartFile = await http.MultipartFile.fromPath(
+          'img1',_image1.path);
+      request.files.add(multipartFile);
+    } else {
+      print('null null');
+    }
+    if (_image2 != null) {
+      print('Not null');
+      http.MultipartFile multipartFile = await http.MultipartFile.fromPath(
+          'img2',_image2.path);
+      request.files.add(multipartFile);
+    } else {
+      print('null null');
+    }
+    if (_image3 != null) {
+      print('Not null');
+      http.MultipartFile multipartFile = await http.MultipartFile.fromPath(
+          'img3',_image3.path);
+      request.files.add(multipartFile);
+    } else {
+      print('null null');
+    }
+    if (_image4 != null) {
+      print('Not null');
+      http.MultipartFile multipartFile = await http.MultipartFile.fromPath(
+          'img4',_image4.path);
+      request.files.add(multipartFile);
+    } else {
+      print('null null');
+    }
+    if (_image5 != null) {
+      print('Not null');
+      http.MultipartFile multipartFile = await http.MultipartFile.fromPath(
+          'img5',_image5.path);
+      request.files.add(multipartFile);
+    } else {
+      print('null null');
+    }
+    request
+        .send()
+        .then((result) async {
+      http.Response.fromStream(result).then((response) {
+        if (response.statusCode == 200) {
+          isProgress = false;
+          print("Uploaded! ");
+          print('response.body ' + response.body);
+          var data = jsonDecode(response.body);
+         setState(() {
+           isProgress = false;
+           _image1 = null;
+           _image2 = null;
+           _image3 = null;
+           _image4 = null;
+           _image5 = null;
+           _etSell.text="";
+           _etPrice.text="";
+           _etName.text="";
+           _etDesc.text="";
+           msg=data['msg'];
+         });
+
+        } else {}
+
+        return response.body;
+      });
+    })
+        .catchError((err) => print('error : ' + err.toString()))
+        .whenComplete(() {
+    });
+    setState(() {
+
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
         title: Text("Product Upload"),),
-      body:Container(
+      body:SingleChildScrollView(
+        child: Container(
+          height: MediaQuery.of(context).size.height,
+          child: Column(
+            children: [
+              // dropdown category
+              //product name
+              Container(
+                margin: EdgeInsets.all(10),
 
+                child: TextField(
+                  controller: _etName,
+                  keyboardType: TextInputType.text,
+                  decoration: new InputDecoration(
+                    labelText: 'Product Name',
+                    border: new OutlineInputBorder(
+                      borderRadius: new BorderRadius.circular(10),
+                    ),
+                  ),
+                ),
+              ),
+              //product image
+              Container(
+                width: MediaQuery.of(context).size.width,
+                margin: EdgeInsets.all(10),
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: [
+                      GestureDetector(
+                        child: Container(
+                          margin: EdgeInsets.only(left: 5,right: 5),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            border: Border.all(color: Colors.grey.withOpacity(.5))
+                          ),
+                            height:100,
+                            width: 100,
+                            child:_image1!=null? Image.file(_image1): Icon(Icons.add_a_photo_outlined)),
+                        onTap: (){
+                          getImage(1);
+                        },
+                      ),
+                      GestureDetector(
+                        child: Container(
+                            margin: EdgeInsets.only(left: 5,right: 5),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                border: Border.all(color: Colors.grey.withOpacity(.5))
+                            ),
+                            height:100,
+                            width: 100,
+                            child:_image2!=null? Image.file(_image2): Icon(Icons.add_a_photo_outlined)),
+                        onTap: (){
+                          getImage(2);
+                        },
+                      ),
+                      GestureDetector(
+                        child: Container(
+                            margin: EdgeInsets.only(left: 5,right: 5),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                border: Border.all(color: Colors.grey.withOpacity(.5))
+                            ),
+                            height:100,
+                            width: 100,
+                            child:_image3!=null? Image.file(_image3): Icon(Icons.add_a_photo_outlined)),
+                        onTap: (){
+                          getImage(3);
+                        },
+                      ),
+                      GestureDetector(
+                        child: Container(
+                            margin: EdgeInsets.only(left: 5,right: 5),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                border: Border.all(color: Colors.grey.withOpacity(.5))
+                            ),
+                            height:100,
+                            width: 100,
+                            child:_image4!=null? Image.file(_image4): Icon(Icons.add_a_photo_outlined)),
+                        onTap: (){
+                          getImage(4);
+                        },
+                      ),
+                      GestureDetector(
+                        child: Container(
+                            margin: EdgeInsets.only(left: 5,right: 5),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                border: Border.all(color: Colors.grey.withOpacity(.5))
+                            ),
+                            height:100,
+                            width: 100,
+                            child:_image5!=null? Image.file(_image5): Icon(Icons.add_a_photo_outlined)),
+                        onTap: (){
+                          getImage(5);
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              //  product description
+              Container(
+                margin: EdgeInsets.all(10),
+                width: MediaQuery.of(context).size.width,
+                child: TextField(
+                  maxLines: 3,
+                  controller: _etDesc,
+                  keyboardType: TextInputType.multiline,
+                  decoration: new InputDecoration(
+                    labelText: 'Product Description',
+                    border: new OutlineInputBorder(
+                      borderRadius: new BorderRadius.circular(10),
+                    ),
+                  ),
+                ),
+              ),
+              // product price
+              Container(
+                width: MediaQuery.of(context).size.width,
+                child: Row(
+                  children: [
+                    Container(
+                      margin: EdgeInsets.all(10),
+                      width: MediaQuery.of(context).size.width/2-20,
+                      child: TextField(
+                      //  minLines: 3,
+                        controller: _etPrice,
+                        keyboardType: TextInputType.number,
+                        decoration: new InputDecoration(
+                          labelText: 'Price',
+                          border: new OutlineInputBorder(
+                            borderRadius: new BorderRadius.circular(10),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.all(10),
+                      width: MediaQuery.of(context).size.width/2-20,
+                      child: TextField(
+                       // minLines: 3,
+                        controller: _etSell,
+                        keyboardType: TextInputType.number,
+                        decoration: new InputDecoration(
+                          labelText: 'Sell Price',
+                          border: new OutlineInputBorder(
+                            borderRadius: new BorderRadius.circular(10),
+                          ),
+                        ),
+                      ),
+                    ),
+
+                  ],
+                ),
+
+              ),
+             Container(
+               margin: EdgeInsets.only(bottom: 10,top: 5),
+               height: 30,
+               child:isProgress ? CircularProgressIndicator() : Container(),
+             ),
+              GestureDetector(
+                child: Container(
+                  height: 50,width: 200,
+                  decoration: BoxDecoration(
+                    color: Colors.blue,
+                    borderRadius: BorderRadius.circular(10)
+                  ),
+                  child: Center(child: Text("Save",style: TextStyle(fontSize: 18,color: Colors.white),)),
+                ),
+                onTap: (){
+                  if(_etName.text.length<3){
+                    setState(() {
+                      msg = "Please Input Correct Name";
+                    });
+                  }
+                    else{
+                      createPostRequest();
+                    }
+
+
+
+                },
+              ),
+              Container(
+                margin: EdgeInsets.only(top: 10),
+                child: Text(msg),
+              ),
+            ],
+          ),
+
+        ),
       ) ,
     );
   }

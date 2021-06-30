@@ -8,8 +8,8 @@ class Controller extends GetxController{
 
   var isLoading = true.obs;
   var isLoadingProduct = true.obs;
-  var cartList = List<ModelCartList>().obs;
-  var productList = List<ModelProductList>().obs;
+  var cartList = List<ModelCartList>.empty().obs;
+  var productList = List<ModelProductList>.empty().obs;
   @override
   void onInit() {
     fetchCatList();

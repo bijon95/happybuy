@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:happybuy/Controller/controller.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:happybuy/Model/ProductListModel.dart';
 
 class ProductView extends StatefulWidget {
+  ModelProductList product;
+  ProductView(this.product);
   @override
   _CreateCategoryState createState() => _CreateCategoryState();
 }
@@ -87,7 +90,7 @@ class _CreateCategoryState extends State<ProductView> {
                         Container(
                           margin: EdgeInsets.only(
                               left: 20, right: 20, top: 15, bottom: 10),
-                          child: Text("\$ 120",
+                          child: Text("\$"+widget.product.price,
                               style:
                                   TextStyle(fontSize: 24, color: Colors.red)),
                         ),
@@ -101,7 +104,7 @@ class _CreateCategoryState extends State<ProductView> {
                     Container(
                       margin: EdgeInsets.only(
                           left: 20, right: 20, top: 15, bottom: 10),
-                      child: Text("Product this is product name Name",
+                      child: Text(widget.product.name,
                           style: TextStyle(fontSize: 24)),
                     ),
                     Container(
@@ -115,7 +118,7 @@ class _CreateCategoryState extends State<ProductView> {
                         Container(
                           margin:
                               EdgeInsets.only(left: 20, top: 15, bottom: 10),
-                          child: Text("See Description",
+                          child: Text(widget.product.description,
                               style: TextStyle(fontSize: 18)),
                         ),
                         Container(
