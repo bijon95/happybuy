@@ -45,7 +45,7 @@ class _DashboardClient2State extends State<DashboardClient2> {
             icon: Icon(Icons.search,color: Colors.white,),
             tooltip: 'Search',
             onPressed: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context) => LoginPage(),));
+
             },
           ),
           IconButton(

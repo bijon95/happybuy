@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:happybuy/helper.dart';
+import 'package:happybuy/Helper/helper.dart';
+import 'package:happybuy/view/login_view.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -58,6 +59,7 @@ class _LoginPageState extends State<RegistrationPage> {
       setState(() {
         _isLoading = false;
       });
+      Navigator.push(context, MaterialPageRoute(builder: (context) => LoginPage()));
       return null;
     } else {
 //show error message
@@ -193,10 +195,7 @@ class _LoginPageState extends State<RegistrationPage> {
                         )),
                       ),
                       onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => RegistrationPage()));
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => LoginPage()));
                       },
                     ),
                     Center(

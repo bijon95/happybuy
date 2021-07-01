@@ -3,7 +3,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:happybuy/Controller/controller.dart';
-import 'package:happybuy/helper.dart';
+import 'package:happybuy/Helper/helper.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 class ProductAdd extends StatefulWidget {
