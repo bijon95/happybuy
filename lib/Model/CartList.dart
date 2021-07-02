@@ -4,12 +4,12 @@
 
 import 'dart:convert';
 
-List<ModelCartList> modelCartListFromJson(String str) => List<ModelCartList>.from(json.decode(str).map((x) => ModelCartList.fromJson(x)));
+List<ModelCatList> modelCartListFromJson(String str) => List<ModelCatList>.from(json.decode(str).map((x) => ModelCatList.fromJson(x)));
 
-String modelCartListToJson(List<ModelCartList> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+String modelCartListToJson(List<ModelCatList> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
-class ModelCartList {
-  ModelCartList({
+class ModelCatList {
+  ModelCatList({
     this.id,
     this.name,
     this.categoryImage,
@@ -21,7 +21,7 @@ class ModelCartList {
   String categoryImage;
   int isActive;
 
-  factory ModelCartList.fromJson(Map<String, dynamic> json) => ModelCartList(
+  factory ModelCatList.fromJson(Map<String, dynamic> json) => ModelCatList(
     id: json["id"],
     name: json["name"],
     categoryImage: json["category_image"],

@@ -8,8 +8,9 @@ class Controller extends GetxController{
 
   var isLoading = true.obs;
   var isLoadingProduct = true.obs;
-  var cartList = List<ModelCartList>.empty().obs;
+  var catList = List<ModelCatList>.empty().obs;
   var productList = List<ModelProductList>.empty().obs;
+  var cartList = List<ModelProductList>.empty().obs;
   @override
   void onInit() {
     fetchCatList();
@@ -18,13 +19,46 @@ class Controller extends GetxController{
     super.onInit();
   }
 
+  // void addProductToCart(ModelProductList product) {
+  //   try {
+  //     if (_isItemAlreadyAdded(product)) {
+  //       Get.snackbar("Check your cart", "${product.name} is already added");
+  //     } else {
+  //       print("added");
+  //       catList.value.add(product);
+  //       // String itemId = Uuid().toString();
+  //       // userController.updateUserData({
+  //       //   "cart": FieldValue.arrayUnion([
+  //       //     {
+  //       //       "id": itemId,
+  //       //       "productId": product.id,
+  //       //       "name": product.name,
+  //       //       "quantity": 1,
+  //       //       "price": product.price,
+  //       //       "image": product.image,
+  //       //       "cost": product.price
+  //       //     }
+  //       //   ])
+  //       // });
+  //       Get.snackbar("Item added", "${product.name} was added to your cart");
+  //     }
+  //   } catch (e) {
+  //     Get.snackbar("Error", "Cannot add this item");
+  //
+  //   }
+  // }
+
+  bool _isItemAlreadyAdded(ModelProductList product) =>
+      catList.where((item) => item.id == product.id)
+          .isNotEmpty;
+
   // call api for category
   void fetchCatList() async {
     try {
       isLoading(true);
       var data = await RemoteServices.getCategotyList();
       if (data != null) {
-        cartList.value = data;
+        catList.value = data;
       }
     } finally {
       isLoading(false);

@@ -6,7 +6,7 @@ class RemoteServices {
   static var client = http.Client();
 
 
-  static Future<List<ModelCartList>> getCategotyList() async {
+  static Future<List<ModelCatList>> getCategotyList() async {
     String url ='https://foodapi.appstic.xyz/getallcategory';
     Uri strurl = Uri.parse(url);
 
@@ -16,6 +16,7 @@ class RemoteServices {
     if (response.statusCode == 200) {
       var jsonString = jsonDecode(response.body);
       var data = jsonEncode(jsonString['data']) ;
+      print(data);
       return modelCartListFromJson(data);
     } else {
       return null;

@@ -47,7 +47,7 @@ class _CreateCategoryState extends State<ProductList> {
         ],
       ),
       body:   Container(
-        height: MediaQuery.of(context).size.height * .6,
+        height: MediaQuery.of(context).size.height ,
         width: MediaQuery.of(context).size.width,
         child: Obx((){
           if(_controller.isLoadingProduct.value){
@@ -130,7 +130,7 @@ class _CreateCategoryState extends State<ProductList> {
                                         ),
                                       ),
                                       Container(
-                                        width: 60,
+                                        width: 55,
                                         height:20,
                                         decoration: BoxDecoration(
                                             color: Colors.white,

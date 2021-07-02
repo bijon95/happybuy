@@ -1,8 +1,9 @@
 import 'dart:convert';
 import 'dart:io';
-
+import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:happybuy/Controller/controller.dart';
+import 'package:happybuy/Model/CartList.dart';
 import 'package:happybuy/helper.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
@@ -12,6 +13,8 @@ class ProductAdd extends StatefulWidget {
 }
 
 class _CreateCategoryState extends State<ProductAdd> {
+
+  final Controller _controller = Get.put(Controller());
 
   bool isProgress = false;
 
@@ -25,6 +28,7 @@ class _CreateCategoryState extends State<ProductAdd> {
 
 
   final picker = ImagePicker();
+  int catID =0 ;
 
   TextEditingController _etName =TextEditingController();
   TextEditingController _etDesc =TextEditingController();
@@ -96,9 +100,12 @@ class _CreateCategoryState extends State<ProductAdd> {
     });
     var postUri = Uri.parse(Helper.baseurl+"insertproductdata");
     var request = new http.MultipartRequest("POST", postUri);
+    request.fields['category_id'] =catID.toString();
     request.fields['name'] =_etName.text;
     request.fields['price'] =_etPrice.text;
+    request.fields['selling_price'] =_etSell.text;
     request.fields['description'] =_etDesc.text;
+
 
     if (_image1 != null) {
       print('Not null');
@@ -176,6 +183,7 @@ class _CreateCategoryState extends State<ProductAdd> {
     });
   }
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -188,6 +196,46 @@ class _CreateCategoryState extends State<ProductAdd> {
           child: Column(
             children: [
               // dropdown category
+              // DropdownButton<String>(
+              //   items: <String>['A', 'B', 'C', 'D'].map((String value) {
+              //     return DropdownMenuItem<String>(
+              //       value: value,
+              //       child: new Text(value),
+              //     );
+              //   }).toList(),
+              //   onChanged: (_) {},
+              // ),
+
+
+              Container(
+                height: 30,
+                margin: EdgeInsets.only(left: 10,right: 10,top: 10,bottom: 10),
+                width: MediaQuery.of(context).size.width,
+                child: ListView.builder(
+                  scrollDirection:  Axis.horizontal,
+                    itemCount: _controller.catList.length,
+                    itemBuilder:  (BuildContext contex, int index){
+                  return GestureDetector(
+                    child: Container(
+                      height: 30,
+                      decoration: BoxDecoration(
+                        color: catID ==  _controller.catList[index].id ? Colors.green[300]:Colors.grey[300],
+                        borderRadius: BorderRadius.circular(15),
+                        border: Border.all(color: Colors.red,width: 1)
+                      ),
+                      padding: EdgeInsets.only(left: 20,right: 20,top: 5,bottom: 5),
+                      margin: EdgeInsets.only(left: 10,right: 10,),
+                      child: Text(_controller.catList.value[index].name),
+                    ),
+                    onTap: (){
+                      setState(() {
+                        catID = _controller.catList[index].id;
+                      });
+                    },
+                  );
+                }),
+              ),
+
               //product name
               Container(
                 margin: EdgeInsets.all(10),
