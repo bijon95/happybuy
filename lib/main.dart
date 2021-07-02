@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:happybuy/Helper/user_info.dart';
 import 'package:happybuy/view/SplashScreen.dart';
 import 'package:happybuy/view/category_list.dart';
+import 'package:happybuy/view/login_view.dart';
 import 'package:happybuy/view/product_list.dart';
 import 'package:happybuy/view/product_upload.dart';
 import 'package:happybuy/view/product_view.dart';
@@ -9,21 +11,77 @@ import 'package:happybuy/view_c/Dashboard_client.dart';
 import 'package:happybuy/view_c/Dashboard_client2.dart';
 
 void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
+  runApp(
+    new MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Happy Buy',
       theme: ThemeData(
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: ProductList(),
+      home: MyApp(),
+    ),
+  );
+}
+
+class MyApp extends StatefulWidget {
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp>{
+
+  UserInfo user = new UserInfo();
+  String name ;
+  String type ;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getUserDataFromSharedPreference();
+    Future.delayed(Duration(seconds: 5),
+      (){
+        print(type);
+        if(type == '1') {
+          Navigator.push(context, MaterialPageRoute(builder: (context) => LoginPage()));
+       } else if(type != null || type != ''){
+          Navigator.push(context, MaterialPageRoute(builder: (context) => DashboardClient2()));
+        } else{
+         Navigator.push(context, MaterialPageRoute(builder: (context) => LoginPage()));
+
+       }
+      }
     );
   }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Color(0xFFe9f5f5),
+      body : Container(
+        child: Image.asset("images/grocery.png",height: MediaQuery.of(context).size.height, width: MediaQuery.of(context).size.width),
+      )
+    );
+  }
+
+  void getUserDataFromSharedPreference() {
+    Future<String> userName = user.getName();
+    userName.then((data) {
+      name = data.toString();
+      print(name);
+    },onError: (e) {
+      print(e);
+    });
+
+    Future<String> userType = user.getType();
+    userType.then((data) {
+      setState(() {
+        type = data.toString() ;
+      });
+      print(type);
+    },onError: (e) {
+      print(e);
+    });
+  }
+
 }

@@ -1,8 +1,10 @@
 import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:happybuy/helper.dart';
+import 'package:happybuy/Helper/helper.dart';
+import 'package:happybuy/Helper/user_info.dart';
 import 'package:happybuy/view/registration_view.dart';
+import 'package:happybuy/view_c/Dashboard_client2.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -39,12 +41,13 @@ class _LoginPageState extends State<LoginPage> {
       _isLoading = false;
       var jsonString = jsonDecode(response.body);
       mag =jsonString["msg"];
-     // int id = jsonString["data"]["id"];
+      String type = jsonString["data"]["type"];
+      String name = jsonString["data"]["name"];
       print(jsonString);
-     // print(id);
-      setState(() {
-
-      });
+      // print(id);
+      UserInfo user = new UserInfo();
+      user.saveLoginDataToSharedPreference(type, name);
+      Navigator.push(context, MaterialPageRoute(builder: (context) => DashboardClient2()));
       return null;
     } else {
 //show error message
@@ -143,7 +146,6 @@ class _LoginPageState extends State<LoginPage> {
                         color: Color.fromRGBO(12, 53, 238, 10),
                         onPressed: () {
                           loginRequest();
-
                         }, //
                         child: new Text(
                           "Login",

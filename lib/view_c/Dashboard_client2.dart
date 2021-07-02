@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:happybuy/Controller/controller.dart';
 import 'package:happybuy/Drawer/MainDrawer.dart';
 import 'package:happybuy/Model/category_list.dart';
+import 'package:happybuy/view/login_view.dart';
 import 'package:happybuy/view_c/checkoutPage.dart';
 import 'package:happybuy/view_c/single_product_view.dart';
 

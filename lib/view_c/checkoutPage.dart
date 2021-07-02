@@ -42,96 +42,105 @@ class _CheckoutPageViewState extends State<CheckoutPageView> {
           )
         ],
       ),
-      body: SingleChildScrollView(
-        child: Container(
-          child: Column(
-            children: [
-              //Slider
-              Container(
-                height: 20,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Container(
-                    width: MediaQuery.of(context).size.width * .28,
-                    child: Image.asset(
-                      'images/c.jpg',
-                      fit: BoxFit.fill,
-                      width: 40 * MediaQuery.of(context).devicePixelRatio,
-                      height: 40 * MediaQuery.of(context).devicePixelRatio,
-                    ),
+      body:  SingleChildScrollView(
+        child: Column(
+          children: [
+            //Slider
+            Container(
+              height: MediaQuery.of(context).size.height * .02,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Container(
+                  width: MediaQuery.of(context).size.width * .28,
+                  height: MediaQuery.of(context).size.width * .24,
+                  child: Image.asset(
+                    'images/c.jpg',
+                    fit: BoxFit.fill,
+                    width: 40 * MediaQuery.of(context).devicePixelRatio,
+                    height: 40 * MediaQuery.of(context).devicePixelRatio,
                   ),
-                  Container(
-                    width: MediaQuery.of(context).size.width * .7,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Container(
-                              width: MediaQuery.of(context).size.width * .5,
-                              height: MediaQuery.of(context).size.height * .04,
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                      _controller.productList[index].name,
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.bold,
-                                      )
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                          "1 pc.",
-                                          overflow: TextOverflow.ellipsis,
-                                          style: TextStyle(
-                                            color: Colors.black54,
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w400,
-                                          )
-                                      ),
-                                      Text(
-                                          " | ",
-                                          overflow: TextOverflow.ellipsis,
-                                          style: TextStyle(
-                                            color: Colors.black54,
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w400,
-                                          )
-                                      ),
-                                      Text(
-                                        "৳"+_controller.productList[index].price,
-                                        style: TextStyle(
-                                            color: Colors.black54,
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w400),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ),
-                            IconButton(
-                                onPressed: (){},
-                                icon: Icon(Icons.delete)
-                            ),
-                          ],
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Column(
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width * .7,
+                  height: MediaQuery.of(context).size.width * .24,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Container(
+                            width: MediaQuery.of(context).size.width * .5,
+                            height: MediaQuery.of(context).size.height * .05,
+                            child: Column(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Row(
+                                  children: [
+                                    Text(
+                                        _controller.productList[index].name,
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.bold,
+                                        )
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                        "1 pc.",
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(
+                                          color: Colors.black54,
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w400,
+                                        )
+                                    ),
+                                    Text(
+                                        " | ",
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(
+                                          color: Colors.black54,
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w400,
+                                        )
+                                    ),
+                                    Text(
+                                      "৳"+_controller.productList[index].price,
+                                      style: TextStyle(
+                                          color: Colors.black54,
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w400),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                          IconButton(
+                              onPressed: (){},
+                              icon: Icon(Icons.delete)
+                          ),
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Container(
+                            width: MediaQuery.of(context).size.width * .4,
+                            height: MediaQuery.of(context).size.height * .05,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
                                     Text(
                                       "৳"+_controller.productList[index].price,
@@ -155,19 +164,20 @@ class _CheckoutPageViewState extends State<CheckoutPageView> {
                                     ),
                                     SizedBox(width: 5,),
                                     Text(
-                                      " 16% Off ",
-                                      overflow: TextOverflow.ellipsis,
-                                      style: TextStyle(
-                                        color: Colors.red,
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w400,
-                                      )
+                                        " 16% Off ",
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(
+                                          color: Colors.red,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w400,
+                                        )
                                     ),
                                   ],
                                 ),
                               ],
                             ),
-                            OutlinedButton(
+                          ),
+                          OutlinedButton(
                               onPressed: () {},
                               child:  Container(
                                 // padding: EdgeInsets.fromLTRB(2, 2, 2, 2),
@@ -180,7 +190,7 @@ class _CheckoutPageViewState extends State<CheckoutPageView> {
                                         child: InkWell(
                                           splashColor: Colors.white70, // Splash color
                                           onTap: () {},
-                                          child: Icon(Icons.remove,color: Colors.white,),
+                                          child: Icon(Icons.remove,color: Colors.white,size: 18,),
                                         ),
                                       ),
                                     ),
@@ -202,7 +212,7 @@ class _CheckoutPageViewState extends State<CheckoutPageView> {
                                         child: InkWell(
                                           splashColor: Colors.white, // Splash color
                                           onTap: () {},
-                                          child: Icon(Icons.add,color: Colors.white,),
+                                          child: Icon(Icons.add,color: Colors.white,size: 18,),
                                         ),
                                       ),
                                     )
@@ -212,18 +222,188 @@ class _CheckoutPageViewState extends State<CheckoutPageView> {
                               style: OutlinedButton.styleFrom(
                                 shape: StadiumBorder(),
                               )
-                            )
-                          ],
-                        ),
-                      ],
+                          )
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            Container(
+              height: MediaQuery.of(context).size.height * .15,
+              padding: EdgeInsets.fromLTRB(20,20,20,20),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                          "Subtotal",
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 17,
+                            fontWeight: FontWeight.bold,
+                          )
+                      ),
+                      Text(
+                        "৳"+_controller.productList[index].price,
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w400),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 10,),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                          "Discount",
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            color: Colors.black54,
+                            fontSize: 15,
+                            fontWeight: FontWeight.w400,
+                          )
+                      ),
+                      Text(
+                        "- "+"৳"+_controller.productList[index].price,
+                        style: TextStyle(
+                            color: Colors.redAccent,
+                            fontSize: 15,
+                            fontWeight: FontWeight.w400),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 10,),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                          "Delivery fee",
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            color: Colors.black54,
+                            fontSize: 15,
+                            fontWeight: FontWeight.w400,
+                          )
+                      ),
+                      Text(
+                        "৳"+_controller.productList[index].price,
+                        style: TextStyle(
+                            color: Colors.black54,
+                            fontSize: 15,
+                            fontWeight: FontWeight.w400),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            // Container(
+            //   color: Colors.amber,
+            //   height: MediaQuery.of(context).size.height * .55,
+            // ),
+          ],
+        ),
+      ),
+      // Container(
+      //   // height: MediaQuery.of(context).size.height - (MediaQuery.of(context).padding.bottom + MediaQuery.of(context).padding.top),
+      //   child: Column(
+      //     children: [
+      //
+      //       Container(
+      //         child: Container(
+      //           padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+      //           height: MediaQuery.of(context).size.height * .1,
+      //           child: Column(
+      //             children: [
+      //               Row(
+      //                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      //                 children: [
+      //                   Text(
+      //                       "1 item",
+      //                       maxLines: 1,
+      //                       overflow: TextOverflow.ellipsis,
+      //                       style: TextStyle(
+      //                         color: Colors.black,
+      //                         fontSize: 15,
+      //                         fontWeight: FontWeight.w500,
+      //                       )
+      //                   ),
+      //                   Text(
+      //                     "Total : "+"৳"+_controller.productList[index].price,
+      //                     style: TextStyle(
+      //                         color: Colors.green,
+      //                         fontSize: 17,
+      //                         fontWeight: FontWeight.w400),
+      //                   ),
+      //                 ],
+      //               ),
+      //               SizedBox(height: 10,),
+      //             ],
+      //           ),
+      //         ),
+      //       ),
+      //     ],
+      //   ),
+      // ),
+      bottomNavigationBar: Container(
+          height: MediaQuery.of(context).size.height * .088,
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(left: 18),
+                    child: Text(
+                        "1 item",
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold,
+                        )
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(right: 18),
+                    child: Text(
+                      "Total : "+"৳"+_controller.productList[index].price,
+                      style: TextStyle(
+                          color: Colors.green,
+                          fontSize: 17,
+                          fontWeight: FontWeight.w400),
                     ),
                   ),
                 ],
               ),
+              OutlinedButton(
+                onPressed: () {},
+                child: Container(
+                  width: MediaQuery.of(context).size.width * .85,
+                  child: Align(
+                    alignment: Alignment.center,
+                    child: Text('Checkout',style: TextStyle(fontSize: 17,color: Colors.white),),
+                  )
+                ),
+                style: OutlinedButton.styleFrom(
+                  shape: StadiumBorder(),
+                  backgroundColor: Colors.green,
+                )
+              ),
             ],
-          ),
-        ),
-      ),
+          )
+      )
     );
   }
 
