@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:happybuy/Controller/controller.dart';
-import 'package:happybuy/helper.dart';
+import 'package:happybuy/Helper/helper.dart';
 import 'package:happybuy/view/product_upload.dart';
 import 'package:get/get.dart';
 import 'package:happybuy/view/product_view.dart';
