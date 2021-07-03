@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:happybuy/Controller/controller.dart';
 import 'package:happybuy/Drawer/MainDrawer.dart';
+import 'package:happybuy/Helper/SizeConfig.dart';
 import 'package:happybuy/Model/category_list.dart';
 import 'package:happybuy/view/login_view.dart';
 import 'package:happybuy/view_c/checkoutPage.dart';
@@ -35,6 +36,7 @@ class _DashboardClient2State extends State<DashboardClient2> {
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     return Scaffold(
       appBar: AppBar(
         title: Text("Happy Buy",style: TextStyle(fontSize: 14),),

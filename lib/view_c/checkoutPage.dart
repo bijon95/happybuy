@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:happybuy/Controller/controller.dart';
+import 'package:happybuy/Helper/SizeConfig.dart';
 import 'package:happybuy/view_c/single_product_view.dart';
 
 class CheckoutPageView extends StatefulWidget {
@@ -20,6 +21,7 @@ class _CheckoutPageViewState extends State<CheckoutPageView> {
   @override
   Widget build(BuildContext context) {
     index = widget.passIndex;
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -47,14 +49,17 @@ class _CheckoutPageViewState extends State<CheckoutPageView> {
           children: [
             //Slider
             Container(
-              height: MediaQuery.of(context).size.height * .02,
+              // height: MediaQuery.of(context).size.height * .02,
+              height: SizeConfig.safeBlockVertical * 2,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Container(
-                  width: MediaQuery.of(context).size.width * .28,
-                  height: MediaQuery.of(context).size.height * .15,
+                  // width: MediaQuery.of(context).size.width * .28,
+                  // height: MediaQuery.of(context).size.height * .15,
+                  width: SizeConfig.blockSizeHorizontal * 28,
+                  height: SizeConfig.safeBlockVertical * 14,
                   child: Image.asset(
                     'images/c.jpg',
                     fit: BoxFit.fill,
@@ -63,8 +68,10 @@ class _CheckoutPageViewState extends State<CheckoutPageView> {
                   ),
                 ),
                 Container(
-                  width: MediaQuery.of(context).size.width * .7,
-                  height: MediaQuery.of(context).size.height * .14,
+                  // width: MediaQuery.of(context).size.width * .7,
+                  // height: MediaQuery.of(context).size.height * .14,
+                  width: SizeConfig.blockSizeHorizontal * 70,
+                  height: SizeConfig.safeBlockVertical * 14,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -72,8 +79,10 @@ class _CheckoutPageViewState extends State<CheckoutPageView> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Container(
-                            width: MediaQuery.of(context).size.width * .5,
-                            height: MediaQuery.of(context).size.height * .05,
+                            // width: MediaQuery.of(context).size.width * .5,
+                            // height: MediaQuery.of(context).size.height * .05,
+                            width: SizeConfig.blockSizeHorizontal * 50,
+                            height: SizeConfig.safeBlockVertical * 5,
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
@@ -134,8 +143,10 @@ class _CheckoutPageViewState extends State<CheckoutPageView> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Container(
-                            width: MediaQuery.of(context).size.width * .4,
-                            height: MediaQuery.of(context).size.height * .05,
+                            // width: MediaQuery.of(context).size.width * .4,
+                            // height: MediaQuery.of(context).size.height * .05,
+                            width: SizeConfig.blockSizeHorizontal * 40,
+                            height: SizeConfig.safeBlockVertical * 5,
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
@@ -231,7 +242,8 @@ class _CheckoutPageViewState extends State<CheckoutPageView> {
               ],
             ),
             Container(
-              height: MediaQuery.of(context).size.height * .16,
+              // height: MediaQuery.of(context).size.height * .16,
+              height: SizeConfig.safeBlockVertical * 16,
               padding: EdgeInsets.fromLTRB(20,20,20,20),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -352,7 +364,8 @@ class _CheckoutPageViewState extends State<CheckoutPageView> {
       //   ),
       // ),
       bottomNavigationBar: Container(
-          height: MediaQuery.of(context).size.height * .092,
+          // height: MediaQuery.of(context).size.height * .092,
+          height: SizeConfig.safeBlockVertical * 9.5,
           child: Column(
             children: [
               Row(

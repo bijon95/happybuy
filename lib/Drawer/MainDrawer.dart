@@ -4,7 +4,11 @@ import 'package:happybuy/view/category_list.dart';
 import 'package:happybuy/view/dashboard.dart';
 import 'package:happybuy/view/login_view.dart';
 import 'package:happybuy/view/product_list.dart';
+import 'package:happybuy/view_c/checkoutPage.dart';
 import 'package:happybuy/view_c/order_tracking.dart';
+import 'package:happybuy/view_c/rating_us.dart';
+import 'package:happybuy/view_c/terms_conditions.dart';
+import 'package:happybuy/view_c/write_review.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -44,7 +48,7 @@ class MainDrawer extends StatelessWidget {
                 ),
                 onTap:(){
                   Navigator.push(
-                  context, MaterialPageRoute(builder: (context) =>Dashboard()));
+                  context, MaterialPageRoute(builder: (context) => CheckoutPageView(1)));
                   }
               ),
               ListTile(
@@ -56,7 +60,7 @@ class MainDrawer extends StatelessWidget {
                   ),
                 onTap: (){
                   Navigator.push(
-                      context, MaterialPageRoute(builder: (context) =>OrderTracking()));
+                      context, MaterialPageRoute(builder: (context) => OrderTracking()));
                 }
               ),
               ListTile(
@@ -67,7 +71,7 @@ class MainDrawer extends StatelessWidget {
                   ),
                   onTap: (){
                     Navigator.push(
-                        context, MaterialPageRoute(builder: (context) =>CategoryList()));
+                        context, MaterialPageRoute(builder: (context) => Write_Review_PageView()));
                   }
               ),
               ListTile(
@@ -78,7 +82,7 @@ class MainDrawer extends StatelessWidget {
                   ),
                 onTap: (){
                   Navigator.push(
-                      context, MaterialPageRoute(builder: (context) =>CategoryList()));
+                      context, MaterialPageRoute(builder: (context) => Rating_Us_PageView()));
                 }
               ),
               ListTile(
@@ -89,7 +93,7 @@ class MainDrawer extends StatelessWidget {
                   ),
                   onTap: (){
                     Navigator.push(
-                        context, MaterialPageRoute(builder: (context) =>CategoryList()));
+                        context, MaterialPageRoute(builder: (context) => Terms_Conditions_PageView()));
                   }
               ),
 

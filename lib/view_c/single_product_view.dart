@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:happybuy/Controller/controller.dart';
+import 'package:happybuy/Helper/SizeConfig.dart';
 
 class SingleProductView extends StatefulWidget {
   int passIndex;
@@ -290,7 +291,8 @@ class _SingleProductViewState extends State<SingleProductView> {
                 ),
               ),
               Container(
-                width: MediaQuery.of(context).size.width,
+                // width: MediaQuery.of(context).size.width,
+                width: SizeConfig.blockSizeHorizontal * 100,
                 padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
                 child:  Row(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -331,7 +333,7 @@ class _SingleProductViewState extends State<SingleProductView> {
                         ],
                       ),
                     ),
-                    SizedBox(width: MediaQuery.of(context).size.width * .38,),
+                    SizedBox(width: SizeConfig.blockSizeHorizontal * 38,),
                     Text(
                         "Jun 13, 2021",
                         maxLines: 1,
@@ -346,7 +348,7 @@ class _SingleProductViewState extends State<SingleProductView> {
                 )
               ),
               Container(
-                  width: MediaQuery.of(context).size.width,
+                  width: SizeConfig.blockSizeHorizontal * 100,
                   padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
                   child:  Row(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -387,7 +389,7 @@ class _SingleProductViewState extends State<SingleProductView> {
                           ],
                         ),
                       ),
-                      SizedBox(width: MediaQuery.of(context).size.width * .38,),
+                      SizedBox(width: SizeConfig.blockSizeHorizontal * 38,),
                       Text(
                           "Jun 13, 2021",
                           maxLines: 1,
@@ -418,10 +420,10 @@ class _SingleProductViewState extends State<SingleProductView> {
               GridView.count(
                 padding: const EdgeInsets.only(left :15.0, right: 15,top: 2,bottom: 6),
                 primary: false,
-                childAspectRatio: MediaQuery.of(context).size.width /
-                    (MediaQuery.of(context).size.height / 2),
-                crossAxisSpacing: 15,
-                mainAxisSpacing: 15,
+                childAspectRatio: SizeConfig.safeBlockHorizontal /
+                    (SizeConfig.safeBlockVertical / 2),
+                crossAxisSpacing: 20,
+                mainAxisSpacing: 20,
                 crossAxisCount: 2,
                 shrinkWrap: true,
                 children: List.generate(_controller.productList.length, (index) {
@@ -436,14 +438,14 @@ class _SingleProductViewState extends State<SingleProductView> {
                         Image.asset(
                           'images/c.jpg',
                           fit: BoxFit.fill,
-                          width: 60 * MediaQuery.of(context).devicePixelRatio,
-                          height: 35 * MediaQuery.of(context).devicePixelRatio,
+                          width: 32 * SizeConfig.safeBlockHorizontal,
+                          height: 13 * SizeConfig.safeBlockVertical,
                         ),
                         Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Container(
-                              height: MediaQuery.of(context).size.height* .039,
+                              height: SizeConfig.safeBlockVertical * 2.5,
                               padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
                               child: Text(
                                 _controller.productList[index].name,
@@ -458,30 +460,27 @@ class _SingleProductViewState extends State<SingleProductView> {
                             ),
                             // SizedBox(height: 2,),
                             Container(
-                              padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                              height: SizeConfig.safeBlockVertical * 2.5,
+                              padding: EdgeInsets.fromLTRB(10, 0, 10, 5),
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                 children: [
-                                  Row(
-                                    children: [
-                                      Text(
-                                        "৳"+_controller.productList[index].price,
-                                        style: TextStyle(
-                                            color: Colors.black,
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w500),
-                                      ),
-                                      SizedBox(width: 15,),
-                                      Text(
-                                        "৳ 120",
-                                        style: TextStyle(
-                                            decoration: TextDecoration.lineThrough,
-                                            decorationStyle: TextDecorationStyle.solid,
-                                            color: Colors.black,
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w500),
-                                      ),
-                                    ],
+                                  Text(
+                                    "৳"+_controller.productList[index].price,
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                  // SizedBox(width: 15,),
+                                  Text(
+                                    "৳ 120",
+                                    style: TextStyle(
+                                        decoration: TextDecoration.lineThrough,
+                                        decorationStyle: TextDecorationStyle.solid,
+                                        color: Colors.black,
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w500),
                                   ),
                                   Text(
                                     "1 pc",
@@ -496,10 +495,10 @@ class _SingleProductViewState extends State<SingleProductView> {
                             ),
                             GestureDetector(
                               child: Container(
-                                  width: MediaQuery.of(context).size.width * .26,
-                                  height: MediaQuery.of(context).size.height * .02,
-                                  decoration: BoxDecoration(color: Colors.green,borderRadius: BorderRadius.circular(5)),
-                                  child : Text("Add to cart",style: TextStyle(color: Colors.white),textAlign: TextAlign.center,)
+                                  width: SizeConfig.safeBlockHorizontal * 23,
+                                  height: SizeConfig.safeBlockVertical * 2.5,
+                                  decoration: BoxDecoration(color: Colors.green,borderRadius: BorderRadius.circular(10)),
+                                  child : Text("Add to Cart",style: TextStyle(color: Colors.white),textAlign: TextAlign.center,)
                               ),
                               onTap: (){
 
@@ -518,7 +517,7 @@ class _SingleProductViewState extends State<SingleProductView> {
                   },
                 );
               })
-          ),
+              ),
             ],
           ),
         ),
