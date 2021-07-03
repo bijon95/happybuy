@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:happybuy/Controller/controller.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:happybuy/Model/ProductListModel.dart';
+import 'package:get/get.dart';
+import 'package:happybuy/view/CartList.dart';
 
 class ProductView extends StatefulWidget {
   ModelProductList product;
@@ -11,6 +14,7 @@ class ProductView extends StatefulWidget {
 }
 
 class _CreateCategoryState extends State<ProductView> {
+  final Controller _controller = Get.put(Controller());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -164,35 +168,47 @@ class _CreateCategoryState extends State<ProductView> {
                       ),
                     ),
                   ),
-                  Container(
-                    margin: EdgeInsets.only(left: 10, right: 10),
-                    padding: EdgeInsets.only(left: 10, right: 10),
-                    height: 40,
-                    width: 120,
-                    decoration: BoxDecoration(
-                      color: Colors.amber,
-                      borderRadius: BorderRadius.circular(6),
+                  GestureDetector(
+                    child: Container(
+                      margin: EdgeInsets.only(left: 10, right: 10),
+                      padding: EdgeInsets.only(left: 10, right: 10),
+                      height: 40,
+                      width: 120,
+                      decoration: BoxDecoration(
+                        color: Colors.amber,
+                        borderRadius: BorderRadius.circular(6),
+                      ),
+                      child: Center(
+                          child: Text(
+                        "Add to Card",
+                        style: TextStyle(color: Colors.white),
+                      )),
                     ),
-                    child: Center(
-                        child: Text(
-                      "Add to Card",
-                      style: TextStyle(color: Colors.white),
-                    )),
+                    onTap: (){
+                    //  _controller.addProductToCart(widget.product);
+                    //  _controller.catList.value.add(widget.product);
+                    },
                   ),
-                  Container(
-                    margin: EdgeInsets.only(left: 10, right: 10),
-                    padding: EdgeInsets.only(left: 10, right: 10),
-                    height: 40,
-                    width: 120,
-                    decoration: BoxDecoration(
-                      color: Colors.red[400],
-                      borderRadius: BorderRadius.circular(6),
+                  GestureDetector(
+                    child: Container(
+                      margin: EdgeInsets.only(left: 10, right: 10),
+                      padding: EdgeInsets.only(left: 10, right: 10),
+                      height: 40,
+                      width: 120,
+                      decoration: BoxDecoration(
+                        color: Colors.red[400],
+                        borderRadius: BorderRadius.circular(6),
+                      ),
+                      child: Center(
+                          child: Text(
+                        "Buy Now",
+                        style: TextStyle(color: Colors.white),
+                      )),
                     ),
-                    child: Center(
-                        child: Text(
-                      "Buy Now",
-                      style: TextStyle(color: Colors.white),
-                    )),
+                    onTap: (){
+                      Navigator.push(
+                          context, MaterialPageRoute(builder: (context) =>CartList()));
+                    },
                   )
                 ],
               ),
