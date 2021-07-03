@@ -54,7 +54,7 @@ class _CheckoutPageViewState extends State<CheckoutPageView> {
               children: [
                 Container(
                   width: MediaQuery.of(context).size.width * .28,
-                  height: MediaQuery.of(context).size.width * .24,
+                  height: MediaQuery.of(context).size.height * .15,
                   child: Image.asset(
                     'images/c.jpg',
                     fit: BoxFit.fill,
@@ -64,7 +64,7 @@ class _CheckoutPageViewState extends State<CheckoutPageView> {
                 ),
                 Container(
                   width: MediaQuery.of(context).size.width * .7,
-                  height: MediaQuery.of(context).size.width * .24,
+                  height: MediaQuery.of(context).size.height * .14,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -231,7 +231,7 @@ class _CheckoutPageViewState extends State<CheckoutPageView> {
               ],
             ),
             Container(
-              height: MediaQuery.of(context).size.height * .15,
+              height: MediaQuery.of(context).size.height * .16,
               padding: EdgeInsets.fromLTRB(20,20,20,20),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -307,10 +307,6 @@ class _CheckoutPageViewState extends State<CheckoutPageView> {
                 ],
               ),
             ),
-            // Container(
-            //   color: Colors.amber,
-            //   height: MediaQuery.of(context).size.height * .55,
-            // ),
           ],
         ),
       ),
@@ -356,7 +352,7 @@ class _CheckoutPageViewState extends State<CheckoutPageView> {
       //   ),
       // ),
       bottomNavigationBar: Container(
-          height: MediaQuery.of(context).size.height * .088,
+          height: MediaQuery.of(context).size.height * .092,
           child: Column(
             children: [
               Row(
