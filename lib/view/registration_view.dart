@@ -1,7 +1,9 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:happybuy/Helper/helper.dart';
+import 'package:happybuy/Helper/user_info.dart';
 import 'package:happybuy/view/login_view.dart';
+import 'package:happybuy/view_c/Dashboard_client2.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -38,7 +40,7 @@ class _LoginPageState extends State<RegistrationPage> {
       "phone": phone.text,
       "password": pass.text,
       "name": name.text,
-      "type": 2,
+      "type": "user",
     };
     //encode Map to JSON
     var body = json.encode(data);
@@ -53,13 +55,16 @@ class _LoginPageState extends State<RegistrationPage> {
       _isLoading = false;
       var jsonString = jsonDecode(response.body);
       msg = jsonString["msg"];
-      // int id = jsonString["data"]["id"];
+      // String type = jsonString["data"]["type"];
+      // String name = jsonString["data"]["name"];
+      // print(type+"21");
       print(jsonString);
-      // print(id);
       setState(() {
         _isLoading = false;
       });
-      Navigator.push(context, MaterialPageRoute(builder: (context) => LoginPage()));
+      // UserInfo user = new UserInfo();
+      // user.saveLoginDataToSharedPreference(type, name);
+      Navigator.push(context, MaterialPageRoute(builder: (context) => DashboardClient2()));
       return null;
     } else {
 //show error message

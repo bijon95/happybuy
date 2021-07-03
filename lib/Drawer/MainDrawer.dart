@@ -4,6 +4,7 @@ import 'package:happybuy/view/category_list.dart';
 import 'package:happybuy/view/dashboard.dart';
 import 'package:happybuy/view/login_view.dart';
 import 'package:happybuy/view/product_list.dart';
+import 'package:happybuy/view_c/order_tracking.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -55,7 +56,7 @@ class MainDrawer extends StatelessWidget {
                   ),
                 onTap: (){
                   Navigator.push(
-                      context, MaterialPageRoute(builder: (context) =>ProductList()));
+                      context, MaterialPageRoute(builder: (context) =>OrderTracking()));
                 }
               ),
               ListTile(
@@ -96,8 +97,10 @@ class MainDrawer extends StatelessWidget {
               ListTile(
                 leading:    Icon( Icons.logout,color:Colors.red,size: 24,),
                 title: Text('Logout'),
-                onTap: (){
-                  launch("tel://+8801680680000");
+                onTap: () async {
+                  SharedPreferences prefs = await SharedPreferences.getInstance();
+                  prefs.clear();
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => LoginPage()));
                 },
               ),
 
@@ -109,8 +112,8 @@ class MainDrawer extends StatelessWidget {
                   color: Colors.green,
                 ),
                 title: Text('Whatsapp'),
-                onTap: (){
-                  launch("https://wa.me/+8801680680000/?text=${Uri.parse("This message from app")}");
+                onTap: () {
+                    launch("https://wa.me/+8801680680000/?text=${Uri.parse("This message from app")}");
                 },
               ),
               ListTile(

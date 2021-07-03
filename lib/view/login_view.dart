@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:happybuy/Helper/helper.dart';
 import 'package:happybuy/Helper/user_info.dart';
 import 'package:happybuy/view/registration_view.dart';
+import 'package:happybuy/view_c/Dashboard_client.dart';
 import 'package:happybuy/view_c/Dashboard_client2.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/services.dart';
@@ -44,7 +45,8 @@ class _LoginPageState extends State<LoginPage> {
       String type = jsonString["data"]["type"];
       String name = jsonString["data"]["name"];
       print(jsonString);
-      // print(id);
+      print(type);
+      print(name);
       UserInfo user = new UserInfo();
       user.saveLoginDataToSharedPreference(type, name);
       Navigator.push(context, MaterialPageRoute(builder: (context) => DashboardClient2()));
@@ -158,15 +160,38 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       ),
                     ),
-                      Container(
-                        width: MediaQuery.of(context).size.width,
-                        child: Center(
-                          child: Text(
-                          mag,
-                          style: TextStyle(fontSize: 20.0, color: Colors.green),
-    ),
+                    Container(
+                      //color: Colors.blueAccent,
+                      width: double.infinity,
+
+                      padding: EdgeInsets.fromLTRB(30, 10, 30, 10),
+                      height: 80,
+                      child: RaisedButton(
+                        //padding: EdgeInsets.fromLTRB(30, 10, 30, 10),
+                        color: Color.fromRGBO(12, 53, 238, 10),
+                        onPressed: () {
+                          // Navigator.push(context, MaterialPageRoute(builder: (context) => DashboardClient()));
+                        }, //
+                        child: new Text(
+                          "Login for Admin",
+                          style: TextStyle(
+                            fontFamily: 'Eina_regular',
+                            fontSize: 14.0,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.white,
+                          ),
                         ),
                       ),
+                    ),
+                    Container(
+                      width: MediaQuery.of(context).size.width,
+                      child: Center(
+                        child: Text(
+                        mag,
+                        style: TextStyle(fontSize: 20.0, color: Colors.green),
+  ),
+                      ),
+                    ),
                     SizedBox(
                       height: 30,
                     ),
