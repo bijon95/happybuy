@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:happybuy/Controller/controller.dart';
+import 'package:happybuy/Drawer/AdminDrawer.dart';
 import 'package:happybuy/Drawer/MainDrawer.dart';
 
 class DashboardClient extends StatefulWidget {
@@ -27,26 +28,40 @@ class _DashboardClientState extends State<DashboardClient> {
   ];
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _controller.fetchCatList();
+    _controller.fetchProductList();
+    _controller.fetchSliderList();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Happy Buy",style: TextStyle(fontSize: 14),),
+        title: Text(
+          "Happy Buy",
+          style: TextStyle(fontSize: 14),
+        ),
         centerTitle: false,
         backgroundColor: Colors.green,
         actions: <Widget>[
           IconButton(
-            icon: Icon(Icons.search,color: Colors.white,),
+            icon: Icon(
+              Icons.search,
+              color: Colors.white,
+            ),
             tooltip: 'Search',
-            onPressed: (){
-
-            },
+            onPressed: () {},
           ),
           IconButton(
-            icon: Icon(Icons.shopping_cart_outlined,color: Colors.white,),
+            icon: Icon(
+              Icons.shopping_cart_outlined,
+              color: Colors.white,
+            ),
             tooltip: 'Cart',
-            onPressed: (){
-
-            },
+            onPressed: () {},
           ),
         ],
       ),
@@ -63,42 +78,62 @@ class _DashboardClientState extends State<DashboardClient> {
               Container(
                 // margin: EdgeInsets.only(top: 30),
                 // height: 200,
-                child: CarouselSlider(
-                  options: CarouselOptions(
-                    height: 180,
-                    viewportFraction: 1.0,
-                    enlargeCenterPage: false,
-                    autoPlay: true,
-                    autoPlayAnimationDuration: Duration(seconds: 2),
-                  ),
-                  items: [
-                    FadeInImage(
-                      image: NetworkImage(
-                        "https://i0.wp.com/images-prod.healthline.com/hlcmsresource/images/AN_images/healthy-eating-ingredients-1296x728-header.jpg?w=1155&h=1528",
+                child: Obx(() {
+                  if (_controller.isLoadringSlider.value) {
+                    return Center(
+                      child: CircularProgressIndicator(
+                        valueColor:
+                            new AlwaysStoppedAnimation<Color>(Colors.green[300]),
                       ),
-                      placeholder: AssetImage('images/gif-logo.gif'),
-                      fit: BoxFit.fill,
-                    ),
-                    Container(
-                      margin: EdgeInsets.only(left: 10, right: 10),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(15),
-                          color: Colors.red[200]),
-                    ),
-                    Container(
-                      margin: EdgeInsets.only(left: 10, right: 10),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(15),
-                          color: Colors.red[200]),
-                    ),
-                    Container(
-                      margin: EdgeInsets.only(left: 10, right: 10),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(15),
-                          color: Colors.red[200]),
-                    )
-                  ],
-                ),
+                    );
+                  } else {
+                    return CarouselSlider(
+                        options: CarouselOptions(
+                          height: 180,
+                          viewportFraction: 1.0,
+                          enlargeCenterPage: false,
+                          autoPlay: true,
+                          autoPlayAnimationDuration: Duration(seconds: 2),
+                        ),
+                        // FadeInImage(
+                        //   image: NetworkImage(
+                        //     "https://i0.wp.com/images-prod.healthline.com/hlcmsresource/images/AN_images/healthy-eating-ingredients-1296x728-header.jpg?w=1155&h=1528",
+                        //   ),
+                        //   placeholder: AssetImage('images/gif-logo.gif'),
+                        //   fit: BoxFit.fill,
+                        // ),
+                        items: [
+                          FadeInImage(
+                            image: NetworkImage(
+                              _controller.sliderlist[0].sliderImage,
+                            ),
+                            placeholder: AssetImage('images/gif-logo.gif'),
+                            fit: BoxFit.fill,
+                          ),
+                          // FadeInImage(
+                          //   image: NetworkImage(
+                          //     _controller.sliderlist[1].sliderImage,
+                          //   ),
+                          //   placeholder: AssetImage('images/gif-logo.gif'),
+                          //   fit: BoxFit.fill,
+                          // ),
+                          // FadeInImage(
+                          //   image: NetworkImage(
+                          //     _controller.sliderlist[3].sliderImage,
+                          //   ),
+                          //   placeholder: AssetImage('images/gif-logo.gif'),
+                          //   fit: BoxFit.fill,
+                          // ),
+                          // FadeInImage(
+                          //   image: NetworkImage(
+                          //     _controller.sliderlist[4].sliderImage,
+                          //   ),
+                          //   placeholder: AssetImage('images/gif-logo.gif'),
+                          //   fit: BoxFit.fill,
+                          // ),
+                        ]);
+                  }
+                }),
               ),
               //cat list
               Container(
@@ -129,9 +164,10 @@ class _DashboardClientState extends State<DashboardClient> {
                               children: [
                                 //TODO: for image
                                 FadeInImage(
-                                  image: NetworkImage(_controller.catList[index].categoryImage),
-                                  placeholder: AssetImage(
-                                      'images/gif-logo.gif'),
+                                  image: NetworkImage(
+                                      _controller.catList[index].categoryImage),
+                                  placeholder:
+                                      AssetImage('images/gif-logo.gif'),
                                   fit: BoxFit.cover,
                                 ),
                                 Container(
@@ -152,11 +188,15 @@ class _DashboardClientState extends State<DashboardClient> {
                                   height: 30,
                                   width: 80,
                                   decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(15),
-                                      border: Border.all(color: Colors.grey[300],width: 1)
-                                  ),
-                                  child: Center(child: Text("Order Now",style: TextStyle(fontSize: 10),)),
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(15),
+                                      border: Border.all(
+                                          color: Colors.grey[300], width: 1)),
+                                  child: Center(
+                                      child: Text(
+                                    "Order Now",
+                                    style: TextStyle(fontSize: 10),
+                                  )),
                                 ),
 
                                 Container(
@@ -214,14 +254,18 @@ class _DashboardClientState extends State<DashboardClient> {
                             margin: EdgeInsets.only(left: 10, right: 10),
                             width: 300,
                             decoration: BoxDecoration(
-                              border: Border.all(color: Colors.grey[300],width: 1),
+                                border: Border.all(
+                                    color: Colors.grey[300], width: 1),
                                 borderRadius: BorderRadius.circular(15),
-                                color:colorlist[9-(index%10)]),
+                                color: colorlist[9 - (index % 10)]),
                             child: Row(
                               children: [
                                 Container(
-                                  height: MediaQuery.of(context).size.width / 2 - 40,
-                                  width: MediaQuery.of(context).size.width / 2 - 60,
+                                  height:
+                                      MediaQuery.of(context).size.width / 2 -
+                                          40,
+                                  width: MediaQuery.of(context).size.width / 2 -
+                                      60,
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.only(
                                         topLeft: Radius.circular(15),
@@ -255,14 +299,18 @@ class _DashboardClientState extends State<DashboardClient> {
                                         ),
                                       ),
                                       Container(
-                                        width: MediaQuery.of(context).size.width / 2 -
-                                            60,
+                                        width:
+                                            MediaQuery.of(context).size.width /
+                                                    2 -
+                                                60,
                                         padding: EdgeInsets.only(
                                             left: 5, top: 8, bottom: 15),
                                         child: Text(
-                                          "৳"+_controller.productList[index].price,
+                                          "৳" +
+                                              _controller
+                                                  .productList[index].price,
                                           style: TextStyle(
-                                            color: Colors.white,
+                                              color: Colors.white,
                                               fontSize: 22,
                                               fontWeight: FontWeight.w500),
                                         ),
@@ -302,44 +350,43 @@ class _DashboardClientState extends State<DashboardClient> {
                     itemCount: 20,
                     itemBuilder: (BuildContext contex, int index) {
                       return Container(
-
                         margin:
                             EdgeInsets.only(left: 10, right: 10, bottom: 12),
                         width: MediaQuery.of(context).size.width,
                         height: 150,
                         decoration: BoxDecoration(
-                            border: Border.all(color: Colors.grey[300],width: 1),
+                            border:
+                                Border.all(color: Colors.grey[300], width: 1),
                             borderRadius: BorderRadius.circular(15),
-                            color:colorlist[index%10]),
+                            color: colorlist[index % 10]),
                         child: Row(
                           children: [
                             Container(
                               height:
-                              MediaQuery.of(context).size.width / 2 -
-                                  40,
-                              width: MediaQuery.of(context).size.width / 2-20,
+                                  MediaQuery.of(context).size.width / 2 - 40,
+                              width: MediaQuery.of(context).size.width / 2 - 20,
                               child: ClipRRect(
                                 borderRadius: BorderRadius.only(
                                     topLeft: Radius.circular(15),
                                     bottomLeft: Radius.circular(15)),
                                 child: Container(
                                     child: Image.asset(
-                                      'images/c.jpg',
-                                      fit: BoxFit.fill,
-                                    )),
+                                  'images/c.jpg',
+                                  fit: BoxFit.fill,
+                                )),
                               ),
                             ),
                             Container(
-                              padding: EdgeInsets.only(
-                                  left: 8, top: 10, right: 5),
-                              width: MediaQuery.of(context).size.width / 2-20,
+                              padding:
+                                  EdgeInsets.only(left: 8, top: 10, right: 5),
+                              width: MediaQuery.of(context).size.width / 2 - 20,
                               child: Column(
                                 mainAxisAlignment:
-                                MainAxisAlignment.spaceBetween,
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Container(
                                     child: Text(
-                                     "product name name of product is as ",
+                                      "product name name of product is as ",
                                       maxLines: 3,
                                       overflow: TextOverflow.ellipsis,
                                       style: TextStyle(
@@ -350,7 +397,8 @@ class _DashboardClientState extends State<DashboardClient> {
                                     ),
                                   ),
                                   Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
                                       Container(
                                         width: 90,
@@ -360,18 +408,25 @@ class _DashboardClientState extends State<DashboardClient> {
                                           "৳ 5000",
                                           style: TextStyle(
                                               fontSize: 20,
-                                              fontWeight: FontWeight.w500,color: Colors.white),
+                                              fontWeight: FontWeight.w500,
+                                              color: Colors.white),
                                         ),
                                       ),
                                       Container(
                                         width: 60,
-                                        height:20,
+                                        height: 20,
                                         decoration: BoxDecoration(
                                             color: Colors.white,
-                                            borderRadius: BorderRadius.circular(15),
-                                            border: Border.all(color: Colors.grey[300],width: 1)
-                                        ),
-                                        child: Center(child: Text("View",style: TextStyle(fontSize: 10),)),
+                                            borderRadius:
+                                                BorderRadius.circular(15),
+                                            border: Border.all(
+                                                color: Colors.grey[300],
+                                                width: 1)),
+                                        child: Center(
+                                            child: Text(
+                                          "View",
+                                          style: TextStyle(fontSize: 10),
+                                        )),
                                       ),
                                     ],
                                   ),
