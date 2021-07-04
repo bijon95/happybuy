@@ -45,12 +45,13 @@ class _MyAppState extends State<MyApp>{
         print(type);
         if(type == '1') {
           Navigator.push(context, MaterialPageRoute(builder: (context) => LoginPage()));
-       } else if(type != null || type != ''){
+        } else if(type == 'admin'){
           Navigator.push(context, MaterialPageRoute(builder: (context) => AdminDashboard()));
+        }  else if(type == 'user'){
+          Navigator.push(context, MaterialPageRoute(builder: (context) => DashboardClient()));
         } else{
          Navigator.push(context, MaterialPageRoute(builder: (context) => LoginPage()));
-
-       }
+        }
       }
     );
   }
