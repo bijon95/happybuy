@@ -21,6 +21,7 @@ class _CheckoutPageViewState extends State<CheckoutPageView> {
   @override
   Widget build(BuildContext context) {
     index = widget.passIndex;
+    SizeConfig().init(context);
 
     return Scaffold(
       backgroundColor: Colors.white,
