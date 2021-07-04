@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:happybuy/Controller/controller.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:happybuy/Helper/helper.dart';
 import 'package:happybuy/Model/ProductListModel.dart';
 import 'package:get/get.dart';
 import 'package:happybuy/view/CartList.dart';
@@ -15,6 +16,30 @@ class ProductView extends StatefulWidget {
 
 class _CreateCategoryState extends State<ProductView> {
   final Controller _controller = Get.put(Controller());
+
+  nothing(){}
+  List<String> imgList = List.empty();
+  addImageInList(){
+print(widget.product.img1);
+print(widget.product.img2);
+print(widget.product.img3);
+print(widget.product.img4);
+print(widget.product.img5);
+
+
+  widget.product.img1 != null ? imgList.add(widget.product.img1) :  nothing();
+  widget.product.img2 != null ? imgList.add(widget.product.img2) :  nothing();
+  widget.product.img3 != null ? imgList.add(widget.product.img3) :  nothing();
+  widget.product.img4 != null ? imgList.add(widget.product.img4) :  nothing();
+  widget.product.img5 != null ? imgList.add(widget.product.img5) :  nothing();
+  }
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+   // addImageInList();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,28 +58,16 @@ class _CreateCategoryState extends State<ProductView> {
                         Container(
                           margin: EdgeInsets.only(top: 30),
                           height: 300,
-                          child: CarouselSlider(
-                            items: [
-                              FadeInImage(
-                                image: NetworkImage(
-                                  "https://i0.wp.com/images-prod.healthline.com/hlcmsresource/images/AN_images/healthy-eating-ingredients-1296x728-header.jpg?w=1155&h=1528",
+                          child: CarouselSlider.builder(
+                            itemCount: 1,
+                            itemBuilder: (BuildContext contex, int index, int realIdx){
+                              return FadeInImage(
+                                image: NetworkImage(Helper.baseurl+widget.product.img1
                                 ),
                                 placeholder: AssetImage('images/gif-logo.gif'),
                                 fit: BoxFit.fill,
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(20.0),
-                                child: Text('iOS'),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(20.0),
-                                child: Text('Desktop'),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(20.0),
-                                child: Text('Web'),
-                              )
-                            ],
+                              );
+                            },
                             //Slider Container properties
                             options: CarouselOptions(
                               autoPlay: true,

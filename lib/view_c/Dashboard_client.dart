@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:happybuy/Controller/controller.dart';
 import 'package:happybuy/Drawer/AdminDrawer.dart';
 import 'package:happybuy/Drawer/MainDrawer.dart';
+import 'package:happybuy/Helper/helper.dart';
 
 class DashboardClient extends StatefulWidget {
   @override
@@ -87,7 +88,7 @@ class _DashboardClientState extends State<DashboardClient> {
                       ),
                     );
                   } else {
-                    return CarouselSlider(
+                    return CarouselSlider.builder(
                         options: CarouselOptions(
                           height: 180,
                           viewportFraction: 1.0,
@@ -95,43 +96,17 @@ class _DashboardClientState extends State<DashboardClient> {
                           autoPlay: true,
                           autoPlayAnimationDuration: Duration(seconds: 2),
                         ),
-                        // FadeInImage(
-                        //   image: NetworkImage(
-                        //     "https://i0.wp.com/images-prod.healthline.com/hlcmsresource/images/AN_images/healthy-eating-ingredients-1296x728-header.jpg?w=1155&h=1528",
-                        //   ),
-                        //   placeholder: AssetImage('images/gif-logo.gif'),
-                        //   fit: BoxFit.fill,
-                        // ),
-                        items: [
-                          FadeInImage(
-                            image: NetworkImage(
-                              _controller.sliderlist[0].sliderImage,
-                            ),
-                            placeholder: AssetImage('images/gif-logo.gif'),
-                            fit: BoxFit.fill,
+                      itemCount: _controller.sliderlist.length,
+                      itemBuilder: (BuildContext contex, int index, int realIdx){
+                        return FadeInImage(
+                          image: NetworkImage(Helper.baseurl+_controller.sliderlist[index].sliderImage
                           ),
-                          // FadeInImage(
-                          //   image: NetworkImage(
-                          //     _controller.sliderlist[1].sliderImage,
-                          //   ),
-                          //   placeholder: AssetImage('images/gif-logo.gif'),
-                          //   fit: BoxFit.fill,
-                          // ),
-                          // FadeInImage(
-                          //   image: NetworkImage(
-                          //     _controller.sliderlist[3].sliderImage,
-                          //   ),
-                          //   placeholder: AssetImage('images/gif-logo.gif'),
-                          //   fit: BoxFit.fill,
-                          // ),
-                          // FadeInImage(
-                          //   image: NetworkImage(
-                          //     _controller.sliderlist[4].sliderImage,
-                          //   ),
-                          //   placeholder: AssetImage('images/gif-logo.gif'),
-                          //   fit: BoxFit.fill,
-                          // ),
-                        ]);
+                          placeholder: AssetImage('images/gif-logo.gif'),
+                          fit: BoxFit.fill,
+                        );
+                      },
+
+                        );
                   }
                 }),
               ),

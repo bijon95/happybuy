@@ -4,8 +4,9 @@ import 'package:happybuy/Controller/controller.dart';
 import 'package:happybuy/Drawer/AdminDrawer.dart';
 import 'package:happybuy/Drawer/MainDrawer.dart';
 import 'package:happybuy/view/AllUserList.dart';
+import 'package:happybuy/view/ProductListAdmin.dart';
 import 'package:happybuy/view/category_list.dart';
-import 'package:happybuy/view/product_list.dart';
+import '../view_c/product_list.dart';
 import 'package:happybuy/view_c/order_tracking.dart';
 import 'package:get/get.dart';
 class AdminDashboard extends StatefulWidget {
@@ -124,7 +125,7 @@ class _AdminDashboardState extends State<AdminDashboard> {
                         ],)),
                     onTap: (){
                       Navigator.push(
-                          context, MaterialPageRoute(builder: (context) => ProductList()));
+                          context, MaterialPageRoute(builder: (context) => ProductListAdmin()));
                     },
                   ),
 
