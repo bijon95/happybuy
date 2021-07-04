@@ -40,7 +40,7 @@ class _MyAppState extends State<MyApp>{
     // TODO: implement initState
     super.initState();
     getUserDataFromSharedPreference();
-    Future.delayed(Duration(seconds: 5),
+    Future.delayed(Duration(seconds:2),
       (){
         print(type);
         if(type == '1') {

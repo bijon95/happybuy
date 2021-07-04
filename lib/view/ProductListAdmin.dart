@@ -1,10 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:happybuy/Controller/controller.dart';
 import 'package:happybuy/Helper/helper.dart';
 import 'package:happybuy/view/product_upload.dart';
 import 'package:get/get.dart';
 import 'package:happybuy/view/product_view.dart';
-
+import 'package:http/http.dart' as http;
 class ProductListAdmin extends StatefulWidget {
   @override
   _CreateCategoryState createState() => _CreateCategoryState();
@@ -30,6 +32,81 @@ class _CreateCategoryState extends State<ProductListAdmin> {
     _controller.fetchProductList();
 
   }
+
+  showAlertDialog(BuildContext context,id) {
+
+    Widget cancelButton = FlatButton(
+      child: Text("Cancel"),
+      onPressed:  () {
+        Navigator.pop(context);
+      },
+    );
+    // set up the button
+    Widget okButton = FlatButton(
+      child: Text("Delete"),
+      onPressed: () {
+        deleteProduct(id);
+        print("delete fun call");
+      },
+    );
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: Text("Delete Product"),
+      content: Text("Are you sure to Delete ?"),
+      actions: [
+        cancelButton,
+        okButton,
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+ bool isProcess = false;
+  Future deleteProduct(id) async {
+    setState(() {
+      isProcess = true;
+    });
+    print("fun active");
+    var postUri = Uri.parse(Helper.baseurl+"deleteproductdata/");
+    var request = new http.MultipartRequest("POST", postUri);
+    request.fields['id'] =id.toString();
+
+    request
+        .send()
+        .then((result) async {
+      http.Response.fromStream(result).then((response) {
+        print(response.body);
+        if (response.statusCode == 200) {
+
+          Navigator.pop(context);
+          print("Deleted! ");
+          print('response.body ' + response.body);
+          var data = jsonDecode(response.body);
+          _controller.fetchProductList();
+          setState(() {
+            isProcess = false;
+          });
+
+        } else {}
+
+        return response.body;
+      });
+    })
+        .catchError((err) => print('error : ' + err.toString()))
+        .whenComplete(() {
+    });
+    setState(() {
+
+    });
+  }
+
 
 
 
@@ -141,15 +218,20 @@ class _CreateCategoryState extends State<ProductListAdmin> {
                                       Row(
                                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         children: [
-                                          Container(
-                                            width: 55,
-                                            height:20,
-                                            decoration: BoxDecoration(
-                                                color: Colors.red[300],
-                                                borderRadius: BorderRadius.circular(15),
-                                                border: Border.all(color: Colors.grey[300],width: 1)
+                                          GestureDetector(
+                                            child: Container(
+                                              width: 55,
+                                              height:20,
+                                              decoration: BoxDecoration(
+                                                  color: Colors.red[300],
+                                                  borderRadius: BorderRadius.circular(15),
+                                                  border: Border.all(color: Colors.grey[300],width: 1)
+                                              ),
+                                              child: Center(child: Text("Delete",style: TextStyle(fontSize: 10,color: Colors.white),)),
                                             ),
-                                            child: Center(child: Text("Delete",style: TextStyle(fontSize: 10,color: Colors.white),)),
+                                            onTap: (){
+                                              showAlertDialog(context,_controller.productList[index].id);
+                                            },
                                           ),
                                           GestureDetector(
                                             child: Container(

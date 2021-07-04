@@ -58,25 +58,34 @@ print(widget.product.img5);
                         Container(
                           margin: EdgeInsets.only(top: 30),
                           height: 300,
+                          width: MediaQuery.of(context).size.width,
                           child: CarouselSlider.builder(
                             itemCount: 1,
                             itemBuilder: (BuildContext contex, int index, int realIdx){
-                              return FadeInImage(
-                                image: NetworkImage(Helper.baseurl+widget.product.img1
+                              return Container(
+                                height: 300,
+                                width: MediaQuery.of(context).size.width,
+                                child: FadeInImage(
+                                  image: NetworkImage(Helper.baseurl+widget.product.img1
+                                  ),
+                                  placeholder: AssetImage('images/gif-logo.gif'),
+                                  fit: BoxFit.cover,
                                 ),
-                                placeholder: AssetImage('images/gif-logo.gif'),
-                                fit: BoxFit.fill,
                               );
                             },
                             //Slider Container properties
                             options: CarouselOptions(
                               autoPlay: true,
+                              height: 300,
+                              viewportFraction: 1.0,
+                              enlargeCenterPage: false,
+
                             ),
                           ),
                         ),
 
                         Container(
-                          margin: EdgeInsets.only(top: 30, left: 10, right: 10),
+                          margin: EdgeInsets.only(top: 40, left: 10, right: 10),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
