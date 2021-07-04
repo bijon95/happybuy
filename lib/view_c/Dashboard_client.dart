@@ -65,7 +65,7 @@ class _DashboardClientState extends State<DashboardClient> {
           ),
         ],
       ),
-      drawer: AdminDrawer(),
+      drawer: MainDrawer(),
       body: SingleChildScrollView(
         child: Container(
           color: Colors.grey[100],

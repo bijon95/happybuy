@@ -1,7 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:happybuy/Controller/controller.dart';
+import 'package:happybuy/Drawer/AdminDrawer.dart';
 import 'package:happybuy/Drawer/MainDrawer.dart';
+import 'package:happybuy/view/AllUserList.dart';
+import 'package:happybuy/view/category_list.dart';
+import 'package:happybuy/view/product_list.dart';
+import 'package:happybuy/view_c/order_tracking.dart';
+import 'package:get/get.dart';
 class AdminDashboard extends StatefulWidget {
   @override
   _AdminDashboardState createState() => _AdminDashboardState();
@@ -16,10 +22,20 @@ class _AdminDashboardState extends State<AdminDashboard> {
   Widget descText(data){
     return Text(data,style: TextStyle(color: Colors.white,fontSize: 16,fontWeight: FontWeight.bold),);
   }
+  final Controller _controller = Get.put(Controller());
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _controller.fetchProductList();
+    _controller.fetchCatList();
+
+
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: MainDrawer(),
+      drawer: AdminDrawer(),
       appBar: AppBar(title: Text("Admin Dashboard"),backgroundColor: Colors.green[400],
       ),
       body: SingleChildScrollView(
@@ -28,114 +44,112 @@ class _AdminDashboardState extends State<AdminDashboard> {
             Row(
               children: [
                 Expanded(
-                  child: Container(
-                    height: 100,
-                      margin: EdgeInsets.only(left: 10,right: 5,top: 10),
-                      padding: EdgeInsets.only(top: 30),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                        color: Colors.red[300],
-                      ),
-                      child: Column(children: [
-                    countText("1"),
-                    descText('New Order')
-                  ],)),
+                  child: GestureDetector(
+                    child: Container(
+                      height: 100,
+                        margin: EdgeInsets.only(left: 10,right: 5,top: 10),
+                        padding: EdgeInsets.only(top: 30),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(15),
+                          color: Colors.red[300],
+                        ),
+                        child: Column(children: [
+                      countText("1"),
+                      descText('New Order')
+                    ],)),
+                    onTap: (){
+                      Navigator.push(
+                          context, MaterialPageRoute(builder: (context) => OrderTracking()));
+                    },
+                  ),
                 ),
                 Expanded(
-                  child: Container(
-                      height: 100,
-                    margin: EdgeInsets.only(left: 5,right: 5,top: 10),
-                      padding: EdgeInsets.only(top: 30,left: 10,right: 10),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                        color: Colors.amber[300],
-                      ),
-                      child: Column(children: [
-                        countText("1"),
-                        descText('Processing')
-                      ],)),
+                  child: GestureDetector(
+                    child: Container(
+                        height: 100,
+                      margin: EdgeInsets.only(left: 5,right: 5,top: 10),
+                        padding: EdgeInsets.only(top: 30,left: 10,right: 10),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(15),
+                          color: Colors.amber[300],
+                        ),
+                        child: Column(children: [
+                          countText("1"),
+                          descText('Processing')
+                        ],)),
+                    onTap: (){
+                      Navigator.push(
+                          context, MaterialPageRoute(builder: (context) => OrderTracking()));
+                    },
+                  ),
                 ),
 
                 Expanded(
-                  child: Container(
-                      height: 100,
-                      margin: EdgeInsets.only(left: 5,right: 10,top: 10),
-                      padding: EdgeInsets.only(top: 30,left: 10,right: 10),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                        color: Colors.blue[300],
-                      ),
-                      child: Column(children: [
-                        countText("1"),
-                        descText('Delivered')
-                      ],)),
+                  child: GestureDetector(
+                    child: Container(
+                        height: 100,
+                        margin: EdgeInsets.only(left: 5,right: 10,top: 10),
+                        padding: EdgeInsets.only(top: 30,left: 10,right: 10),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(15),
+                          color: Colors.blue[300],
+                        ),
+                        child: Column(children: [
+                          countText("1"),
+                          descText('Delivered')
+                        ],)),
+                    onTap: (){
+                      Navigator.push(
+                          context, MaterialPageRoute(builder: (context) => OrderTracking()));
+                    },
+                  ),
                 ),
               ],
             ),
             Row(
               children: [
                 Expanded(
-                  child: Container(
-                      height: 100,
-                      margin: EdgeInsets.only(left: 5,right: 10,top: 10),
-                      padding: EdgeInsets.only(top: 30,left: 10,right: 10),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                        color: Colors.green[300],
-                      ),
-                      child: Column(children: [
-                        countText("1"),
-                        descText('Total Product')
-                      ],)),
+                  child: GestureDetector(
+                    child: Container(
+                        height: 100,
+                        margin: EdgeInsets.only(left: 5,right: 10,top: 10),
+                        padding: EdgeInsets.only(top: 30,left: 10,right: 10),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(15),
+                          color: Colors.green[300],
+                        ),
+                        child: Column(children: [
+                         Obx(() => _controller.isLoadingProduct.value ?countText( "0"):countText(_controller.productList.length.toString() ) ),
+                          descText('Total Product')
+                        ],)),
+                    onTap: (){
+                      Navigator.push(
+                          context, MaterialPageRoute(builder: (context) => ProductList()));
+                    },
+                  ),
+
                 ),
 
                 Expanded(
-                  child: Container(
-                      height: 100,
-                      margin: EdgeInsets.only(left: 5,right: 10,top: 10),
-                      padding: EdgeInsets.only(top: 30,left: 10,right: 10),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                        color: Colors.green[300],
-                      ),
-                      child: Column(children: [
-                        countText("1"),
-                        descText('Total Category')
-                      ],)),
-                ),
-              ],
-            ),
-            Row(
-              children: [
-                Expanded(
-                  child: Container(
-                      height: 100,
-                      margin: EdgeInsets.only(left: 5,right: 10,top: 10),
-                      padding: EdgeInsets.only(top: 20,left: 10,right: 10),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                        color: Colors.green[300],
-                      ),
-                      child: Column(children: [
-                        countText("1"),
-                        descText('New Customar'),
-                        descText('This Month')
-                      ],)),
-                ),
-                Expanded(
-                  child: Container(
-                      height: 100,
-                      margin: EdgeInsets.only(left: 5,right: 10,top: 10),
-                      padding: EdgeInsets.only(top: 20,left: 10,right: 10),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                        color: Colors.green[300],
-                      ),
-                      child: Column(children: [
-                        countText("1"),
-                        descText('Total Order'),
-                        descText('This Month')
-                      ],)),
+                  child: GestureDetector(
+                    child: Container(
+                        height: 100,
+                        margin: EdgeInsets.only(left: 5,right: 10,top: 10),
+                        padding: EdgeInsets.only(top: 30,left: 10,right: 10),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(15),
+                          color: Colors.green[300],
+                        ),
+                        child: Column(children: [
+                          Obx(() => _controller.isLoading.value ?countText( "0"):countText(_controller.catList.length.toString() ) ),
+                          descText('Total Category')
+                        ],)),
+                    onTap: (){
+                      Navigator.push(
+                          context, MaterialPageRoute(builder: (context) => CategoryList()));
+
+                    },
+                  ),
                 ),
               ],
             ),
@@ -191,13 +205,56 @@ class _AdminDashboardState extends State<AdminDashboard> {
             Row(
               children: [
                 Expanded(
+                  child: GestureDetector(
+                    child: Container(
+                        height: 100,
+                        margin: EdgeInsets.only(left: 5,right: 10,top: 10),
+                        padding: EdgeInsets.only(top: 20,left: 10,right: 10),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(15),
+                          color: Colors.blue[300],
+                        ),
+                        child: Column(children: [
+                          countText("1"),
+                          descText('New Customar'),
+                          descText('This Month')
+                        ],)),
+                    onTap: (){
+
+                      Navigator.push(
+                          context, MaterialPageRoute(builder: (context) => AllUSerList()));
+
+                    },
+                  ),
+                ),
+                Expanded(
+                  child: Container(
+                      height: 100,
+                      margin: EdgeInsets.only(left: 5,right: 10,top: 10),
+                      padding: EdgeInsets.only(top: 20,left: 10,right: 10),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                        color: Colors.green[300],
+                      ),
+                      child: Column(children: [
+                        countText("1"),
+                        descText('Total Order'),
+                        descText('This Month')
+                      ],)),
+                ),
+              ],
+            ),
+
+            Row(
+              children: [
+                Expanded(
                   child: Container(
                       height: 100,
                       margin: EdgeInsets.only(left: 5,right: 10,top: 10),
                       padding: EdgeInsets.only(top: 30,left: 10,right: 10),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(15),
-                        color: Colors.green[300],
+                        color: Colors.blue[300],
                       ),
                       child: Column(children: [
                         countText("1"),
