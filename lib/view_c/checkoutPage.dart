@@ -6,7 +6,8 @@ import 'package:happybuy/Helper/SizeConfig.dart';
 import 'package:happybuy/view_c/single_product_view.dart';
 
 class CheckoutPageView extends StatefulWidget {
-
+  int passIndex;
+  CheckoutPageView(this.passIndex);
 
   @override
   _CheckoutPageViewState createState() => _CheckoutPageViewState();
@@ -18,15 +19,8 @@ class _CheckoutPageViewState extends State<CheckoutPageView> {
   int index;
 
   @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-
-  }
-  //SizeConfig.init();
-  @override
   Widget build(BuildContext context) {
-
+    index = widget.passIndex;
 
     return Scaffold(
       backgroundColor: Colors.white,
