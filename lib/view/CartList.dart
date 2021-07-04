@@ -86,13 +86,13 @@ class _CreateCategoryState extends State<CartList> {
                                   borderRadius: BorderRadius.only(
                                       topLeft: Radius.circular(15),
                                       bottomLeft: Radius.circular(15)),
-                                  child:  FadeInImage(
-                                    image: NetworkImage(Helper.baseurl+_controller
-                                        .cartList[index].img1),
-                                    placeholder: AssetImage(
-                                        'images/gif-logo.gif'),
-                                    fit: BoxFit.fill,
-                                  ),
+                                  // child:  FadeInImage(
+                                  //   image: NetworkImage(Helper.baseurl+_controller
+                                  //       .catList[index].categoryImage),
+                                  //   placeholder: AssetImage(
+                                  //       'images/gif-logo.gif'),
+                                  //   fit: BoxFit.fill,
+                                  // ),
                                 ),
                               ),
                               Container(

@@ -5,7 +5,7 @@ import 'package:happybuy/view/SplashScreen.dart';
 import 'package:happybuy/view/category_list.dart';
 import 'package:happybuy/view/dashboard.dart';
 import 'package:happybuy/view/login_view.dart';
-import 'package:happybuy/view/product_list.dart';
+import 'view_c/product_list.dart';
 import 'package:happybuy/view/product_upload.dart';
 import 'package:happybuy/view/product_view.dart';
 import 'package:happybuy/view_c/Dashboard_client.dart';
@@ -40,7 +40,7 @@ class _MyAppState extends State<MyApp>{
     // TODO: implement initState
     super.initState();
     getUserDataFromSharedPreference();
-    Future.delayed(Duration(seconds: 5),
+    Future.delayed(Duration(seconds:2),
       (){
         print(type);
         if(type == '1') {

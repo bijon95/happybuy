@@ -5,6 +5,8 @@ import 'package:get/get.dart';
 import 'package:happybuy/Controller/controller.dart';
 import 'package:happybuy/Drawer/AdminDrawer.dart';
 import 'package:happybuy/Drawer/MainDrawer.dart';
+import 'package:happybuy/Helper/helper.dart';
+import 'package:happybuy/view/product_view.dart';
 
 class DashboardClient extends StatefulWidget {
   @override
@@ -82,56 +84,30 @@ class _DashboardClientState extends State<DashboardClient> {
                   if (_controller.isLoadringSlider.value) {
                     return Center(
                       child: CircularProgressIndicator(
-                        valueColor:
-                            new AlwaysStoppedAnimation<Color>(Colors.green[300]),
+                        valueColor: new AlwaysStoppedAnimation<Color>(
+                            Colors.green[300]),
                       ),
                     );
                   } else {
-                    return CarouselSlider(
-                        options: CarouselOptions(
-                          height: 180,
-                          viewportFraction: 1.0,
-                          enlargeCenterPage: false,
-                          autoPlay: true,
-                          autoPlayAnimationDuration: Duration(seconds: 2),
-                        ),
-                        // FadeInImage(
-                        //   image: NetworkImage(
-                        //     "https://i0.wp.com/images-prod.healthline.com/hlcmsresource/images/AN_images/healthy-eating-ingredients-1296x728-header.jpg?w=1155&h=1528",
-                        //   ),
-                        //   placeholder: AssetImage('images/gif-logo.gif'),
-                        //   fit: BoxFit.fill,
-                        // ),
-                        items: [
-                          FadeInImage(
-                            image: NetworkImage(
-                              _controller.sliderlist[0].sliderImage,
-                            ),
-                            placeholder: AssetImage('images/gif-logo.gif'),
-                            fit: BoxFit.fill,
-                          ),
-                          // FadeInImage(
-                          //   image: NetworkImage(
-                          //     _controller.sliderlist[1].sliderImage,
-                          //   ),
-                          //   placeholder: AssetImage('images/gif-logo.gif'),
-                          //   fit: BoxFit.fill,
-                          // ),
-                          // FadeInImage(
-                          //   image: NetworkImage(
-                          //     _controller.sliderlist[3].sliderImage,
-                          //   ),
-                          //   placeholder: AssetImage('images/gif-logo.gif'),
-                          //   fit: BoxFit.fill,
-                          // ),
-                          // FadeInImage(
-                          //   image: NetworkImage(
-                          //     _controller.sliderlist[4].sliderImage,
-                          //   ),
-                          //   placeholder: AssetImage('images/gif-logo.gif'),
-                          //   fit: BoxFit.fill,
-                          // ),
-                        ]);
+                    return CarouselSlider.builder(
+                      options: CarouselOptions(
+                        height: 180,
+                        viewportFraction: 1.0,
+                        enlargeCenterPage: false,
+                        autoPlay: true,
+                        autoPlayAnimationDuration: Duration(seconds: 2),
+                      ),
+                      itemCount: _controller.sliderlist.length,
+                      itemBuilder:
+                          (BuildContext contex, int index, int realIdx) {
+                        return FadeInImage(
+                          image: NetworkImage(Helper.baseurl +
+                              _controller.sliderlist[index].sliderImage),
+                          placeholder: AssetImage('images/gif-logo.gif'),
+                          fit: BoxFit.fill,
+                        );
+                      },
+                    );
                   }
                 }),
               ),
@@ -141,7 +117,7 @@ class _DashboardClientState extends State<DashboardClient> {
                 height: MediaQuery.of(context).size.width / 2 - 40,
                 width: MediaQuery.of(context).size.width,
                 child: Obx(() {
-                  if (_controller.isLoading.value) {
+                  if (_controller.categoryLoading.value) {
                     return Center(
                       child: CircularProgressIndicator(
                         valueColor:
@@ -150,7 +126,7 @@ class _DashboardClientState extends State<DashboardClient> {
                     );
                   } else {
                     return ListView.builder(
-                        itemCount: _controller.cartList.length,
+                        itemCount: _controller.catList.length,
                         scrollDirection: Axis.horizontal,
                         itemBuilder: (BuildContext context, int index) {
                           return Container(
@@ -163,13 +139,23 @@ class _DashboardClientState extends State<DashboardClient> {
                             child: Stack(
                               children: [
                                 //TODO: for image
-                                FadeInImage(
-                                  image: NetworkImage(
-                                      _controller.catList[index].categoryImage),
-                                  placeholder:
-                                      AssetImage('images/gif-logo.gif'),
-                                  fit: BoxFit.cover,
-                                ),
+                                _controller.catList[index].categoryImage == null
+                                    ? ClipRRect(
+                                        borderRadius: BorderRadius.circular(15),
+                                        child: Container(
+                                            child: Image.asset(
+                                          'images/food.jpg',
+                                          fit: BoxFit.fill,
+                                        )),
+                                      )
+                                    : FadeInImage(
+                                        image: NetworkImage(Helper.baseurl +
+                                            _controller
+                                                .catList[index].categoryImage),
+                                        placeholder:
+                                            AssetImage('images/gif-logo.gif'),
+                                        fit: BoxFit.cover,
+                                      ),
                                 Container(
                                   height:
                                       MediaQuery.of(context).size.width / 2 -
@@ -202,7 +188,7 @@ class _DashboardClientState extends State<DashboardClient> {
                                 Container(
                                   margin: EdgeInsets.only(left: 13, top: 80),
                                   child: Text(
-                                    _controller.cartList[index].name,
+                                    _controller.catList[index].name,
                                     style: TextStyle(
                                         fontSize: 20,
                                         fontWeight: FontWeight.bold),
@@ -267,15 +253,17 @@ class _DashboardClientState extends State<DashboardClient> {
                                   width: MediaQuery.of(context).size.width / 2 -
                                       60,
                                   child: ClipRRect(
-                                    borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(15),
-                                        bottomLeft: Radius.circular(15)),
-                                    child: Container(
-                                        child: Image.asset(
-                                      'images/c.jpg',
-                                      fit: BoxFit.fill,
-                                    )),
-                                  ),
+                                      borderRadius: BorderRadius.only(
+                                          topLeft: Radius.circular(15),
+                                          bottomLeft: Radius.circular(15)),
+                                      child: FadeInImage(
+                                        image: NetworkImage(Helper.baseurl +
+                                            _controller
+                                                .productList[index].img1),
+                                        placeholder:
+                                            AssetImage('images/gif-logo.gif'),
+                                        fit: BoxFit.cover,
+                                      )),
                                 ),
                                 Container(
                                   padding: EdgeInsets.only(
@@ -345,99 +333,126 @@ class _DashboardClientState extends State<DashboardClient> {
               Container(
                 height: MediaQuery.of(context).size.height * .6,
                 width: MediaQuery.of(context).size.width,
-                child: ListView.builder(
-                    scrollDirection: Axis.vertical,
-                    itemCount: 20,
-                    itemBuilder: (BuildContext contex, int index) {
-                      return Container(
-                        margin:
-                            EdgeInsets.only(left: 10, right: 10, bottom: 12),
-                        width: MediaQuery.of(context).size.width,
-                        height: 150,
-                        decoration: BoxDecoration(
-                            border:
-                                Border.all(color: Colors.grey[300], width: 1),
-                            borderRadius: BorderRadius.circular(15),
-                            color: colorlist[index % 10]),
-                        child: Row(
-                          children: [
-                            Container(
-                              height:
-                                  MediaQuery.of(context).size.width / 2 - 40,
-                              width: MediaQuery.of(context).size.width / 2 - 20,
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(15),
-                                    bottomLeft: Radius.circular(15)),
-                                child: Container(
-                                    child: Image.asset(
-                                  'images/c.jpg',
-                                  fit: BoxFit.fill,
-                                )),
-                              ),
-                            ),
-                            Container(
-                              padding:
-                                  EdgeInsets.only(left: 8, top: 10, right: 5),
-                              width: MediaQuery.of(context).size.width / 2 - 20,
-                              child: Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                child: Obx(() {
+                  if (_controller.isLoadingProduct.value) {
+                    return Center(
+                      child: CircularProgressIndicator(
+                        valueColor:
+                            new AlwaysStoppedAnimation<Color>(Colors.red),
+                      ),
+                    );
+                  } else {
+                    return ListView.builder(
+                        scrollDirection: Axis.vertical,
+                        itemCount: _controller.productList.length,
+                        itemBuilder: (BuildContext contex, int index) {
+                          return GestureDetector(
+                            child: Container(
+                              margin: EdgeInsets.only(
+                                  left: 10, right: 10, bottom: 12),
+                              width: MediaQuery.of(context).size.width,
+                              height: 150,
+                              decoration: BoxDecoration(
+                                  border: Border.all(
+                                      color: Colors.grey[300], width: 1),
+                                  borderRadius: BorderRadius.circular(15),
+                                  color: colorlist[index % 10]),
+                              child: Row(
                                 children: [
                                   Container(
-                                    child: Text(
-                                      "product name name of product is as ",
-                                      maxLines: 3,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: TextStyle(
-                                        fontSize: 18,
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                  ),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Container(
-                                        width: 90,
-                                        padding: EdgeInsets.only(
-                                            left: 5, top: 8, bottom: 15),
-                                        child: Text(
-                                          "৳ 5000",
-                                          style: TextStyle(
-                                              fontSize: 20,
-                                              fontWeight: FontWeight.w500,
-                                              color: Colors.white),
-                                        ),
-                                      ),
-                                      Container(
-                                        width: 60,
-                                        height: 20,
-                                        decoration: BoxDecoration(
-                                            color: Colors.white,
-                                            borderRadius:
-                                                BorderRadius.circular(15),
-                                            border: Border.all(
-                                                color: Colors.grey[300],
-                                                width: 1)),
-                                        child: Center(
-                                            child: Text(
-                                          "View",
-                                          style: TextStyle(fontSize: 10),
+                                    height:
+                                        MediaQuery.of(context).size.width / 2 -
+                                            40,
+                                    width:
+                                        MediaQuery.of(context).size.width / 2 -
+                                            20,
+                                    child: ClipRRect(
+                                        borderRadius: BorderRadius.only(
+                                            topLeft: Radius.circular(15),
+                                            bottomLeft: Radius.circular(15)),
+                                        child: FadeInImage(
+                                          image: NetworkImage(Helper.baseurl +
+                                              _controller
+                                                  .productList[index].img1),
+                                          placeholder:
+                                              AssetImage('images/gif-logo.gif'),
+                                          fit: BoxFit.cover,
                                         )),
-                                      ),
-                                    ],
+                                  ),
+                                  Container(
+                                    padding: EdgeInsets.only(
+                                        left: 8, top: 10, right: 5),
+                                    width:
+                                        MediaQuery.of(context).size.width / 2 -
+                                            20,
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Container(
+                                          child: Text(
+                                            "product name name of product is as ",
+                                            maxLines: 3,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: TextStyle(
+                                              fontSize: 18,
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                          ),
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Container(
+                                              width: 80,
+                                              padding: EdgeInsets.only(
+                                                  left: 5, top: 8, bottom: 15),
+                                              child: Text(
+                                                "৳ 5000",
+                                                style: TextStyle(
+                                                    fontSize: 20,
+                                                    fontWeight: FontWeight.w500,
+                                                    color: Colors.white),
+                                              ),
+                                            ),
+                                            Container(
+                                              width: 60,
+                                              height: 20,
+                                              decoration: BoxDecoration(
+                                                  color: Colors.white,
+                                                  borderRadius:
+                                                      BorderRadius.circular(15),
+                                                  border: Border.all(
+                                                      color: Colors.grey[300],
+                                                      width: 1)),
+                                              child: Center(
+                                                  child: Text(
+                                                "View",
+                                                style: TextStyle(fontSize: 10),
+                                              )),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ],
                               ),
                             ),
-                          ],
-                        ),
-                      );
-                    }),
-              ),
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ProductView(
+                                          _controller.productList[index])));
+                            },
+                          );
+                        });
+                  }
+                }),
+              )
               // all list
             ],
           ),
