@@ -49,7 +49,7 @@ class AdminDrawer extends StatelessWidget {
                   ),
                   onTap:(){
                     Navigator.push(
-                        context, MaterialPageRoute(builder: (context) => CheckoutPageView(1)));
+                        context, MaterialPageRoute(builder: (context) => CheckoutPageView()));
                   }
               ),
               ListTile(

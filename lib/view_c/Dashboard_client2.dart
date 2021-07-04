@@ -54,7 +54,7 @@ class _DashboardClient2State extends State<DashboardClient2> {
             icon: Icon(Icons.shopping_cart_outlined,color: Colors.white,),
             tooltip: 'Cart',
             onPressed: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context) => CheckoutPageView(1)),);
+              Navigator.push(context, MaterialPageRoute(builder: (context) => CheckoutPageView()),);
             },
           ),
         ],

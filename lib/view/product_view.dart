@@ -6,6 +6,7 @@ import 'package:happybuy/Helper/helper.dart';
 import 'package:happybuy/Model/ProductListModel.dart';
 import 'package:get/get.dart';
 import 'package:happybuy/view/CartList.dart';
+import 'package:happybuy/view_c/checkoutPage.dart';
 
 class ProductView extends StatefulWidget {
   ModelProductList product;
@@ -89,9 +90,12 @@ print(widget.product.img5);
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Icon(
-                                Icons.arrow_back_ios,
+                              IconButton(
+                               icon:Icon(Icons.arrow_back_ios,),
                                 color: Colors.black,
+                                onPressed: (){
+                                 Navigator.pop(context);
+                                },
                               ),
                               Icon(
                                 Icons.share,
@@ -173,19 +177,22 @@ print(widget.product.img5);
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Container(
-                    padding: EdgeInsets.only(top: 12, bottom: 12),
+                    padding: EdgeInsets.only(top: 0, bottom: 0),
                     width: 80,
                     child: Center(
                       child: Column(
                         children: [
-                          Icon(
-                            Icons.storefront_outlined,
-                            size: 20,
+                          IconButton(
+                          icon:Icon( Icons.shopping_cart_outlined,size: 24,),
+                            onPressed: (){
+                              Navigator.push(
+                                  context, MaterialPageRoute(builder: (context) =>CheckoutPageView()));
+                            },
                           ),
-                          Text(
-                            "Store",
-                            style: TextStyle(fontSize: 12),
-                          ),
+                          // Text(
+                          //   "Cart",
+                          //   style: TextStyle(fontSize: 12),
+                          // ),
                         ],
                       ),
                     ),
