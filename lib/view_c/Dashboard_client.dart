@@ -128,12 +128,12 @@ class _DashboardClientState extends State<DashboardClient> {
                             child: Stack(
                               children: [
                                 //TODO: for image
-                                // FadeInImage(
-                                //   image: NetworkImage(_controller.catList[index].categoryImage),
-                                //   placeholder: AssetImage(
-                                //       'images/gif-logo.gif'),
-                                //   fit: BoxFit.cover,
-                                // ),
+                                FadeInImage(
+                                  image: NetworkImage(_controller.catList[index].categoryImage),
+                                  placeholder: AssetImage(
+                                      'images/gif-logo.gif'),
+                                  fit: BoxFit.cover,
+                                ),
                                 Container(
                                   height:
                                       MediaQuery.of(context).size.width / 2 -

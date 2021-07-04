@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:happybuy/Helper/user_info.dart';
 import 'package:happybuy/view/SplashScreen.dart';
 import 'package:happybuy/view/category_list.dart';
+import 'package:happybuy/view/dashboard.dart';
 import 'package:happybuy/view/login_view.dart';
 import 'package:happybuy/view/product_list.dart';
 import 'package:happybuy/view/product_upload.dart';
@@ -45,7 +46,7 @@ class _MyAppState extends State<MyApp>{
         if(type == '1') {
           Navigator.push(context, MaterialPageRoute(builder: (context) => LoginPage()));
        } else if(type != null || type != ''){
-          Navigator.push(context, MaterialPageRoute(builder: (context) => DashboardClient2()));
+          Navigator.push(context, MaterialPageRoute(builder: (context) => AdminDashboard()));
         } else{
          Navigator.push(context, MaterialPageRoute(builder: (context) => LoginPage()));
 

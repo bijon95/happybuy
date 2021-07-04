@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:happybuy/Helper/helper.dart';
 import 'package:happybuy/Helper/user_info.dart';
+import 'package:happybuy/view/dashboard.dart';
 import 'package:happybuy/view/registration_view.dart';
 import 'package:happybuy/view_c/Dashboard_client.dart';
 import 'package:happybuy/view_c/Dashboard_client2.dart';
@@ -19,12 +20,13 @@ class _LoginPageState extends State<LoginPage> {
   // FirebaseMessaging firebaseMessaging = FirebaseMessaging();
 
   bool _isLoading = false;
-  String mag = "";
+  String msg = "";
 
   // Login view
   Future loginRequest() async {
+    setState(() {});
     _isLoading = true;
-    Uri url = Uri.parse(Helper.baseurl+"user_login");
+    Uri url = Uri.parse(Helper.baseurl + "user_login");
     Map data = {
       "phone": user.text,
       "password": pass.text,
@@ -41,15 +43,30 @@ class _LoginPageState extends State<LoginPage> {
     if (response.statusCode == 200) {
       _isLoading = false;
       var jsonString = jsonDecode(response.body);
-      mag =jsonString["msg"];
-      String type = jsonString["data"]["type"];
-      String name = jsonString["data"]["name"];
-      print(jsonString);
-      print(type);
-      print(name);
-      UserInfo user = new UserInfo();
-      user.saveLoginDataToSharedPreference(type, name);
-      Navigator.push(context, MaterialPageRoute(builder: (context) => DashboardClient2()));
+      msg = jsonString["msg"];
+      print(response.body);
+      print(jsonString["status"]);
+      if (jsonString["status"] == 'success') {
+        String type = jsonString["data"]["type"];
+        String id = jsonString["data"]["id"].toString();
+        print(jsonString);
+
+        print(id);
+        UserInfo user = new UserInfo();
+        user.saveLoginDataToSharedPreference(type, id);
+        if(type=='user'){
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => DashboardClient()));
+        }
+        else if(type=='admin'){
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => AdminDashboard()));
+        }
+
+      }
+
+      setState(() {});
+
       return null;
     } else {
 //show error message
@@ -137,6 +154,21 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       ),
                     ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Container(
+                      width: MediaQuery.of(context).size.width,
+                      child: Center(
+                        child: _isLoading
+                            ? CircularProgressIndicator()
+                            : Text(
+                                msg,
+                                style: TextStyle(
+                                    fontSize: 20.0, color: Colors.green),
+                              ),
+                      ),
+                    ),
                     Container(
                       //color: Colors.blueAccent,
                       width: double.infinity,
@@ -160,38 +192,30 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       ),
                     ),
-                    Container(
-                      //color: Colors.blueAccent,
-                      width: double.infinity,
+                    // Container(
+                    //   //color: Colors.blueAccent,
+                    //   width: double.infinity,
+                    //
+                    //   padding: EdgeInsets.fromLTRB(30, 10, 30, 10),
+                    //   height: 80,
+                    //   child: RaisedButton(
+                    //     //padding: EdgeInsets.fromLTRB(30, 10, 30, 10),
+                    //     color: Color.fromRGBO(12, 53, 238, 10),
+                    //     onPressed: () {
+                    //       // Navigator.push(context, MaterialPageRoute(builder: (context) => DashboardClient()));
+                    //     }, //
+                    //     child: new Text(
+                    //       "Login for Admin",
+                    //       style: TextStyle(
+                    //         fontFamily: 'Eina_regular',
+                    //         fontSize: 14.0,
+                    //         fontWeight: FontWeight.w600,
+                    //         color: Colors.white,
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
 
-                      padding: EdgeInsets.fromLTRB(30, 10, 30, 10),
-                      height: 80,
-                      child: RaisedButton(
-                        //padding: EdgeInsets.fromLTRB(30, 10, 30, 10),
-                        color: Color.fromRGBO(12, 53, 238, 10),
-                        onPressed: () {
-                          // Navigator.push(context, MaterialPageRoute(builder: (context) => DashboardClient()));
-                        }, //
-                        child: new Text(
-                          "Login for Admin",
-                          style: TextStyle(
-                            fontFamily: 'Eina_regular',
-                            fontSize: 14.0,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      width: MediaQuery.of(context).size.width,
-                      child: Center(
-                        child: Text(
-                        mag,
-                        style: TextStyle(fontSize: 20.0, color: Colors.green),
-  ),
-                      ),
-                    ),
                     SizedBox(
                       height: 30,
                     ),
@@ -238,9 +262,6 @@ class _LoginPageState extends State<LoginPage> {
           centerTitle: true,
           title: Title(color: Colors.blue, child: Text("Happy Buy")),
         ),
-        body: Center(
-            child: _isLoading
-                ? CircularProgressIndicator()
-                : getPageView(context)));
+        body: getPageView(context));
   }
 }

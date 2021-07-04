@@ -1,135 +1,222 @@
-import 'dart:convert';
-import 'package:flutter/gestures.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:happybuy/Drawer/MainDrawer.dart';
-import 'package:http/http.dart' as http;
-import 'package:shared_preferences/shared_preferences.dart';
-
-class Dashboard extends StatefulWidget {
+import 'package:happybuy/Controller/controller.dart';
+class AdminDashboard extends StatefulWidget {
   @override
-  _DashboardState createState() => _DashboardState();
+  _AdminDashboardState createState() => _AdminDashboardState();
 }
 
-class _DashboardState extends State<Dashboard> {
+class _AdminDashboardState extends State<AdminDashboard> {
 
-  bool _isLoading = true;
-
-  var order_receive ;
-  var order_processing;
-  var order_delivered;
-
-  var total_products;
-  var total_available_products;
-
-  var thisYearIncomes;
-  var  thisMonthIncomes;
-  String dataSharePre = '';
-  String nameKey = "_key_name";
-  bool isSwitched = true;
-
-  Future<String> loadData() async {
-    SharedPreferences preferences = await SharedPreferences.getInstance();
-    return preferences.getString(nameKey);
+  Widget countText(data){
+    return Text(data,style: TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.bold),);
   }
 
-
-  @override
-  void initState() {
-    // TODO: implement initState
+  Widget descText(data){
+    return Text(data,style: TextStyle(color: Colors.white,fontSize: 16,fontWeight: FontWeight.bold),);
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("DashBoard"),actions: [
-        Container()
-      ],),
-      drawer: MainDrawer(),
-      body: _isLoading ? Container(height: MediaQuery.of(context).size.height,
-        width: MediaQuery.of(context).size.width,child: Center(child: CircularProgressIndicator()),) : SingleChildScrollView(
-        child: Container(
-          height: MediaQuery.of(context).size.height,
-          color: Colors.blue[200],
-          child: Column(children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                GestureDetector(
-                    onTap: (){
-                      // Navigator.push(
-                      //     context, MaterialPageRoute(builder: (context) =>OrderDashboard()));
-                    },
-                    child: containerView("Order Receive",order_receive)),
-                GestureDetector(
-                    onTap: (){
-                      // Navigator.push(
-                      //     context, MaterialPageRoute(builder: (context) =>OrderDashboard()));
-                    },
-                    child: containerView("Order Processing",order_processing)),
-              ],),
-
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-
-                GestureDetector(
-                    onTap: (){
-
-                      // Navigator.push(
-                      //     context, MaterialPageRoute(builder: (context) =>OrderDashboard()));
-                    },child: containerView("Order Delivered",order_delivered)),
-                //   containerView("Order Processing",order_processing),
-              ],),
-
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                GestureDetector(
-                    onTap: (){
-                      // Navigator.push(
-                      //     context, MaterialPageRoute(builder: (context) =>ProductList()));
-                    },
-                    child: containerView("Total Product",total_products)),
-                GestureDetector(
-                    onTap: (){
-                      // Navigator.push(
-                      //     context, MaterialPageRoute(builder: (context) =>ProductList()));
-                    },
-                    child: containerView("Available Product",total_available_products)),
-              ],),
-
-
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                containerView("This Month Income","৳"+thisMonthIncomes),
-                containerView("This Year Income","৳"+thisYearIncomes),
-              ],),
-          ],),
-        ),
-      ),
-    );
-  }
-  Widget containerView(String txt, String count) {
-    return Container(
-      margin: EdgeInsets.all(5),
-      height: 130,
-      width: MediaQuery.of(context).size.width / 2 - 30,
-      decoration: BoxDecoration(
-          color: Color(0xffffffff), borderRadius: BorderRadius.circular(10)),
-      child: Center(
+      appBar: AppBar(title: Text("Admin Dashboard"),backgroundColor: Colors.green[400],leading: Icon(Icons.menu),),
+      body: SingleChildScrollView(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Container(
-                margin: EdgeInsets.only(top: 30),
-                child: Center(child: Text(txt))),
-            Container(
-                child: Center(
-                    child: Text(
-                      count,
-                      style: TextStyle(fontSize: 36, fontWeight: FontWeight.bold),
-                    ))),
+          children: [
+            Row(
+              children: [
+                Expanded(
+                  child: Container(
+                    height: 100,
+                      margin: EdgeInsets.only(left: 10,right: 5,top: 10),
+                      padding: EdgeInsets.only(top: 30),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                        color: Colors.red[300],
+                      ),
+                      child: Column(children: [
+                    countText("1"),
+                    descText('New Order')
+                  ],)),
+                ),
+                Expanded(
+                  child: Container(
+                      height: 100,
+                    margin: EdgeInsets.only(left: 5,right: 5,top: 10),
+                      padding: EdgeInsets.only(top: 30,left: 10,right: 10),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                        color: Colors.amber[300],
+                      ),
+                      child: Column(children: [
+                        countText("1"),
+                        descText('Processing')
+                      ],)),
+                ),
+
+                Expanded(
+                  child: Container(
+                      height: 100,
+                      margin: EdgeInsets.only(left: 5,right: 10,top: 10),
+                      padding: EdgeInsets.only(top: 30,left: 10,right: 10),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                        color: Colors.blue[300],
+                      ),
+                      child: Column(children: [
+                        countText("1"),
+                        descText('Delivered')
+                      ],)),
+                ),
+              ],
+            ),
+            Row(
+              children: [
+                Expanded(
+                  child: Container(
+                      height: 100,
+                      margin: EdgeInsets.only(left: 5,right: 10,top: 10),
+                      padding: EdgeInsets.only(top: 30,left: 10,right: 10),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                        color: Colors.green[300],
+                      ),
+                      child: Column(children: [
+                        countText("1"),
+                        descText('Total Product')
+                      ],)),
+                ),
+
+                Expanded(
+                  child: Container(
+                      height: 100,
+                      margin: EdgeInsets.only(left: 5,right: 10,top: 10),
+                      padding: EdgeInsets.only(top: 30,left: 10,right: 10),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                        color: Colors.green[300],
+                      ),
+                      child: Column(children: [
+                        countText("1"),
+                        descText('Total Category')
+                      ],)),
+                ),
+              ],
+            ),
+            Row(
+              children: [
+                Expanded(
+                  child: Container(
+                      height: 100,
+                      margin: EdgeInsets.only(left: 5,right: 10,top: 10),
+                      padding: EdgeInsets.only(top: 20,left: 10,right: 10),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                        color: Colors.green[300],
+                      ),
+                      child: Column(children: [
+                        countText("1"),
+                        descText('New Customar'),
+                        descText('This Month')
+                      ],)),
+                ),
+                Expanded(
+                  child: Container(
+                      height: 100,
+                      margin: EdgeInsets.only(left: 5,right: 10,top: 10),
+                      padding: EdgeInsets.only(top: 20,left: 10,right: 10),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                        color: Colors.green[300],
+                      ),
+                      child: Column(children: [
+                        countText("1"),
+                        descText('Total Order'),
+                        descText('This Month')
+                      ],)),
+                ),
+              ],
+            ),
+            Row(
+              children: [
+                Expanded(
+                  child: Container(
+                      height: 100,
+                      margin: EdgeInsets.only(left: 5,right: 10,top: 10),
+                      padding: EdgeInsets.only(top: 20,left: 10,right: 10),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                        color: Colors.purple[300],
+                      ),
+                      child: Column(children: [
+                        countText("10.0"),
+                        descText('Total sell'),
+                        descText('Today')
+                      ],)),
+                ),
+                Expanded(
+                  child: Container(
+                      height: 100,
+                      margin: EdgeInsets.only(left: 5,right: 10,top: 10),
+                      padding: EdgeInsets.only(top: 20,left: 10,right: 10),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                        color: Colors.purple[300],
+                      ),
+                      child: Column(children: [
+                        countText("1000"),
+                        descText('Total Sell'),
+                        descText('This week')
+                      ],)),
+                ),
+                Expanded(
+                  child: Container(
+                      height: 100,
+                      margin: EdgeInsets.only(left: 5,right: 10,top: 10),
+                      padding: EdgeInsets.only(top: 20,left: 10,right: 10),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                        color: Colors.purple[300],
+                      ),
+                      child: Column(children: [
+                        countText("1000"),
+                        descText('Total Sell'),
+                        descText('This Month')
+                      ],)),
+                ),
+              ],
+            ),
+            Row(
+              children: [
+                Expanded(
+                  child: Container(
+                      height: 100,
+                      margin: EdgeInsets.only(left: 5,right: 10,top: 10),
+                      padding: EdgeInsets.only(top: 30,left: 10,right: 10),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                        color: Colors.green[300],
+                      ),
+                      child: Column(children: [
+                        countText("1"),
+                        descText('Total Customar')
+                      ],)),
+                ),
+                Expanded(
+                  child: Container(
+                      height: 100,
+                      margin: EdgeInsets.only(left: 5,right: 10,top: 10),
+                      padding: EdgeInsets.only(top: 30,left: 10,right: 10),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                        color: Colors.green[300],
+                      ),
+                      child: Column(children: [
+                        countText("1"),
+                        descText('Total Order')
+                      ],)),
+                ),
+              ],
+            ),
           ],
         ),
       ),

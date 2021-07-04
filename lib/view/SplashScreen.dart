@@ -28,7 +28,7 @@ class _SplashScreenState extends State<SplashScreen> {
       loadData();
       Navigator.of(context).pop();
       Navigator.push(context,
-          MaterialPageRoute(builder: (context) => Dashboard()));
+          MaterialPageRoute(builder: (context) => AdminDashboard()));
     }
     else{
       Navigator.of(context).pop();
