@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:happybuy/view/SliderEdit.dart';
 import 'package:happybuy/view/category_list.dart';
 import 'package:happybuy/view/dashboard.dart';
 import 'package:happybuy/view/login_view.dart';
@@ -94,6 +95,17 @@ class MainDrawer extends StatelessWidget {
                   onTap: (){
                     Navigator.push(
                         context, MaterialPageRoute(builder: (context) => Terms_Conditions_PageView()));
+                  }
+              ),
+              ListTile(
+                  title: Text('Slider'),
+                  leading: Icon(
+                    Icons.image,
+                    size: 24.0,
+                  ),
+                  onTap: (){
+                    Navigator.push(
+                        context, MaterialPageRoute(builder: (context) => SliderEdit()));
                   }
               ),
 

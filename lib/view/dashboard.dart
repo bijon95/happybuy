@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:happybuy/Controller/controller.dart';
+import 'package:happybuy/Drawer/MainDrawer.dart';
 class AdminDashboard extends StatefulWidget {
   @override
   _AdminDashboardState createState() => _AdminDashboardState();
@@ -18,7 +19,9 @@ class _AdminDashboardState extends State<AdminDashboard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Admin Dashboard"),backgroundColor: Colors.green[400],leading: Icon(Icons.menu),),
+      drawer: MainDrawer(),
+      appBar: AppBar(title: Text("Admin Dashboard"),backgroundColor: Colors.green[400],
+      ),
       body: SingleChildScrollView(
         child: Column(
           children: [

@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:happybuy/Model/CartList.dart';
 import 'package:happybuy/Model/ProductListModel.dart';
+import 'package:happybuy/Model/SliderModel.dart';
 import 'package:happybuy/Service/remote_service.dart';
 
 
@@ -11,6 +12,7 @@ class Controller extends GetxController{
   var catList = List<ModelCatList>.empty().obs;
   var productList = List<ModelProductList>.empty().obs;
   var cartList = List<ModelProductList>.empty().obs;
+  var sliderlist = List<SliderModel>.empty().obs;
   @override
   void onInit() {
     fetchCatList();
@@ -72,6 +74,19 @@ class Controller extends GetxController{
       var data = await RemoteServices.getProductList();
       if (data != null) {
         productList.value = data;
+      }
+    } finally {
+      isLoadingProduct(false);
+    }
+  }
+
+  // call api for category
+  void fetchSliderList() async {
+    try {
+      isLoadingProduct(true);
+      var data = await RemoteServices.getSliderList();
+      if (data != null) {
+        sliderlist.value = data;
       }
     } finally {
       isLoadingProduct(false);
