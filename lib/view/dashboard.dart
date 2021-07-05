@@ -142,7 +142,7 @@ class _AdminDashboardState extends State<AdminDashboard> {
                           color: Colors.green[300],
                         ),
                         child: Column(children: [
-                          Obx(() => _controller.isLoading.value ?countText( "0"):countText(_controller.catList.length.toString() ) ),
+                          Obx(() => _controller.categoryLoading.value ?countText( "0"):countText(_controller.catList.length.toString() ) ),
                           descText('Total Category')
                         ],)),
                     onTap: (){

@@ -1,9 +1,13 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:happybuy/Controller/controller.dart';
+import 'package:happybuy/Helper/helper.dart';
 import 'package:happybuy/Setting/Repositiory.dart' as ripo;
-
+import 'package:happybuy/view/CategoryEditDelete.dart';
+import 'package:http/http.dart' as http;
 class CategoryList extends StatefulWidget {
   @override
   _CreateCategoryState createState() => _CreateCategoryState();
@@ -11,7 +15,42 @@ class CategoryList extends StatefulWidget {
 
 class _CreateCategoryState extends State<CategoryList> {
   final Controller _controller = Get.put(Controller());
+ bool isProcess = false;
+  Future deleteProduct(id) async {
+    setState(() {
+      isProcess = true;
+    });
+    print("fun active");
+    var postUri = Uri.parse(Helper.baseurl+"deletecategory");
+    var request = new http.MultipartRequest("POST", postUri);
+    request.fields['id'] =id.toString();
 
+    request
+        .send()
+        .then((result) async {
+      http.Response.fromStream(result).then((response) {
+        print(response.body);
+        if (response.statusCode == 200) {
+          _controller.fetchCatList();
+          print("Deleted! ");
+          print('response.body ' + response.body);
+          var data = jsonDecode(response.body);
+          setState(() {
+            isProcess = false;
+          });
+
+        } else {}
+
+        return response.body;
+      });
+    })
+        .catchError((err) => print('error : ' + err.toString()))
+        .whenComplete(() {
+    });
+    setState(() {
+
+    });
+  }
   bool isSelect = false;
   int index_select = 0;
   @override
@@ -35,69 +74,130 @@ class _CreateCategoryState extends State<CategoryList> {
       body: Container(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
-        child: Obx(() {
-          if (_controller.isLoading.value) {
+        child: isProcess ? Center(child: CircularProgressIndicator()): Obx(() {
+          if (_controller.categoryLoading.value) {
             return Center(
               child: CircularProgressIndicator(
                 valueColor: new AlwaysStoppedAnimation<Color>(Colors.blue),
               ),
             );
           } else {
-            return ListView.builder(
-                itemCount: _controller.cartList.length,
-                itemBuilder: (BuildContext contex, int index) {
-                  return GestureDetector(
-                    child: Container(
-                      margin:
-                          EdgeInsets.only(left: 8, right: 8, top: 4, bottom: 8),
-                      padding:
-                          EdgeInsets.only(left: 8, right: 8, top: 4, bottom: 8),
-                      width: MediaQuery.of(context).size.width,
-                      decoration: BoxDecoration(
-                        color: ripo.listItemBg,
-                        borderRadius: BorderRadius.circular(10),
-                        border: index_select == index && isSelect
-                            ? Border.all(width: 3, color: Colors.red)
-                            : null,
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            _controller.cartList[index].name,
-                            style:
-                                TextStyle(fontSize: 24, color: ripo.iconColor),
-                          ),
-                          index_select == index && isSelect
-                              ? GestureDetector(
-                                child: Icon(
-                                    Icons.delete,
-                                    color: ripo.iconColor,
-                                  ),
-                            onTap: (){
-                              deleteAlertDialog(context, _controller.cartList[index].name,);
-                            },
-                              )
-                              : Icon(
-                                  Icons.arrow_forward_ios,
-                                  color: ripo.iconColor,
-                                ),
-                        ],
-                      ),
+            return Container(
+              margin: EdgeInsets.only(top: 10),
+              height: MediaQuery.of(context).size.height,
+              width: MediaQuery.of(context).size.width,
+              child: Obx(() {
+                if (_controller.categoryLoading.value) {
+                  return Center(
+                    child: CircularProgressIndicator(
+                      valueColor:
+                      new AlwaysStoppedAnimation<Color>(Colors.red),
                     ),
-                    onTap: (){
-                      setState(() {
-                        isSelect = false;
-                      });
-                    },
-                    onLongPress: () {
-                      setState(() {
-                        index_select = index;
-                        isSelect = true;
-                      });
-                    },
                   );
-                });
+                } else {
+                  return ListView.builder(
+                      itemCount: _controller.catList.length,
+                      scrollDirection: Axis.vertical,
+                      itemBuilder: (BuildContext context, int index) {
+                        return Visibility(
+                       //   visible: _controller.catList[index].isActive==1,
+                          child: Stack(
+                            children: [
+                              Container(
+                                margin: EdgeInsets.all(10),
+                                height: 150,
+                                width: MediaQuery.of(context).size.width ,
+                                decoration: BoxDecoration(
+                                  color: Colors.red[200],
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
+                                child: Stack(
+                                  children: [
+                                    //TODO: for image
+                                    _controller.catList[index].categoryImage == null
+                                        ? ClipRRect(
+                                      borderRadius: BorderRadius.circular(15),
+                                      child: Container(
+                                          child: Image.asset(
+                                            'images/food.jpg',
+                                            fit: BoxFit.fill,
+                                          )),
+                                    )
+                                        : FadeInImage(
+                                      image: NetworkImage(Helper.baseurl +
+                                         _controller.catList[index].categoryImage),
+                                      placeholder:
+                                      AssetImage('images/gif-logo.gif'),
+                                      fit: BoxFit.cover,
+                                    ),
+                                    // Container(
+                                    //   height:
+                                    //   MediaQuery.of(context).size.width / 2 -
+                                    //       40,
+                                    //   child: ClipRRect(
+                                    //     borderRadius: BorderRadius.circular(15),
+                                    //     child: Container(
+                                    //         child: Image.asset(
+                                    //           'images/food.jpg',
+                                    //           fit: BoxFit.fill,
+                                    //         )),
+                                    //   ),
+                                    // ),
+                                    GestureDetector(
+                                      child: Container(
+                                        margin: EdgeInsets.only(left: 10, top: 110,bottom: 10),
+                                        height: 30,
+                                        width: 80,
+                                        decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            borderRadius: BorderRadius.circular(15),
+                                            border: Border.all(
+                                                color: Colors.grey[300], width: 1)),
+                                        child: Center(
+                                            child: Text(
+                                              "Edit Now",
+                                              style: TextStyle(fontSize: 10),
+                                            )),
+                                      ),
+                                      onTap: (){
+                                        Navigator.push(
+                                            context, MaterialPageRoute(builder: (context) => CategoryEdit(_controller.catList[index])));
+                                      },
+                                    ),
+
+                                    Container(
+                                      margin: EdgeInsets.only(left: 13, top: 80),
+                                      child: Text(
+                                        _controller.catList[index].name,
+                                        style: TextStyle(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              GestureDetector(
+                                child: Container(
+                                  padding: EdgeInsets.all(15),
+                                  height: 150,
+                                  width: MediaQuery.of(context).size.width ,
+                                  child: Align(
+                                    alignment: Alignment.topRight,
+                                    child: Icon(Icons.delete,size: 24,color: Colors.white,),
+                                  ),
+                                ),
+                                onTap: (){
+                                  deleteProduct(_controller.catList[index].id);
+                                },
+                              )
+                            ],
+                          ),
+                        );
+                      });
+                }
+              }),
+            );
           }
         }),
       ),
