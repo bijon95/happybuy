@@ -74,7 +74,7 @@ class _CreateCategoryState extends State<ProductListAdmin> {
       isProcess = true;
     });
     print("fun active");
-    var postUri = Uri.parse(Helper.baseurl+"deleteproductdata/");
+    var postUri = Uri.parse(Helper.baseurl+"deleteproduct");
     var request = new http.MultipartRequest("POST", postUri);
     request.fields['id'] =id.toString();
 

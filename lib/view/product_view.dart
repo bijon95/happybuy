@@ -19,13 +19,8 @@ class _CreateCategoryState extends State<ProductView> {
   final Controller _controller = Get.put(Controller());
 
   nothing(){}
-  List<String> imgList = List.empty();
+  List<String> imgList = List();
   addImageInList(){
-print(widget.product.img1);
-print(widget.product.img2);
-print(widget.product.img3);
-print(widget.product.img4);
-print(widget.product.img5);
 
 
   widget.product.img1 != null ? imgList.add(widget.product.img1) :  nothing();
@@ -38,7 +33,7 @@ print(widget.product.img5);
   void initState() {
     // TODO: implement initState
     super.initState();
-   // addImageInList();
+   addImageInList();
   }
 
   @override
@@ -61,13 +56,13 @@ print(widget.product.img5);
                           height: 300,
                           width: MediaQuery.of(context).size.width,
                           child: CarouselSlider.builder(
-                            itemCount: 1,
+                            itemCount: imgList.length,
                             itemBuilder: (BuildContext contex, int index, int realIdx){
                               return Container(
                                 height: 300,
                                 width: MediaQuery.of(context).size.width,
                                 child: FadeInImage(
-                                  image: NetworkImage(Helper.baseurl+widget.product.img1
+                                  image: NetworkImage(Helper.baseurl+imgList[index]
                                   ),
                                   placeholder: AssetImage('images/gif-logo.gif'),
                                   fit: BoxFit.cover,

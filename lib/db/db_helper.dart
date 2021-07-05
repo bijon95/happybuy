@@ -71,15 +71,15 @@ class DatabaseHelper {
     return await db.insert(table, row) ;
   }
 //TODO
-  // newClient(Model model) async {
-  //   final db = await database;
-  //   //var proidcheck = await db.rawQuery(" SELECT $proid FROM $table WHERE  ");
-  //   var res = await db.rawInsert(
-  //       "INSERT Into $table ($columnId,$proid,$proName,$proQuantity,$proPrice,$discount,$tPrice,$pImg)"
-  //           " VALUES (${null},${model.pid},${model.pName},${model.pQuantity},"
-  //           "${model.discount},${model.tPrice},${model.pType}) ON DUPLICATE KEY UPDATE $resid = VALUES(${model.resid})" );
-  //   return res;
-  // }
+  newClient(Model model) async {
+    final db = await database;
+    //var proidcheck = await db.rawQuery(" SELECT $proid FROM $table WHERE  ");
+    var res = await db.rawInsert(
+        "INSERT Into $table ($columnId,$proid,$proName,$proQuantity,$proPrice,$discount,$tPrice,$pImg)"
+            " VALUES (${null},${model.pid},${model.pName},${model.pQuantity},"
+            "${model.pPrice},${model.discount},${model.tPrice},${model.pImg})" );
+    return res;
+  }
 
   // All of the rows are returned as a list of maps, where each map is
   // a key-value list of columns.

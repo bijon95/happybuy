@@ -129,72 +129,75 @@ class _DashboardClientState extends State<DashboardClient> {
                         itemCount: _controller.catList.length,
                         scrollDirection: Axis.horizontal,
                         itemBuilder: (BuildContext context, int index) {
-                          return Container(
-                            margin: EdgeInsets.only(left: 13, right: 5),
-                            width: MediaQuery.of(context).size.width / 2 - 20,
-                            decoration: BoxDecoration(
-                              color: Colors.red[200],
-                              borderRadius: BorderRadius.circular(15),
-                            ),
-                            child: Stack(
-                              children: [
-                                //TODO: for image
-                                _controller.catList[index].categoryImage == null
-                                    ? ClipRRect(
+                          return Visibility(
+                            visible: _controller.catList[index].isActive==1,
+                            child: Container(
+                              margin: EdgeInsets.only(left: 13, right: 5),
+                              width: MediaQuery.of(context).size.width / 2 - 20,
+                              decoration: BoxDecoration(
+                                color: Colors.red[200],
+                                borderRadius: BorderRadius.circular(15),
+                              ),
+                              child: Stack(
+                                children: [
+                                  //TODO: for image
+                                  _controller.catList[index].categoryImage == null
+                                      ? ClipRRect(
+                                          borderRadius: BorderRadius.circular(15),
+                                          child: Container(
+                                              child: Image.asset(
+                                            'images/food.jpg',
+                                            fit: BoxFit.fill,
+                                          )),
+                                        )
+                                      : FadeInImage(
+                                          image: NetworkImage(Helper.baseurl +
+                                              _controller
+                                                  .catList[index].categoryImage),
+                                          placeholder:
+                                              AssetImage('images/gif-logo.gif'),
+                                          fit: BoxFit.cover,
+                                        ),
+                                  Container(
+                                    height:
+                                        MediaQuery.of(context).size.width / 2 -
+                                            40,
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(15),
+                                      child: Container(
+                                          child: Image.asset(
+                                        'images/food.jpg',
+                                        fit: BoxFit.fill,
+                                      )),
+                                    ),
+                                  ),
+                                  Container(
+                                    margin: EdgeInsets.only(left: 10, top: 120),
+                                    height: 30,
+                                    width: 80,
+                                    decoration: BoxDecoration(
+                                        color: Colors.white,
                                         borderRadius: BorderRadius.circular(15),
-                                        child: Container(
-                                            child: Image.asset(
-                                          'images/food.jpg',
-                                          fit: BoxFit.fill,
-                                        )),
-                                      )
-                                    : FadeInImage(
-                                        image: NetworkImage(Helper.baseurl +
-                                            _controller
-                                                .catList[index].categoryImage),
-                                        placeholder:
-                                            AssetImage('images/gif-logo.gif'),
-                                        fit: BoxFit.cover,
-                                      ),
-                                Container(
-                                  height:
-                                      MediaQuery.of(context).size.width / 2 -
-                                          40,
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(15),
-                                    child: Container(
-                                        child: Image.asset(
-                                      'images/food.jpg',
-                                      fit: BoxFit.fill,
+                                        border: Border.all(
+                                            color: Colors.grey[300], width: 1)),
+                                    child: Center(
+                                        child: Text(
+                                      "Order Now",
+                                      style: TextStyle(fontSize: 10),
                                     )),
                                   ),
-                                ),
-                                Container(
-                                  margin: EdgeInsets.only(left: 10, top: 120),
-                                  height: 30,
-                                  width: 80,
-                                  decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(15),
-                                      border: Border.all(
-                                          color: Colors.grey[300], width: 1)),
-                                  child: Center(
-                                      child: Text(
-                                    "Order Now",
-                                    style: TextStyle(fontSize: 10),
-                                  )),
-                                ),
 
-                                Container(
-                                  margin: EdgeInsets.only(left: 13, top: 80),
-                                  child: Text(
-                                    _controller.catList[index].name,
-                                    style: TextStyle(
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold),
+                                  Container(
+                                    margin: EdgeInsets.only(left: 13, top: 80),
+                                    child: Text(
+                                      _controller.catList[index].name,
+                                      style: TextStyle(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold),
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           );
                         });

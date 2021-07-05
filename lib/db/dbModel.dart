@@ -33,6 +33,7 @@ class Model {
     map['pro_name'] = pName;
     map['quantity']=pQuantity;
     map['price']=pPrice;
+    map['discount'] = discount;
     map['tPrice']=tPrice;
     map['product_img']=pImg;
 
@@ -49,6 +50,7 @@ class Model {
 
     this.pName=obj['pro_name'];
     this.pQuantity=obj['p_quantity'];
+    this.discount=obj['discount'];
     this.pPrice=obj['price'];
     this.tPrice=obj['tPrice'];
     this.pImg=obj['product_img'];
@@ -61,6 +63,7 @@ class Model {
     this.pPrice=map['price'];
     this.pName=map['pro_name'];
     this.pQuantity=map['p_quantity'];
+    this.discount = map['discount'];
     this.tPrice=map['tPrice'];
     this.pImg=map['product_img'];
 
