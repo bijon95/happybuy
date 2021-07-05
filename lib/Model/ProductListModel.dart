@@ -19,6 +19,7 @@ class ModelProductList {
     this.img4,
     this.img5,
     this.price,
+    this.selling,
     this.description,
   });
 
@@ -31,6 +32,7 @@ class ModelProductList {
   dynamic img4;
   dynamic img5;
   String price;
+  String selling;
   String description;
 
   factory ModelProductList.fromJson(Map<String, dynamic> json) => ModelProductList(
@@ -43,6 +45,7 @@ class ModelProductList {
     img4: json["img4"],
     img5: json["img5"],
     price: json["price"],
+    selling:json["selling_price"],
     description: json["description"],
   );
 
@@ -56,6 +59,7 @@ class ModelProductList {
     "img4": img4,
     "img5": img5,
     "price": price,
+    "selling_price":selling,
     "description": description,
   };
 }

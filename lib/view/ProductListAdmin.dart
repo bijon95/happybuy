@@ -74,7 +74,7 @@ class _CreateCategoryState extends State<ProductListAdmin> {
       isProcess = true;
     });
     print("fun active");
-    var postUri = Uri.parse(Helper.baseurl+"deleteproductdata/");
+    var postUri = Uri.parse(Helper.baseurl+"deleteproduct");
     var request = new http.MultipartRequest("POST", postUri);
     request.fields['id'] =id.toString();
 
@@ -195,8 +195,13 @@ class _CreateCategoryState extends State<ProductListAdmin> {
                                    // / width: 90,
                                     padding: EdgeInsets.only(
                                         left: 5, top: 8, bottom: 0),
-                                    child: Text(
-                                      "Sell Price"+ "৳ 5000",
+                                    child: _controller.productList[index].selling != null ? Text(
+                                      "Sell Price"+ "৳ "+  _controller.productList[index].selling ,
+                                      style: TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w500,color: Colors.white),
+                                    ) : Text(
+                                      "Sell Price"+ "৳ 0",
                                       style: TextStyle(
                                           fontSize: 16,
                                           fontWeight: FontWeight.w500,color: Colors.white),
@@ -207,7 +212,7 @@ class _CreateCategoryState extends State<ProductListAdmin> {
                                     padding: EdgeInsets.only(
                                         left: 5, top: 8, bottom: 0),
                                     child: Text(
-                                      "Price:"+"৳ 5000",
+                                      "Price:"+"৳ "+ _controller.productList[index].price,
                                       style: TextStyle(
                                           fontSize: 16,
                                           fontWeight: FontWeight.w500,color: Colors.white),

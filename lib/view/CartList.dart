@@ -50,7 +50,7 @@ class _CreateCategoryState extends State<CartList> {
           height: MediaQuery.of(context).size.height ,
           width: MediaQuery.of(context).size.width,
           child: Obx((){
-            if(_controller.isLoadingProduct.value){
+            if(_controller.categoryLoading.value){
               return Container(
                 height: MediaQuery.of(context).size.height,
                 width: MediaQuery.of(context).size.width,

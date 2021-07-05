@@ -49,8 +49,9 @@ class MainDrawer extends StatelessWidget {
                   size: 24.0,
                 ),
                 onTap:(){
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => CheckoutPageView()));
-                }
+                  Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => CheckoutPageView(1)));
+                  }
               ),
               ListTile(
                 contentPadding: EdgeInsets.only(top:0.0,left: 15.0,right: 14.0),
@@ -97,8 +98,11 @@ class MainDrawer extends StatelessWidget {
                         context, MaterialPageRoute(builder: (context) => Terms_Conditions_PageView()));
                   }
               ),
+
+
+
               ListTile(
-                leading: Icon( Icons.logout,color:Colors.red,size: 24,),
+                leading:    Icon( Icons.logout,color:Colors.red,size: 24,),
                 title: Text('Logout'),
                 onTap: () async {
                   SharedPreferences prefs = await SharedPreferences.getInstance();

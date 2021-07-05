@@ -216,16 +216,19 @@ class _CreateCategoryState extends State<ProductAdd> {
                     itemCount: _controller.catList.length,
                     itemBuilder:  (BuildContext contex, int index){
                   return GestureDetector(
-                    child: Container(
-                      height: 30,
-                      decoration: BoxDecoration(
-                        color: catID ==  _controller.catList[index].id ? Colors.green[300]:Colors.grey[300],
-                        borderRadius: BorderRadius.circular(15),
-                        border: Border.all(color: Colors.red,width: 1)
+                    child: Visibility(
+                      visible: _controller.catList[index].isActive ==1,
+                      child: Container(
+                        height: 30,
+                        decoration: BoxDecoration(
+                          color: catID ==  _controller.catList[index].id ? Colors.green[300]:Colors.grey[300],
+                          borderRadius: BorderRadius.circular(15),
+                          border: Border.all(color: Colors.red,width: 1)
+                        ),
+                        padding: EdgeInsets.only(left: 20,right: 20,top: 5,bottom: 5),
+                        margin: EdgeInsets.only(left: 10,right: 10,),
+                        child: Text(_controller.catList.value[index].name),
                       ),
-                      padding: EdgeInsets.only(left: 20,right: 20,top: 5,bottom: 5),
-                      margin: EdgeInsets.only(left: 10,right: 10,),
-                      child: Text(_controller.catList.value[index].name),
                     ),
                     onTap: (){
                       setState(() {

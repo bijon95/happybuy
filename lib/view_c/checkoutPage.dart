@@ -2,14 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:happybuy/Controller/controller.dart';
-import 'package:happybuy/Controller/controller.dart';
+import 'package:happybuy/Helper/SizeConfig.dart';
 import 'package:happybuy/view_c/single_product_view.dart';
 
 class CheckoutPageView extends StatefulWidget {
-  // int pass3;
-  // CheckoutPageView(this.pass3);
+  int passIndex;
+  CheckoutPageView(this.passIndex);
 
-  
   @override
   _CheckoutPageViewState createState() => _CheckoutPageViewState();
 }
@@ -17,17 +16,12 @@ class CheckoutPageView extends StatefulWidget {
 class _CheckoutPageViewState extends State<CheckoutPageView> {
 
   final Controller _controller = Get.put(Controller());
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    // data =  _controller.productList as List<String>;
-  }
+  int index;
 
   @override
   Widget build(BuildContext context) {
-    // 3 = widget.pass3;
+    index = widget.passIndex;
+    SizeConfig().init(context);
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -56,14 +50,17 @@ class _CheckoutPageViewState extends State<CheckoutPageView> {
           children: [
             //Slider
             Container(
-              height: MediaQuery.of(context).size.height * .02,
+              // height: MediaQuery.of(context).size.height * .02,
+              height: SizeConfig.safeBlockVertical * 2,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Container(
-                  width: MediaQuery.of(context).size.width * .28,
-                  height: MediaQuery.of(context).size.width * .24,
+                  // width: MediaQuery.of(context).size.width * .28,
+                  // height: MediaQuery.of(context).size.height * .15,
+                  width: SizeConfig.blockSizeHorizontal * 28,
+                  height: SizeConfig.safeBlockVertical * 14,
                   child: Image.asset(
                     'images/c.jpg',
                     fit: BoxFit.fill,
@@ -72,8 +69,10 @@ class _CheckoutPageViewState extends State<CheckoutPageView> {
                   ),
                 ),
                 Container(
-                  width: MediaQuery.of(context).size.width * .7,
-                  height: MediaQuery.of(context).size.width * .24,
+                  // width: MediaQuery.of(context).size.width * .7,
+                  // height: MediaQuery.of(context).size.height * .14,
+                  width: SizeConfig.blockSizeHorizontal * 70,
+                  height: SizeConfig.safeBlockVertical * 14,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -81,16 +80,17 @@ class _CheckoutPageViewState extends State<CheckoutPageView> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Container(
-                            width: MediaQuery.of(context).size.width * .5,
-                            height: MediaQuery.of(context).size.height * .05,
+                            // width: MediaQuery.of(context).size.width * .5,
+                            // height: MediaQuery.of(context).size.height * .05,
+                            width: SizeConfig.blockSizeHorizontal * 50,
+                            height: SizeConfig.safeBlockVertical * 5,
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Row(
                                   children: [
                                     Text(
-                                        // _controller.productList[1].name,
-                                        "Product Name",
+                                        _controller.productList[index].name,
                                         maxLines: 1,
                                         overflow: TextOverflow.ellipsis,
                                         style: TextStyle(
@@ -123,8 +123,7 @@ class _CheckoutPageViewState extends State<CheckoutPageView> {
                                         )
                                     ),
                                     Text(
-                                      // "৳"+_controller.productList[10].price,
-                                      "৳ 120",
+                                      "৳"+_controller.productList[index].price,
                                       style: TextStyle(
                                           color: Colors.black54,
                                           fontSize: 12,
@@ -145,8 +144,10 @@ class _CheckoutPageViewState extends State<CheckoutPageView> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Container(
-                            width: MediaQuery.of(context).size.width * .4,
-                            height: MediaQuery.of(context).size.height * .05,
+                            // width: MediaQuery.of(context).size.width * .4,
+                            // height: MediaQuery.of(context).size.height * .05,
+                            width: SizeConfig.blockSizeHorizontal * 40,
+                            height: SizeConfig.safeBlockVertical * 5,
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
@@ -154,8 +155,7 @@ class _CheckoutPageViewState extends State<CheckoutPageView> {
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
                                     Text(
-                                      // "৳"+_controller.cartList[10].name,
-                                      "৳ 120",
+                                      "৳"+_controller.productList[index].price,
                                       style: TextStyle(
                                           color: Colors.amber,
                                           fontSize: 14,
@@ -176,13 +176,13 @@ class _CheckoutPageViewState extends State<CheckoutPageView> {
                                     ),
                                     SizedBox(width: 5,),
                                     Text(
-                                      " 16% Off ",
-                                      overflow: TextOverflow.ellipsis,
-                                      style: TextStyle(
-                                        color: Colors.red,
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w400,
-                                      )
+                                        " 16% Off ",
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(
+                                          color: Colors.red,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w400,
+                                        )
                                     ),
                                   ],
                                 ),
@@ -243,7 +243,8 @@ class _CheckoutPageViewState extends State<CheckoutPageView> {
               ],
             ),
             Container(
-              height: MediaQuery.of(context).size.height * .15,
+              // height: MediaQuery.of(context).size.height * .16,
+              height: SizeConfig.safeBlockVertical * 16,
               padding: EdgeInsets.fromLTRB(20,20,20,20),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -262,8 +263,7 @@ class _CheckoutPageViewState extends State<CheckoutPageView> {
                           )
                       ),
                       Text(
-                        // "৳"+_controller.productList[3].price,
-                        "৳ 120",
+                        "৳"+_controller.productList[index].price,
                         style: TextStyle(
                             color: Colors.black,
                             fontSize: 16,
@@ -286,8 +286,7 @@ class _CheckoutPageViewState extends State<CheckoutPageView> {
                           )
                       ),
                       Text(
-                        "- "+"৳ 60",
-                        // "- "+"৳"+_controller.productList[3].price,
+                        "- "+"৳"+_controller.productList[index].price,
                         style: TextStyle(
                             color: Colors.redAccent,
                             fontSize: 15,
@@ -310,8 +309,7 @@ class _CheckoutPageViewState extends State<CheckoutPageView> {
                           )
                       ),
                       Text(
-                        // "৳"+_controller.productList[3].price,
-                        "৳ 120",
+                        "৳"+_controller.productList[index].price,
                         style: TextStyle(
                             color: Colors.black54,
                             fontSize: 15,
@@ -322,15 +320,53 @@ class _CheckoutPageViewState extends State<CheckoutPageView> {
                 ],
               ),
             ),
-            // Container(
-            //   color: Colors.amber,
-            //   height: MediaQuery.of(context).size.height * .55,
-            // ),
           ],
         ),
       ),
+      // Container(
+      //   // height: MediaQuery.of(context).size.height - (MediaQuery.of(context).padding.bottom + MediaQuery.of(context).padding.top),
+      //   child: Column(
+      //     children: [
+      //
+      //       Container(
+      //         child: Container(
+      //           padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+      //           height: MediaQuery.of(context).size.height * .1,
+      //           child: Column(
+      //             children: [
+      //               Row(
+      //                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      //                 children: [
+      //                   Text(
+      //                       "1 item",
+      //                       maxLines: 1,
+      //                       overflow: TextOverflow.ellipsis,
+      //                       style: TextStyle(
+      //                         color: Colors.black,
+      //                         fontSize: 15,
+      //                         fontWeight: FontWeight.w500,
+      //                       )
+      //                   ),
+      //                   Text(
+      //                     "Total : "+"৳"+_controller.productList[index].price,
+      //                     style: TextStyle(
+      //                         color: Colors.green,
+      //                         fontSize: 17,
+      //                         fontWeight: FontWeight.w400),
+      //                   ),
+      //                 ],
+      //               ),
+      //               SizedBox(height: 10,),
+      //             ],
+      //           ),
+      //         ),
+      //       ),
+      //     ],
+      //   ),
+      // ),
       bottomNavigationBar: Container(
-          height: MediaQuery.of(context).size.height * .088,
+          // height: MediaQuery.of(context).size.height * .092,
+          height: SizeConfig.safeBlockVertical * 9.5,
           child: Column(
             children: [
               Row(
@@ -352,8 +388,7 @@ class _CheckoutPageViewState extends State<CheckoutPageView> {
                   Padding(
                     padding: EdgeInsets.only(right: 18),
                     child: Text(
-                      // "Total : "+"৳"+_controller.productList[3].price,
-                      "Total : "+"৳ 180",
+                      "Total : "+"৳"+_controller.productList[index].price,
                       style: TextStyle(
                           color: Colors.green,
                           fontSize: 17,

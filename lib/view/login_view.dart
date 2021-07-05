@@ -127,6 +127,7 @@ class _LoginPageState extends State<LoginPage> {
                         //color: Colors.white,
                         padding: EdgeInsets.fromLTRB(30, 10, 30, 10),
                         child: TextField(
+                          style: TextStyle(fontSize: 18),
                           controller: user,
                           keyboardType: TextInputType.phone,
                           decoration: new InputDecoration(
@@ -143,6 +144,7 @@ class _LoginPageState extends State<LoginPage> {
                         //color: Colors.blueAccent,
                         padding: EdgeInsets.fromLTRB(30, 10, 30, 10),
                         child: TextField(
+                          style: TextStyle(fontSize: 18),
                           controller: pass,
                           obscureText: true,
                           decoration: new InputDecoration(
