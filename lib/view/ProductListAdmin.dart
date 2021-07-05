@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:happybuy/Controller/controller.dart';
 import 'package:happybuy/Helper/helper.dart';
+import 'package:happybuy/view/Product_edit.dart';
 import 'package:happybuy/view/product_upload.dart';
 import 'package:get/get.dart';
 import 'package:happybuy/view/product_view.dart';
@@ -225,7 +226,7 @@ class _CreateCategoryState extends State<ProductListAdmin> {
                                         children: [
                                           GestureDetector(
                                             child: Container(
-                                              width: 55,
+                                              width: 40,
                                               height:20,
                                               decoration: BoxDecoration(
                                                   color: Colors.red[300],
@@ -240,7 +241,23 @@ class _CreateCategoryState extends State<ProductListAdmin> {
                                           ),
                                           GestureDetector(
                                             child: Container(
-                                              width: 55,
+                                              width: 40,
+                                              height:20,
+                                              decoration: BoxDecoration(
+                                                  color: Colors.white,
+                                                  borderRadius: BorderRadius.circular(15),
+                                                  border: Border.all(color: Colors.grey[300],width: 1)
+                                              ),
+                                              child: Center(child: Text("Edit",style: TextStyle(fontSize: 10),)),
+                                            ),
+                                            onTap: (){
+                                              Navigator.push(
+                                                  context, MaterialPageRoute(builder: (context) =>ProductEdit(_controller.productList[index])));
+                                            },
+                                          ),
+                                          GestureDetector(
+                                            child: Container(
+                                              width: 40,
                                               height:20,
                                               decoration: BoxDecoration(
                                                   color: Colors.white,

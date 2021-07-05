@@ -120,7 +120,7 @@ class MainDrawer extends StatelessWidget {
                 ),
                 title: Text('Whatsapp'),
                 onTap: () {
-                    launch("https://wa.me/+8801680680000/?text=${Uri.parse("This message from app")}");
+                    launch("https://wa.me/+8801303678069/?text=${Uri.parse("From Happy Buy App")}");
                 },
               ),
               ListTile(
@@ -131,7 +131,7 @@ class MainDrawer extends StatelessWidget {
                 ),
                 title: Text('Email'),
                 onTap: (){
-                  launch('mailto:bijoninfo@gmail.com?subject=From App&body=Test Email');
+                  launch('mailto:shorifulislam3300000@gmail.com?subject=From App&body=Test Email');
                 },
               ),
               ListTile(
@@ -142,7 +142,7 @@ class MainDrawer extends StatelessWidget {
                 ),
                 title: Text('Call'),
                 onTap: (){
-                  launch("tel://+8801680680000");
+                  launch("tel://+8801725583154");
                 },
               ),
 

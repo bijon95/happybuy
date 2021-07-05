@@ -7,6 +7,8 @@ import 'package:happybuy/Drawer/AdminDrawer.dart';
 import 'package:happybuy/Drawer/MainDrawer.dart';
 import 'package:happybuy/Helper/helper.dart';
 import 'package:happybuy/view/product_view.dart';
+import 'package:happybuy/view_c/checkoutPage.dart';
+import 'package:happybuy/view_c/product_list.dart';
 
 class DashboardClient extends StatefulWidget {
   @override
@@ -55,7 +57,12 @@ class _DashboardClientState extends State<DashboardClient> {
               color: Colors.white,
             ),
             tooltip: 'Search',
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => ProductList()));
+            },
           ),
           IconButton(
             icon: Icon(
@@ -63,7 +70,12 @@ class _DashboardClientState extends State<DashboardClient> {
               color: Colors.white,
             ),
             tooltip: 'Cart',
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => CheckoutPageView()));
+            },
           ),
         ],
       ),
@@ -132,7 +144,7 @@ class _DashboardClientState extends State<DashboardClient> {
                           return Visibility(
                             visible: _controller.catList[index].isActive==1,
                             child: Container(
-                              margin: EdgeInsets.only(left: 13, right: 5),
+                              margin: EdgeInsets.only(left: 10, right: 5),
                               width: MediaQuery.of(context).size.width / 2 - 20,
                               decoration: BoxDecoration(
                                 color: Colors.red[200],
@@ -150,27 +162,20 @@ class _DashboardClientState extends State<DashboardClient> {
                                             fit: BoxFit.fill,
                                           )),
                                         )
-                                      : FadeInImage(
-                                          image: NetworkImage(Helper.baseurl +
-                                              _controller
-                                                  .catList[index].categoryImage),
-                                          placeholder:
-                                              AssetImage('images/gif-logo.gif'),
-                                          fit: BoxFit.cover,
+                                      : Container(
+                                    width: MediaQuery.of(context).size.width / 2 - 20,
+                                        child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(15),
+                                          child: FadeInImage(
+                                              image: NetworkImage(Helper.baseurl +
+                                                  _controller
+                                                      .catList[index].categoryImage),
+                                              placeholder:
+                                                  AssetImage('images/gif-logo.gif'),
+                                              fit: BoxFit.fill,
+                                            ),
                                         ),
-                                  Container(
-                                    height:
-                                        MediaQuery.of(context).size.width / 2 -
-                                            40,
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(15),
-                                      child: Container(
-                                          child: Image.asset(
-                                        'images/food.jpg',
-                                        fit: BoxFit.fill,
-                                      )),
-                                    ),
-                                  ),
+                                      ),
                                   Container(
                                     margin: EdgeInsets.only(left: 10, top: 120),
                                     height: 30,
@@ -214,9 +219,17 @@ class _DashboardClientState extends State<DashboardClient> {
                       style:
                           TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
-                    Text(
-                      "See All",
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                    GestureDetector(
+                      child: Text(
+                        "See All",
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      onTap: (){
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ProductList()));
+                      },
                     ),
                   ],
                 ),
@@ -326,9 +339,17 @@ class _DashboardClientState extends State<DashboardClient> {
                       style:
                           TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
-                    Text(
-                      "See All",
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                    GestureDetector(
+                      child: Text(
+                        "See All",
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      onTap: (){
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ProductList()));
+                      },
                     ),
                   ],
                 ),
