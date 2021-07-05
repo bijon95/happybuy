@@ -5,6 +5,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:happybuy/Helper/helper.dart';
 import 'package:happybuy/Model/ProductListModel.dart';
 import 'package:get/get.dart';
+import 'package:happybuy/db/db_helper.dart';
 import 'package:happybuy/view/CartList.dart';
 import 'package:happybuy/view_c/checkoutPage.dart';
 
@@ -17,7 +18,7 @@ class ProductView extends StatefulWidget {
 
 class _CreateCategoryState extends State<ProductView> {
   final Controller _controller = Get.put(Controller());
-
+ int quantity = 0;
   nothing(){}
   List<String> imgList = List();
   addImageInList(){
@@ -35,7 +36,65 @@ class _CreateCategoryState extends State<ProductView> {
     super.initState();
    addImageInList();
   }
+  final dbHelper = DatabaseHelper.instance;
 
+  Future<List> _Dataquery() async {
+    final allRows = await dbHelper.queryAllRows();
+    print('query all rows:');
+    allRows.forEach((row) => print(row));
+   // print(allRows[0]["_id"]);
+    print("no data printed");
+    dbHelper.queryAllRows().then((notes) {
+      setState(() {
+        notes.forEach((notes) {
+          // d_items.add(Model.fromMapObject(notes));
+          // count.add((Model.fromMapObject(notes).pQuantity));
+        });
+      });
+    });
+
+   // print(count.toString());
+
+//    for (var i = 0; i < 100; i++) {
+//      count.add((9));
+//    }
+
+//    for(int i=0;i<=d_items.length;i++){
+//      setState(() {
+//        totalPrice+=d_items[i].tPrice;
+//      });
+//    }
+
+  }
+
+
+  void indertUpdate() async {
+    print("add to card");
+    Map<String, dynamic> row = {
+      DatabaseHelper.proid:  widget.product.id,
+      DatabaseHelper.proName:  widget.product.name,
+      DatabaseHelper.proQuantity: quantity,
+      DatabaseHelper.pImg : widget.product.img1,
+      DatabaseHelper.proPrice:  widget.product.price,
+      DatabaseHelper.discount:  0,
+      DatabaseHelper.tPrice: double.parse(widget.product.price) * quantity
+
+    };
+    final checkPro =
+    await dbHelper.checkProduct(widget.product.id.toString());
+    if (checkPro == null) {
+      final idupdate = await dbHelper.insert(row);
+      print(idupdate.toString() + "insert");
+    } else {
+      setState(() {
+      //  count[index]++;
+      });
+
+      final updatedata = await dbHelper.updateCartList(
+          row, widget.product.id);
+      print(updatedata.toString() + "update");
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -112,12 +171,29 @@ class _CreateCategoryState extends State<ProductView> {
                               style:
                                   TextStyle(fontSize: 24, color: Colors.red)),
                         ),
-                        Container(
-                          margin: EdgeInsets.only(
-                              left: 20, right: 20, top: 15, bottom: 10),
-                          child: Text("\$"+widget.product.price,
-                              style:
-                                  TextStyle(fontSize: 24, color: Colors.red)),
+                       widget.product.selling==null ?  Container(
+                         margin: EdgeInsets.only(
+                             left: 20, right: 20, top: 15, bottom: 10),
+                         child: Text("\$"+widget.product.price,
+                             style:
+                             TextStyle(fontSize: 24, color: Colors.red)),
+                       ):Column(
+                          children: [
+                            Container(
+                              margin: EdgeInsets.only(
+                                  left: 20, right: 20, top: 10, bottom: 00),
+                              child: Text("\$"+widget.product.selling,
+                                  style:
+                                      TextStyle(fontSize: 24, color: Colors.red)),
+                            ),
+                            Container(
+                              margin: EdgeInsets.only(
+                                  left: 20, right: 20, top: 0, bottom: 10),
+                              child: Text("\$"+widget.product.price,
+                                  style:
+                                  TextStyle(fontSize: 16, color: Colors.grey,decoration: TextDecoration.lineThrough)),
+                            ),
+                          ],
                         ),
                       ],
                     ),
@@ -146,11 +222,11 @@ class _CreateCategoryState extends State<ProductView> {
                           child: Text(widget.product.description,
                               style: TextStyle(fontSize: 18)),
                         ),
-                        Container(
-                          margin:
-                              EdgeInsets.only(right: 20, top: 15, bottom: 10),
-                          child: Icon(Icons.arrow_forward_ios_outlined),
-                        )
+                        // Container(
+                        //   margin:
+                        //       EdgeInsets.only(right: 20, top: 15, bottom: 10),
+                        //   child: Icon(Icons.arrow_forward_ios_outlined),
+                        // )
                       ],
                     ),
                     Container(
@@ -180,8 +256,9 @@ class _CreateCategoryState extends State<ProductView> {
                           IconButton(
                           icon:Icon( Icons.shopping_cart_outlined,size: 24,),
                             onPressed: (){
-                              Navigator.push(
-                                  context, MaterialPageRoute(builder: (context) =>CheckoutPageView()));
+                              _Dataquery();
+                              // Navigator.push(
+                              //     context, MaterialPageRoute(builder: (context) =>CheckoutPageView()));
                             },
                           ),
                           // Text(
@@ -211,6 +288,11 @@ class _CreateCategoryState extends State<ProductView> {
                     onTap: (){
                     //  _controller.addProductToCart(widget.product);
                     //  _controller.catList.value.add(widget.product);
+                      setState(() {
+                        quantity++;
+                      });
+                      print(quantity);
+                      indertUpdate();
                     },
                   ),
                   GestureDetector(

@@ -14,10 +14,9 @@ class DatabaseHelper {
 
   static final table = 'tbl_order';
 
-  static final columnId = '_id';
-  static final proid = 'pro_id';
-  static final proName = 'pro_name';
-  static final proQuantity = 'p_quantity';
+  static final proid = 'product_id';
+  static final proName = 'product_name';
+  static final proQuantity = 'quantity';
   static final proPrice ='price';
   static final discount = 'discount';
   static final tPrice = 'tPrice';
@@ -49,8 +48,7 @@ class DatabaseHelper {
   Future _onCreate(Database db, int version) async {
     await db.execute('''
           CREATE TABLE $table (
-            $columnId INTEGER PRIMARY KEY,
-            $proid INTEGER NOT NULL,
+            $proid INTEGER PRIMARY KEY,
             $proName TEXT NOT NULL,
             $proQuantity INTEGER NOT NULL,
             $proPrice INTEGER NOT NULL,
@@ -75,8 +73,8 @@ class DatabaseHelper {
     final db = await database;
     //var proidcheck = await db.rawQuery(" SELECT $proid FROM $table WHERE  ");
     var res = await db.rawInsert(
-        "INSERT Into $table ($columnId,$proid,$proName,$proQuantity,$proPrice,$discount,$tPrice,$pImg)"
-            " VALUES (${null},${model.pid},${model.pName},${model.pQuantity},"
+        "INSERT Into $table ($proid,$proName,$proQuantity,$proPrice,$discount,$tPrice,$pImg)"
+            " VALUES (${model.pid},${model.pName},${model.pQuantity},"
             "${model.pPrice},${model.discount},${model.tPrice},${model.pImg})" );
     return res;
   }
@@ -111,15 +109,15 @@ class DatabaseHelper {
   // column values will be used to update the row.
   Future<int> update(Map<String, dynamic> row) async {
     Database db = await instance.database;
-    int id = row[columnId];
-    return await db.update(table, row, where: '$columnId = ?', whereArgs: [id]);
+    int id = row[proid];
+    return await db.update(table, row, where: '$proid = ?', whereArgs: [id]);
   }
 
   // Deletes the row specified by the id. The number of affected rows is
   // returned. This should be 1 as long as the row exists.
   Future<int> delete(int id) async {    //change string to int
     Database db = await instance.database;
-    return await db.delete(table, where: '$columnId = ?', whereArgs: [id]);
+    return await db.delete(table, where: '$proid = ?', whereArgs: [id]);
   }
 
   Future deleteall() async {    //change string to int

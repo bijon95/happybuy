@@ -394,7 +394,7 @@ class _DashboardClientState extends State<DashboardClient> {
                                       children: [
                                         Container(
                                           child: Text(
-                                            "product name name of product is as ",
+                                            _controller.productList[index].name,
                                             maxLines: 3,
                                             overflow: TextOverflow.ellipsis,
                                             style: TextStyle(
@@ -408,18 +408,48 @@ class _DashboardClientState extends State<DashboardClient> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceBetween,
                                           children: [
-                                            Container(
-                                              width: 80,
-                                              padding: EdgeInsets.only(
-                                                  left: 5, top: 8, bottom: 15),
-                                              child: Text(
-                                                "৳ 5000",
-                                                style: TextStyle(
-                                                    fontSize: 20,
-                                                    fontWeight: FontWeight.w500,
-                                                    color: Colors.white),
-                                              ),
+                                            _controller.productList[index].selling ==null ? Container(
+                                               width: 80,
+                                               padding: EdgeInsets.only(
+                                                   left: 5, top: 8, bottom: 15),
+                                               child: Text(
+                                                 "৳ "+_controller.productList[index].price,
+                                                 style: TextStyle(
+                                                     fontSize: 20,
+                                                     fontWeight: FontWeight.w500,
+                                                     color: Colors.white),
+                                               ),
+                                             ) :Column(
+
+                                               children: [
+                                                 Container(
+                                                  width: 80,
+                                                  padding: EdgeInsets.only(
+                                                      left: 5, top: 8, bottom:0),
+                                                  child: Text(
+                                                    "৳ "+_controller.productList[index].selling,
+                                                    style: TextStyle(
+                                                        fontSize: 20,
+                                                        fontWeight: FontWeight.w500,
+                                                        color: Colors.white),
+                                                  ),
                                             ),
+                                                 Container(
+                                                   width: 80,
+                                                   padding: EdgeInsets.only(
+                                                       left: 5, top: 0, bottom: 15),
+                                                   child: Text(
+                                                     "৳ "+_controller.productList[index].price,
+                                                     style: TextStyle(
+                                                         decoration: TextDecoration.lineThrough,
+                                                         fontSize: 16,
+                                                         fontWeight: FontWeight.w500,
+                                                         color: Colors.white),
+                                                   ),
+                                                 ),
+
+                                               ],
+                                             ) ,
                                             Container(
                                               width: 60,
                                               height: 20,
