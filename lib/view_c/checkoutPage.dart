@@ -6,8 +6,6 @@ import 'package:happybuy/Helper/SizeConfig.dart';
 import 'package:happybuy/view_c/single_product_view.dart';
 
 class CheckoutPageView extends StatefulWidget {
-  int passIndex;
-  CheckoutPageView(this.passIndex);
 
   @override
   _CheckoutPageViewState createState() => _CheckoutPageViewState();
@@ -16,11 +14,10 @@ class CheckoutPageView extends StatefulWidget {
 class _CheckoutPageViewState extends State<CheckoutPageView> {
 
   final Controller _controller = Get.put(Controller());
-  int index;
+
 
   @override
   Widget build(BuildContext context) {
-    index = widget.passIndex;
     SizeConfig().init(context);
 
     return Scaffold(
@@ -90,7 +87,7 @@ class _CheckoutPageViewState extends State<CheckoutPageView> {
                                 Row(
                                   children: [
                                     Text(
-                                        _controller.productList[index].name,
+                                        "Product Name",
                                         maxLines: 1,
                                         overflow: TextOverflow.ellipsis,
                                         style: TextStyle(
@@ -123,7 +120,7 @@ class _CheckoutPageViewState extends State<CheckoutPageView> {
                                         )
                                     ),
                                     Text(
-                                      "৳"+_controller.productList[index].price,
+                                      "৳ 180",
                                       style: TextStyle(
                                           color: Colors.black54,
                                           fontSize: 12,
@@ -155,7 +152,7 @@ class _CheckoutPageViewState extends State<CheckoutPageView> {
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
                                     Text(
-                                      "৳"+_controller.productList[index].price,
+                                      "৳ 180",
                                       style: TextStyle(
                                           color: Colors.amber,
                                           fontSize: 14,
@@ -166,7 +163,7 @@ class _CheckoutPageViewState extends State<CheckoutPageView> {
                                 Row(
                                   children: [
                                     Text(
-                                      "৳ 120",
+                                      "৳ 180",
                                       style: TextStyle(
                                           decoration: TextDecoration.lineThrough,
                                           decorationStyle: TextDecorationStyle.solid,
@@ -176,7 +173,7 @@ class _CheckoutPageViewState extends State<CheckoutPageView> {
                                     ),
                                     SizedBox(width: 5,),
                                     Text(
-                                        " 16% Off ",
+                                        " 20% Off ",
                                         overflow: TextOverflow.ellipsis,
                                         style: TextStyle(
                                           color: Colors.red,
@@ -263,7 +260,7 @@ class _CheckoutPageViewState extends State<CheckoutPageView> {
                           )
                       ),
                       Text(
-                        "৳"+_controller.productList[index].price,
+                        "৳ 180",
                         style: TextStyle(
                             color: Colors.black,
                             fontSize: 16,
@@ -286,7 +283,7 @@ class _CheckoutPageViewState extends State<CheckoutPageView> {
                           )
                       ),
                       Text(
-                        "- "+"৳"+_controller.productList[index].price,
+                        "- "+"৳36",
                         style: TextStyle(
                             color: Colors.redAccent,
                             fontSize: 15,
@@ -309,7 +306,7 @@ class _CheckoutPageViewState extends State<CheckoutPageView> {
                           )
                       ),
                       Text(
-                        "৳"+_controller.productList[index].price,
+                        "৳20",
                         style: TextStyle(
                             color: Colors.black54,
                             fontSize: 15,
@@ -323,47 +320,6 @@ class _CheckoutPageViewState extends State<CheckoutPageView> {
           ],
         ),
       ),
-      // Container(
-      //   // height: MediaQuery.of(context).size.height - (MediaQuery.of(context).padding.bottom + MediaQuery.of(context).padding.top),
-      //   child: Column(
-      //     children: [
-      //
-      //       Container(
-      //         child: Container(
-      //           padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
-      //           height: MediaQuery.of(context).size.height * .1,
-      //           child: Column(
-      //             children: [
-      //               Row(
-      //                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      //                 children: [
-      //                   Text(
-      //                       "1 item",
-      //                       maxLines: 1,
-      //                       overflow: TextOverflow.ellipsis,
-      //                       style: TextStyle(
-      //                         color: Colors.black,
-      //                         fontSize: 15,
-      //                         fontWeight: FontWeight.w500,
-      //                       )
-      //                   ),
-      //                   Text(
-      //                     "Total : "+"৳"+_controller.productList[index].price,
-      //                     style: TextStyle(
-      //                         color: Colors.green,
-      //                         fontSize: 17,
-      //                         fontWeight: FontWeight.w400),
-      //                   ),
-      //                 ],
-      //               ),
-      //               SizedBox(height: 10,),
-      //             ],
-      //           ),
-      //         ),
-      //       ),
-      //     ],
-      //   ),
-      // ),
       bottomNavigationBar: Container(
           // height: MediaQuery.of(context).size.height * .092,
           height: SizeConfig.safeBlockVertical * 9.5,
@@ -388,7 +344,7 @@ class _CheckoutPageViewState extends State<CheckoutPageView> {
                   Padding(
                     padding: EdgeInsets.only(right: 18),
                     child: Text(
-                      "Total : "+"৳"+_controller.productList[index].price,
+                      "Total : "+"৳174",
                       style: TextStyle(
                           color: Colors.green,
                           fontSize: 17,
