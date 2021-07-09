@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:happybuy/GlobalSetting/GlobalColor.dart';
 import 'package:happybuy/Helper/helper.dart';
 import 'package:happybuy/Helper/user_info.dart';
 import 'package:happybuy/view/dashboard.dart';
@@ -131,6 +132,7 @@ class _LoginPageState extends State<LoginPage> {
                           controller: user,
                           keyboardType: TextInputType.phone,
                           decoration: new InputDecoration(
+                            contentPadding: EdgeInsets.only(left: 10),
                             labelText: 'Phone Number',
                             border: new OutlineInputBorder(
                               borderRadius: new BorderRadius.circular(0),
@@ -144,10 +146,12 @@ class _LoginPageState extends State<LoginPage> {
                         //color: Colors.blueAccent,
                         padding: EdgeInsets.fromLTRB(30, 10, 30, 10),
                         child: TextField(
+
                           style: TextStyle(fontSize: 18),
                           controller: pass,
                           obscureText: true,
                           decoration: new InputDecoration(
+                            contentPadding: EdgeInsets.only(left: 10),
                             labelText: 'Password',
                             border: new OutlineInputBorder(
                               borderRadius: new BorderRadius.circular(0),
@@ -176,10 +180,10 @@ class _LoginPageState extends State<LoginPage> {
                       width: double.infinity,
 
                       padding: EdgeInsets.fromLTRB(30, 10, 30, 10),
-                      height: 80,
+                      height: 60,
                       child: RaisedButton(
                         //padding: EdgeInsets.fromLTRB(30, 10, 30, 10),
-                        color: Color.fromRGBO(12, 53, 238, 10),
+                        color: GlobalColor.buttonColor,
                         onPressed: () {
                           loginRequest();
                         }, //
@@ -228,7 +232,7 @@ class _LoginPageState extends State<LoginPage> {
                             child: Text(
                           "Do not have any Account ?",
                           style: TextStyle(
-                              color: Colors.blue, fontWeight: FontWeight.bold),
+                              color: GlobalColor.highlightTextColor, fontWeight: FontWeight.bold),
                         )),
                       ),
                       onTap: () {
@@ -261,8 +265,10 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          backgroundColor: GlobalColor.appbarColor,
           centerTitle: true,
           title: Title(color: Colors.blue, child: Text("Happy Buy")),
+       //   leading: Icon(Icons.arrow_back),
         ),
         body: getPageView(context));
   }

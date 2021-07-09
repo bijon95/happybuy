@@ -5,6 +5,7 @@ import 'package:happybuy/view/SplashScreen.dart';
 import 'package:happybuy/view/category_list.dart';
 import 'package:happybuy/view/dashboard.dart';
 import 'package:happybuy/view/login_view.dart';
+import 'package:happybuy/view/registration_view.dart';
 import 'view_c/product_list.dart';
 import 'package:happybuy/view/product_upload.dart';
 import 'package:happybuy/view/product_view.dart';
@@ -17,7 +18,7 @@ void main() {
       debugShowCheckedModeBanner: false,
       title: 'Happy Buy',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.green,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: MyApp(),
@@ -43,14 +44,19 @@ class _MyAppState extends State<MyApp>{
     Future.delayed(Duration(seconds:2),
       (){
         print(type);
-        if(type == '1') {
-          Navigator.push(context, MaterialPageRoute(builder: (context) => LoginPage()));
-        } else if(type == 'admin'){
+        // if(type == '1') {
+        //   Navigator.of(context).pop();
+        //   Navigator.push(context, MaterialPageRoute(builder: (context) => LoginPage()));
+        // } else
+          if(type == 'admin'){
+          Navigator.of(context).pop();
           Navigator.push(context, MaterialPageRoute(builder: (context) => AdminDashboard()));
         }  else if(type == 'user'){
+          Navigator.of(context).pop();
           Navigator.push(context, MaterialPageRoute(builder: (context) => DashboardClient()));
         } else{
-         Navigator.push(context, MaterialPageRoute(builder: (context) => LoginPage()));
+          Navigator.of(context).pop();
+         Navigator.push(context, MaterialPageRoute(builder: (context) => RegistrationPage()));
         }
       }
     );

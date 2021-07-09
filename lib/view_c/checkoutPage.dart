@@ -4,8 +4,10 @@ import 'package:get/get.dart';
 import 'package:happybuy/Controller/controller.dart';
 import 'package:happybuy/Helper/SizeConfig.dart';
 import 'package:happybuy/Helper/helper.dart';
-import 'package:happybuy/view_c/single_product_view.dart';
-
+import 'package:happybuy/db/dbModel.dart';
+import 'package:happybuy/db/db_helper.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 class CheckoutPageView extends StatefulWidget {
 
   @override
@@ -13,10 +15,81 @@ class CheckoutPageView extends StatefulWidget {
 }
 
 class _CheckoutPageViewState extends State<CheckoutPageView> {
-
+  final dbHelper = DatabaseHelper.instance;
   final Controller _controller = Get.put(Controller());
+  String dbjson = "" ;
+  Future<List> _Dataquery() async {
+    _controller.cartList.clear();
+    final allRows = await dbHelper.queryAllRows();
+    print('query all rows:');
+    allRows.forEach((row) => print(row));
+    // print(allRows[0]["_id"]);
+    print("no data printed");
+    dbHelper.queryAllRows().then((notes) {
+      // print(notes);
+      notes.forEach((note) {
+        // dbjson = dbjson + ((('{product_id: '+note['product_id'].toString()+
+        //     ', product_name: '+note['product_name']+
+        //     ', price: '+note['price'].toString()+
+        //     ', quantity: '+note['quantity'].toString()) + "}"));
+        dbjson = dbjson + jsonEncode(note);
+
+        // print(note);
+      //  _controller.cartList.add(Model.fromMapObject(note));
+        // d_items.add(Model.fromMapObject(notes));
+        // count.add((Model.fromMapObject(notes).pQuantity));
+      });
 
 
+    });
+  }
+
+
+
+
+  //order create
+  Future<List> createOrder() async {
+    print("create order");
+
+    // set up POST request arguments
+    Uri url = Uri.parse(Helper.baseurl +'/placedorder');
+    Map<String, String> headers = {"Content-type": "application/json"};
+
+
+
+    var testdata = {
+      "user_id": 3,
+      "shipping_address": "sylhey",
+      "total_price": 1220,
+      "orders": [
+       jsonDecode(dbjson)
+      ]
+    };
+
+    var response = await http.post(
+      url,
+      headers: headers,
+      body: jsonEncode(testdata),
+    );
+    print(response.body);
+    print(response.statusCode);
+
+
+    if (response.statusCode == 200) {
+      dbHelper.deleteall();
+      // Navigator.push(
+      //     context, MaterialPageRoute(builder: (context) => OrderPage()));
+      print(response.body);
+    }
+    // this API passes back the id of the new item added to the body
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+
+    _Dataquery();
+  }
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
@@ -68,15 +141,12 @@ class _CheckoutPageViewState extends State<CheckoutPageView> {
                       child: Image.network(
                        Helper.baseurl+ _controller.cartList[index].pImg,
                         fit: BoxFit.fill,
-                        width: 40 * MediaQuery.of(context).devicePixelRatio,
-                        height: 40 * MediaQuery.of(context).devicePixelRatio,
                       ),
                     ),
                     Container(
                       // width: MediaQuery.of(context).size.width * .7,
                       // height: MediaQuery.of(context).size.height * .14,
-                      width: SizeConfig.blockSizeHorizontal * 70,
-                      height: SizeConfig.safeBlockVertical * 14,
+
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -86,8 +156,7 @@ class _CheckoutPageViewState extends State<CheckoutPageView> {
                               Container(
                                 // width: MediaQuery.of(context).size.width * .5,
                                 // height: MediaQuery.of(context).size.height * .05,
-                                width: SizeConfig.blockSizeHorizontal * 50,
-                                height: SizeConfig.safeBlockVertical * 5,
+
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
@@ -150,8 +219,7 @@ class _CheckoutPageViewState extends State<CheckoutPageView> {
                               Container(
                                 // width: MediaQuery.of(context).size.width * .4,
                                 // height: MediaQuery.of(context).size.height * .05,
-                                width: SizeConfig.blockSizeHorizontal * 40,
-                                height: SizeConfig.safeBlockVertical * 5,
+
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
@@ -251,7 +319,6 @@ class _CheckoutPageViewState extends State<CheckoutPageView> {
 
             Container(
               // height: MediaQuery.of(context).size.height * .16,
-              height: SizeConfig.safeBlockVertical * 16,
               padding: EdgeInsets.fromLTRB(20,20,20,20),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -332,7 +399,7 @@ class _CheckoutPageViewState extends State<CheckoutPageView> {
       ),
       bottomNavigationBar: Container(
           // height: MediaQuery.of(context).size.height * .092,
-          height: SizeConfig.safeBlockVertical * 9.5,
+          height: SizeConfig.safeBlockVertical * 11,
           child: Column(
             children: [
               Row(
@@ -364,7 +431,10 @@ class _CheckoutPageViewState extends State<CheckoutPageView> {
                 ],
               ),
               OutlinedButton(
-                onPressed: () {},
+                onPressed: () {
+                  createOrder();
+
+                },
                 child: Container(
                   width: MediaQuery.of(context).size.width * .85,
                   child: Align(

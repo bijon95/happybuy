@@ -46,16 +46,17 @@ class _CreateCategoryState extends State<ProductView> {
   List<int> test = List();
 
   Future<List> _Dataquery() async {
+    _controller.cartList.clear();
     final allRows = await dbHelper.queryAllRows();
     print('query all rows:');
     allRows.forEach((row) => print(row));
    // print(allRows[0]["_id"]);
     print("no data printed");
     dbHelper.queryAllRows().then((notes) {
-      //print(notes);
+    // print(notes);
         notes.forEach((note) {
-          print(note);
-          _controller.cartList.add(Model.fromMapObject(note));
+         // print(note);
+        _controller.cartList.add(Model.fromMapObject(note));
           test.add(1);
           // d_items.add(Model.fromMapObject(notes));
           // count.add((Model.fromMapObject(notes).pQuantity));
@@ -74,8 +75,8 @@ class _CreateCategoryState extends State<ProductView> {
       DatabaseHelper.proQuantity: quantity,
       DatabaseHelper.pImg : widget.product.img1,
       DatabaseHelper.proPrice:  widget.product.price,
-      DatabaseHelper.discount:  0,
-      DatabaseHelper.tPrice: double.parse(widget.product.price) * quantity
+      DatabaseHelper.discount:  '0',
+      DatabaseHelper.tPrice:(double.parse(widget.product.price) * quantity).toString(),
 
     };
     final checkPro =
@@ -313,7 +314,7 @@ class _CreateCategoryState extends State<ProductView> {
                     onTap: (){
                       Navigator.push(
                           context, MaterialPageRoute(builder: (context) =>CheckoutPageView()));
-                      print(test[0]);
+
                     },
                   )
                 ],

@@ -3,10 +3,10 @@ class Model {
   int _id;
   int proId;
   String pName;
-  double pPrice;
+  int pPrice;
   int pQuantity;
-  double discount;
-  double tPrice;
+  int discount;
+  int tPrice;
   String pImg;
 
   Model(this._id, this.proId, this.pName, this.pPrice, this.pQuantity,
@@ -17,10 +17,10 @@ class Model {
   int get id => _id;
   int get pid =>proId;
   String get productName => pName;
-  double get productPrice => pPrice;
+  int get productPrice => pPrice;
   int get productQuantity => pQuantity;
-  double get productDiscount =>discount;
-  double get t_price =>tPrice;
+  int get productDiscount =>discount;
+  int get t_price =>tPrice;
   String get productImg => pImg;
 
   // Convert a Note object into a Map object

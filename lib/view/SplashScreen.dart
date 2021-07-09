@@ -21,17 +21,20 @@ class _SplashScreenState extends State<SplashScreen> {
     print("No dada");
     if (dataSharePre==null) {
       Navigator.of(context).pop();
+
       Navigator.push(context,
           MaterialPageRoute(builder: (context) => LoginPage()));
     }
     else if (dataSharePre.length>0){
       loadData();
       Navigator.of(context).pop();
+
       Navigator.push(context,
           MaterialPageRoute(builder: (context) => AdminDashboard()));
     }
     else{
       Navigator.of(context).pop();
+
       Navigator.push(context,
           MaterialPageRoute(builder: (context) => LoginPage()));
     }
