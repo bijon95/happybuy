@@ -5,6 +5,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:happybuy/Helper/helper.dart';
 import 'package:happybuy/Model/ProductListModel.dart';
 import 'package:get/get.dart';
+import 'package:happybuy/db/dbModel.dart';
 import 'package:happybuy/db/db_helper.dart';
 import 'package:happybuy/view/CartList.dart';
 import 'package:happybuy/view_c/checkoutPage.dart';
@@ -36,7 +37,13 @@ class _CreateCategoryState extends State<ProductView> {
     super.initState();
    addImageInList();
   }
+
+
+
   final dbHelper = DatabaseHelper.instance;
+  //var cartList = List<Model>.empty();
+ // List<Model> cartList = new List();
+  List<int> test = List();
 
   Future<List> _Dataquery() async {
     final allRows = await dbHelper.queryAllRows();
@@ -45,26 +52,17 @@ class _CreateCategoryState extends State<ProductView> {
    // print(allRows[0]["_id"]);
     print("no data printed");
     dbHelper.queryAllRows().then((notes) {
-      setState(() {
-        notes.forEach((notes) {
+      //print(notes);
+        notes.forEach((note) {
+          print(note);
+          _controller.cartList.add(Model.fromMapObject(note));
+          test.add(1);
           // d_items.add(Model.fromMapObject(notes));
           // count.add((Model.fromMapObject(notes).pQuantity));
         });
-      });
+
+
     });
-
-   // print(count.toString());
-
-//    for (var i = 0; i < 100; i++) {
-//      count.add((9));
-//    }
-
-//    for(int i=0;i<=d_items.length;i++){
-//      setState(() {
-//        totalPrice+=d_items[i].tPrice;
-//      });
-//    }
-
   }
 
 
@@ -259,6 +257,7 @@ class _CreateCategoryState extends State<ProductView> {
                               _Dataquery();
                               // Navigator.push(
                               //     context, MaterialPageRoute(builder: (context) =>CheckoutPageView()));
+
                             },
                           ),
                           // Text(
@@ -313,7 +312,8 @@ class _CreateCategoryState extends State<ProductView> {
                     ),
                     onTap: (){
                       Navigator.push(
-                          context, MaterialPageRoute(builder: (context) =>CartList()));
+                          context, MaterialPageRoute(builder: (context) =>CheckoutPageView()));
+                      print(test[0]);
                     },
                   )
                 ],

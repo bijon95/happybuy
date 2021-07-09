@@ -285,7 +285,7 @@ class _DashboardClientState extends State<DashboardClient> {
                                   padding: EdgeInsets.only(
                                       left: 8, top: 10, right: 5),
                                   width: MediaQuery.of(context).size.width / 2 -
-                                      60,
+                                      80,
                                   child: Column(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,

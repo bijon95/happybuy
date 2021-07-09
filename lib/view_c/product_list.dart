@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:happybuy/Controller/controller.dart';
+import 'package:happybuy/GlobalSetting/GlobalColor.dart';
 import 'package:happybuy/Helper/helper.dart';
 import 'package:happybuy/view/product_upload.dart';
 import 'package:get/get.dart';
@@ -37,14 +38,10 @@ class _CreateCategoryState extends State<ProductList> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: GlobalColor.appbarColor,
         centerTitle: true,
         title: Text("Product List"),
-        actions: [
-          IconButton(onPressed: (){
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) =>ProductAdd()));
-          }, icon: Icon(Icons.add_circle_outline_outlined)),
-        ],
+
       ),
       body:   Container(
         height: MediaQuery.of(context).size.height ,

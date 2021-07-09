@@ -3,6 +3,7 @@ import 'package:happybuy/Model/CartList.dart';
 import 'package:happybuy/Model/ProductListModel.dart';
 import 'package:happybuy/Model/SliderModel.dart';
 import 'package:happybuy/Service/remote_service.dart';
+import 'package:happybuy/db/dbModel.dart';
 
 
 class Controller extends GetxController{
@@ -13,7 +14,7 @@ class Controller extends GetxController{
   var isLoadingProduct = true.obs;
   var catList = List<ModelCatList>.empty().obs;
   var productList = List<ModelProductList>.empty().obs;
-  var cartList = List<ModelProductList>.empty().obs;
+  var cartList = List<Model>().obs;
   var sliderlist = List<SliderModel>.empty().obs;
   @override
   void onInit() {

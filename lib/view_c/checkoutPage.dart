@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:happybuy/Controller/controller.dart';
 import 'package:happybuy/Helper/SizeConfig.dart';
+import 'package:happybuy/Helper/helper.dart';
 import 'package:happybuy/view_c/single_product_view.dart';
 
 class CheckoutPageView extends StatefulWidget {
@@ -50,195 +51,204 @@ class _CheckoutPageViewState extends State<CheckoutPageView> {
               // height: MediaQuery.of(context).size.height * .02,
               height: SizeConfig.safeBlockVertical * 2,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Container(
-                  // width: MediaQuery.of(context).size.width * .28,
-                  // height: MediaQuery.of(context).size.height * .15,
-                  width: SizeConfig.blockSizeHorizontal * 28,
-                  height: SizeConfig.safeBlockVertical * 14,
-                  child: Image.asset(
-                    'images/c.jpg',
-                    fit: BoxFit.fill,
-                    width: 40 * MediaQuery.of(context).devicePixelRatio,
-                    height: 40 * MediaQuery.of(context).devicePixelRatio,
-                  ),
-                ),
-                Container(
-                  // width: MediaQuery.of(context).size.width * .7,
-                  // height: MediaQuery.of(context).size.height * .14,
-                  width: SizeConfig.blockSizeHorizontal * 70,
-                  height: SizeConfig.safeBlockVertical * 14,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Container(
-                            // width: MediaQuery.of(context).size.width * .5,
-                            // height: MediaQuery.of(context).size.height * .05,
-                            width: SizeConfig.blockSizeHorizontal * 50,
-                            height: SizeConfig.safeBlockVertical * 5,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Row(
-                                  children: [
-                                    Text(
-                                        "Product Name",
-                                        maxLines: 1,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(
-                                          color: Colors.black,
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.bold,
-                                        )
-                                    ),
-                                  ],
-                                ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                        "1 pc.",
-                                        overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(
-                                          color: Colors.black54,
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.w400,
-                                        )
-                                    ),
-                                    Text(
-                                        " | ",
-                                        overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(
-                                          color: Colors.black54,
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.w400,
-                                        )
-                                    ),
-                                    Text(
-                                      "৳ 180",
-                                      style: TextStyle(
-                                          color: Colors.black54,
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.w400),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                          IconButton(
-                              onPressed: (){},
-                              icon: Icon(Icons.delete)
-                          ),
-                        ],
+            Container(
+              height: MediaQuery.of(context).size.height/2,
+              child: ListView.builder(
+                  itemCount: _controller.cartList.length,
+                  itemBuilder: (BuildContext contex, int index){
+                return Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Container(
+                      // width: MediaQuery.of(context).size.width * .28,
+                      // height: MediaQuery.of(context).size.height * .15,
+                      width: 100,
+                      height:100,
+                      margin: EdgeInsets.all(10),
+                      child: Image.network(
+                       Helper.baseurl+ _controller.cartList[index].pImg,
+                        fit: BoxFit.fill,
+                        width: 40 * MediaQuery.of(context).devicePixelRatio,
+                        height: 40 * MediaQuery.of(context).devicePixelRatio,
                       ),
-                      Row(
+                    ),
+                    Container(
+                      // width: MediaQuery.of(context).size.width * .7,
+                      // height: MediaQuery.of(context).size.height * .14,
+                      width: SizeConfig.blockSizeHorizontal * 70,
+                      height: SizeConfig.safeBlockVertical * 14,
+                      child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Container(
-                            // width: MediaQuery.of(context).size.width * .4,
-                            // height: MediaQuery.of(context).size.height * .05,
-                            width: SizeConfig.blockSizeHorizontal * 40,
-                            height: SizeConfig.safeBlockVertical * 5,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Container(
+                                // width: MediaQuery.of(context).size.width * .5,
+                                // height: MediaQuery.of(context).size.height * .05,
+                                width: SizeConfig.blockSizeHorizontal * 50,
+                                height: SizeConfig.safeBlockVertical * 5,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Text(
-                                      "৳ 180",
-                                      style: TextStyle(
-                                          color: Colors.amber,
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w400),
-                                    ),
-                                  ],
-                                ),
-                                Row(
-                                  children: [
-                                    Text(
-                                      "৳ 180",
-                                      style: TextStyle(
-                                          decoration: TextDecoration.lineThrough,
-                                          decorationStyle: TextDecorationStyle.solid,
-                                          color: Colors.black26,
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w500),
-                                    ),
-                                    SizedBox(width: 5,),
-                                    Text(
-                                        " 20% Off ",
-                                        overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(
-                                          color: Colors.red,
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w400,
-                                        )
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                          OutlinedButton(
-                              onPressed: () {},
-                              child:  Container(
-                                // padding: EdgeInsets.fromLTRB(2, 2, 2, 2),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  children: [
-                                    ClipOval(
-                                      child: Material(
-                                        color: Colors.black54, // Button color
-                                        child: InkWell(
-                                          splashColor: Colors.white70, // Splash color
-                                          onTap: () {},
-                                          child: Icon(Icons.remove,color: Colors.white,size: 18,),
+                                    Row(
+                                      children: [
+                                        Text(
+                                            _controller.cartList[index].pName,
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.bold,
+                                            )
                                         ),
-                                      ),
+                                      ],
                                     ),
-                                    SizedBox(width: 10,),
-                                    Text(
-                                        " 1 ",
-                                        maxLines: 2,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(
-                                          color: Colors.black,
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.w400,
-                                        )
-                                    ),
-                                    SizedBox(width: 10,),
-                                    ClipOval(
-                                      child: Material(
-                                        color: Colors.black54, // Button color
-                                        child: InkWell(
-                                          splashColor: Colors.white, // Splash color
-                                          onTap: () {},
-                                          child: Icon(Icons.add,color: Colors.white,size: 18,),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                    _controller.cartList[index].pQuantity.toString(),
+                                            overflow: TextOverflow.ellipsis,
+                                            style: TextStyle(
+                                              color: Colors.black54,
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w400,
+                                            )
                                         ),
-                                      ),
-                                    )
+                                        Text(
+                                            " | ",
+                                            overflow: TextOverflow.ellipsis,
+                                            style: TextStyle(
+                                              color: Colors.black54,
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w400,
+                                            )
+                                        ),
+                                        Text(
+                    _controller.cartList[index].pPrice.toString(),
+                                          style: TextStyle(
+                                              color: Colors.black54,
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w400),
+                                        ),
+                                      ],
+                                    ),
                                   ],
                                 ),
                               ),
-                              style: OutlinedButton.styleFrom(
-                                shape: StadiumBorder(),
+                              IconButton(
+                                  onPressed: (){},
+                                  icon: Icon(Icons.delete)
+                              ),
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Container(
+                                // width: MediaQuery.of(context).size.width * .4,
+                                // height: MediaQuery.of(context).size.height * .05,
+                                width: SizeConfig.blockSizeHorizontal * 40,
+                                height: SizeConfig.safeBlockVertical * 5,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          "৳ 180",
+                                          style: TextStyle(
+                                              color: Colors.amber,
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w400),
+                                        ),
+                                      ],
+                                    ),
+                                    Row(
+                                      children: [
+                                        Text(
+                                          "৳ 180",
+                                          style: TextStyle(
+                                              decoration: TextDecoration.lineThrough,
+                                              decorationStyle: TextDecorationStyle.solid,
+                                              color: Colors.black26,
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w500),
+                                        ),
+                                        SizedBox(width: 5,),
+                                        Text(
+                                            " 20% Off ",
+                                            overflow: TextOverflow.ellipsis,
+                                            style: TextStyle(
+                                              color: Colors.red,
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w400,
+                                            )
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              OutlinedButton(
+                                  onPressed: () {},
+                                  child:  Container(
+                                    // padding: EdgeInsets.fromLTRB(2, 2, 2, 2),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        ClipOval(
+                                          child: Material(
+                                            color: Colors.black54, // Button color
+                                            child: InkWell(
+                                              splashColor: Colors.white70, // Splash color
+                                              onTap: () {},
+                                              child: Icon(Icons.remove,color: Colors.white,size: 18,),
+                                            ),
+                                          ),
+                                        ),
+                                        SizedBox(width: 10,),
+                                        Text(
+                                            " 1 ",
+                                            maxLines: 2,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.w400,
+                                            )
+                                        ),
+                                        SizedBox(width: 10,),
+                                        ClipOval(
+                                          child: Material(
+                                            color: Colors.black54, // Button color
+                                            child: InkWell(
+                                              splashColor: Colors.white, // Splash color
+                                              onTap: () {},
+                                              child: Icon(Icons.add,color: Colors.white,size: 18,),
+                                            ),
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                  style: OutlinedButton.styleFrom(
+                                    shape: StadiumBorder(),
+                                  )
                               )
-                          )
+                            ],
+                          ),
                         ],
                       ),
-                    ],
-                  ),
-                ),
-              ],
+                    ),
+                  ],
+                );
+              }),
             ),
+
             Container(
               // height: MediaQuery.of(context).size.height * .16,
               height: SizeConfig.safeBlockVertical * 16,
