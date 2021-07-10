@@ -252,78 +252,87 @@ class _DashboardClientState extends State<DashboardClient> {
                         itemCount: _controller.productList.length,
                         scrollDirection: Axis.horizontal,
                         itemBuilder: (BuildContext context, int index) {
-                          return Container(
-                            margin: EdgeInsets.only(left: 10, right: 10),
-                            width: 300,
-                            decoration: BoxDecoration(
-                                border: Border.all(
-                                    color: Colors.grey[300], width: 1),
-                                borderRadius: BorderRadius.circular(15),
-                                color: colorlist[9 - (index % 10)]),
-                            child: Row(
-                              children: [
-                                Container(
-                                  height:
-                                      MediaQuery.of(context).size.width / 2 -
-                                          40,
-                                  width: MediaQuery.of(context).size.width / 2 -
-                                      60,
-                                  child: ClipRRect(
-                                      borderRadius: BorderRadius.only(
-                                          topLeft: Radius.circular(15),
-                                          bottomLeft: Radius.circular(15)),
-                                      child: FadeInImage(
-                                        image: NetworkImage(Helper.baseurl +
-                                            _controller
-                                                .productList[index].img1),
-                                        placeholder:
-                                            AssetImage('images/gif-logo.gif'),
-                                        fit: BoxFit.cover,
-                                      )),
-                                ),
-                                Container(
-                                  padding: EdgeInsets.only(
-                                      left: 8, top: 10, right: 5),
-                                  width: MediaQuery.of(context).size.width / 2 -
-                                      80,
-                                  child: Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Container(
-                                        child: Text(
-                                          _controller.productList[index].name,
-                                          maxLines: 3,
-                                          overflow: TextOverflow.ellipsis,
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w500,
+                          return GestureDetector(
+                            child: Container(
+                              margin: EdgeInsets.only(left: 10, right: 10),
+                              width: 300,
+                              decoration: BoxDecoration(
+                                  border: Border.all(
+                                      color: Colors.grey[300], width: 1),
+                                  borderRadius: BorderRadius.circular(15),
+                                  color: colorlist[9 - (index % 10)]),
+                              child: Row(
+                                children: [
+                                  Container(
+                                    height:
+                                        MediaQuery.of(context).size.width / 2 -
+                                            40,
+                                    width: MediaQuery.of(context).size.width / 2 -
+                                        60,
+                                    child: ClipRRect(
+                                        borderRadius: BorderRadius.only(
+                                            topLeft: Radius.circular(15),
+                                            bottomLeft: Radius.circular(15)),
+                                        child: FadeInImage(
+                                          image: NetworkImage(Helper.baseurl +
+                                              _controller
+                                                  .productList[index].img1),
+                                          placeholder:
+                                              AssetImage('images/gif-logo.gif'),
+                                          fit: BoxFit.cover,
+                                        )),
+                                  ),
+                                  Container(
+                                    padding: EdgeInsets.only(
+                                        left: 8, top: 10, right: 5),
+                                    width: MediaQuery.of(context).size.width / 2 -
+                                        80,
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Container(
+                                          child: Text(
+                                            _controller.productList[index].name,
+                                            maxLines: 3,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w500,
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                      Container(
-                                        width:
-                                            MediaQuery.of(context).size.width /
-                                                    2 -
-                                                60,
-                                        padding: EdgeInsets.only(
-                                            left: 5, top: 8, bottom: 15),
-                                        child: Text(
-                                          "৳" +
-                                              _controller
-                                                  .productList[index].price,
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 22,
-                                              fontWeight: FontWeight.w500),
+                                        Container(
+                                          width:
+                                              MediaQuery.of(context).size.width /
+                                                      2 -
+                                                  60,
+                                          padding: EdgeInsets.only(
+                                              left: 5, top: 8, bottom: 15),
+                                          child: Text(
+                                            "৳" +
+                                                _controller
+                                                    .productList[index].price,
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 22,
+                                                fontWeight: FontWeight.w500),
+                                          ),
                                         ),
-                                      ),
-                                    ],
+                                      ],
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
+                            onTap: (){
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ProductView(
+                                          _controller.productList[index])));
+                            },
                           );
                         });
                   }

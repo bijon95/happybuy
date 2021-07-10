@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:happybuy/Controller/controller.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:happybuy/GlobalSetting/GlobalColor.dart';
 import 'package:happybuy/Helper/helper.dart';
 import 'package:happybuy/Model/ProductListModel.dart';
 import 'package:get/get.dart';
@@ -19,7 +20,7 @@ class ProductView extends StatefulWidget {
 
 class _CreateCategoryState extends State<ProductView> {
   final Controller _controller = Get.put(Controller());
- int quantity = 0;
+ int quantity = 1;
   nothing(){}
   List<String> imgList = List();
   addImageInList(){
@@ -173,7 +174,7 @@ class _CreateCategoryState extends State<ProductView> {
                        widget.product.selling==null ?  Container(
                          margin: EdgeInsets.only(
                              left: 20, right: 20, top: 15, bottom: 10),
-                         child: Text("\$"+widget.product.price,
+                         child: Text("\৳ "+widget.product.price,
                              style:
                              TextStyle(fontSize: 24, color: Colors.red)),
                        ):Column(
@@ -181,14 +182,14 @@ class _CreateCategoryState extends State<ProductView> {
                             Container(
                               margin: EdgeInsets.only(
                                   left: 20, right: 20, top: 10, bottom: 00),
-                              child: Text("\$"+widget.product.selling,
+                              child: Text("\৳ "+widget.product.selling,
                                   style:
                                       TextStyle(fontSize: 24, color: Colors.red)),
                             ),
                             Container(
                               margin: EdgeInsets.only(
                                   left: 20, right: 20, top: 0, bottom: 10),
-                              child: Text("\$"+widget.product.price,
+                              child: Text("\৳ "+widget.product.price,
                                   style:
                                   TextStyle(fontSize: 16, color: Colors.grey,decoration: TextDecoration.lineThrough)),
                             ),
@@ -205,7 +206,7 @@ class _CreateCategoryState extends State<ProductView> {
                       margin: EdgeInsets.only(
                           left: 20, right: 20, top: 15, bottom: 10),
                       child: Text(widget.product.name,
-                          style: TextStyle(fontSize: 24)),
+                          style: TextStyle(fontSize: 24,fontWeight: FontWeight.bold)),
                     ),
                     Container(
                       color: Colors.grey[200],
@@ -228,11 +229,11 @@ class _CreateCategoryState extends State<ProductView> {
                         // )
                       ],
                     ),
-                    Container(
-                      color: Colors.grey[200],
-                      height: 5,
-                      width: MediaQuery.of(context).size.width,
-                    ),
+                    // Container(
+                    //   color: Colors.grey[200],
+                    //   height: 5,
+                    //   width: MediaQuery.of(context).size.width,
+                    // ),
                   ],
                 )),
             Container(
@@ -241,33 +242,55 @@ class _CreateCategoryState extends State<ProductView> {
               color: Colors.grey[300],
             ),
             Container(
-              height: 59,
-              color: Colors.white,
+              height: 58,
+
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Container(
-                    padding: EdgeInsets.only(top: 0, bottom: 0),
-                    width: 80,
-                    child: Center(
-                      child: Column(
-                        children: [
-                          IconButton(
-                          icon:Icon( Icons.shopping_cart_outlined,size: 24,),
-                            onPressed: (){
-                              _Dataquery();
-                              // Navigator.push(
-                              //     context, MaterialPageRoute(builder: (context) =>CheckoutPageView()));
+                  GestureDetector(
+                    child: Stack(
+                      children: [
+                        Container(
+                          padding: EdgeInsets.only(top: 5, bottom: 4,left: 10,right: 10),
+                          margin: EdgeInsets.only(left: 10,top: 8),
+                          height: 50,
+                          width:50,
 
-                            },
+                          decoration: BoxDecoration(
+                            color: GlobalColor.highlightTextColor,
+                            border: Border.all(color: Colors.green),
+                            borderRadius: BorderRadius.circular(45)
                           ),
-                          // Text(
-                          //   "Cart",
-                          //   style: TextStyle(fontSize: 12),
-                          // ),
-                        ],
-                      ),
+                          child: Center(
+                            child: Column(
+                              children: [
+                                Icon( Icons.shopping_cart_outlined,size: 24,color: Colors.white),
+                                Text(
+                                  "Cart",
+                                  style: TextStyle(fontSize: 12,color: Colors.white),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        Align(
+                          alignment: Alignment.topRight,
+                          child: Container(
+                            padding: EdgeInsets.all(2),
+                            decoration: BoxDecoration(
+                              color: Colors.green,
+                              borderRadius: BorderRadius.circular(45),
+                            ),
+                              margin: EdgeInsets.only(left: 42,top: 6),
+                              child: Text(quantity.toString(),style: TextStyle(fontSize:10,fontWeight:FontWeight.bold,color: Colors.white),)),
+                        )
+                      ],
                     ),
+                    onTap: (){
+                      Navigator.push(
+                          context, MaterialPageRoute(builder: (context) =>CheckoutPageView()));
+                    //  indertUpdate();
+                    },
                   ),
                   GestureDetector(
                     child: Container(
@@ -286,13 +309,11 @@ class _CreateCategoryState extends State<ProductView> {
                       )),
                     ),
                     onTap: (){
-                    //  _controller.addProductToCart(widget.product);
-                    //  _controller.catList.value.add(widget.product);
+                      indertUpdate();
                       setState(() {
                         quantity++;
                       });
-                      print(quantity);
-                      indertUpdate();
+
                     },
                   ),
                   GestureDetector(
