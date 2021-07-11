@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:happybuy/Controller/controller.dart';
 import 'package:happybuy/Drawer/MainDrawer.dart';
+import 'package:happybuy/GlobalSetting/GlobalColor.dart';
 import 'package:happybuy/Helper/SizeConfig.dart';
 import 'package:happybuy/Model/category_list.dart';
 import 'package:happybuy/view/login_view.dart';
@@ -41,7 +42,7 @@ class _DashboardClient2State extends State<DashboardClient2> {
       appBar: AppBar(
         title: Text("Happy Buy",style: TextStyle(fontSize: 14),),
         centerTitle: false,
-        backgroundColor: Colors.green,
+        backgroundColor: GlobalColor.appbarColor,
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.search,color: Colors.white,),

@@ -4,6 +4,7 @@ import 'package:happybuy/view/SliderEdit.dart';
 import 'package:happybuy/view/category_list.dart';
 import 'package:happybuy/view/dashboard.dart';
 import 'package:happybuy/view/login_view.dart';
+import 'package:happybuy/view_c/OrderList.dart';
 import '../view_c/product_list.dart';
 import 'package:happybuy/view_c/checkoutPage.dart';
 import 'package:happybuy/view_c/order_tracking.dart';
@@ -55,14 +56,14 @@ class MainDrawer extends StatelessWidget {
               ),
               ListTile(
                 contentPadding: EdgeInsets.only(top:0.0,left: 15.0,right: 14.0),
-                title: Text('Orders'),
+                title: Text('My Orders'),
                   leading: Icon(
                     Icons.list_alt_rounded,
                     size: 24.0,
                   ),
                 onTap: (){
                   // Navigator.push(context, MaterialPageRoute(builder: (context) => OrderTracking()));
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => Single_Order_Tracking_Page()));
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => OrderList()));
                 }
               ),
               ListTile(

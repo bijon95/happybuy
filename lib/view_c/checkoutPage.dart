@@ -8,6 +8,7 @@ import 'package:happybuy/db/dbModel.dart';
 import 'package:happybuy/db/db_helper.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'dart:core';
 class CheckoutPageView extends StatefulWidget {
 
   @override
@@ -17,14 +18,13 @@ class CheckoutPageView extends StatefulWidget {
 class _CheckoutPageViewState extends State<CheckoutPageView> {
   final dbHelper = DatabaseHelper.instance;
   final Controller _controller = Get.put(Controller());
-  String dbjson = "" ;
+  var dbjson =[];
   Future<List> _Dataquery() async {
     _controller.cartList.clear();
     final allRows = await dbHelper.queryAllRows();
-    print('query all rows:');
-    allRows.forEach((row) => print(row));
+  //  print('query all rows:');
+  //  allRows.forEach((row) => print(row));
     // print(allRows[0]["_id"]);
-    print("no data printed");
     dbHelper.queryAllRows().then((notes) {
       // print(notes);
       notes.forEach((note) {
@@ -32,15 +32,16 @@ class _CheckoutPageViewState extends State<CheckoutPageView> {
         //     ', product_name: '+note['product_name']+
         //     ', price: '+note['price'].toString()+
         //     ', quantity: '+note['quantity'].toString()) + "}"));
-        dbjson = dbjson + jsonEncode(note);
+       // dbjson = dbjson +jsonEncode(note)+',' ;
+        _controller.cartList.add(Model.fromMapObject(note));
+        dbjson.add(note);
 
-     _controller.cartList.add(Model.fromMapObject(note));
+
         //d_items.add(Model.fromMapObject(notes));
        //count.add((Model.fromMapObject(notes).pQuantity));
       });
-
-
     });
+
   }
 
 
@@ -60,12 +61,12 @@ class _CheckoutPageViewState extends State<CheckoutPageView> {
       "user_id": 3,
       "shipping_address": "sylhey",
       "total_price": 1220,
-      "orders": [
-       jsonDecode(dbjson)
-      ]
+      "orders":
+      dbjson
+
     };
     print(testdata);
-    var response = await http.post(
+      var response = await http.post(
       url,
       headers: headers,
       body: jsonEncode(testdata),
@@ -80,8 +81,8 @@ class _CheckoutPageViewState extends State<CheckoutPageView> {
       // Navigator.push(
       //     context, MaterialPageRoute(builder: (context) => OrderPage()));
       print(response.body);
-    }
-    // this API passes back the id of the new item added to the body
+   }
+  //  this API passes back the id of the new item added to the body
   }
 
   @override
@@ -439,7 +440,8 @@ class _CheckoutPageViewState extends State<CheckoutPageView> {
               ),
               OutlinedButton(
                 onPressed: () {
-                  createOrder();
+                  _Dataquery();
+           createOrder();
 
                 },
                 child: Container(
