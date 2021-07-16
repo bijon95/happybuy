@@ -14,6 +14,7 @@ class Controller extends GetxController{
   var isLoadingProduct = true.obs;
   var catList = List<ModelCatList>.empty().obs;
   var productList = List<ModelProductList>.empty().obs;
+  var catProductList = List<ModelProductList>.empty().obs;
   var cartList = List<Model>().obs;
   var sliderlist = List<SliderModel>.empty().obs;
   @override
@@ -94,6 +95,20 @@ class Controller extends GetxController{
       }
     } finally {
       isLoadringSlider(false);
+    }
+  }
+
+  // call api for category
+  void fetchCatroductList(catId) async {
+    print("Controller call");
+    try {
+      isLoading(true);
+      var data = await RemoteServices.getCatProductList(catId);
+      if (data != null) {
+        catProductList.value = data;
+      }
+    } finally {
+      isLoading(false);
     }
   }
 

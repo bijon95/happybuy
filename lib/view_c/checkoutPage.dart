@@ -157,11 +157,11 @@ class _CheckoutPageViewState extends State<CheckoutPageView> {
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
                                       Container(
-                                        // width: MediaQuery.of(context).size.width * .5,
+                                         width: MediaQuery.of(context).size.width * .5,
                                         // height: MediaQuery.of(context).size.height * .05,
 
                                         child: Column(
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                           children: [
                                             Row(
                                               children: [
@@ -223,7 +223,7 @@ class _CheckoutPageViewState extends State<CheckoutPageView> {
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
                                       Container(
-                                        // width: MediaQuery.of(context).size.width * .4,
+                                        width: MediaQuery.of(context).size.width * .35,
                                         // height: MediaQuery.of(context).size.height * .05,
 
                                         child: Column(
@@ -233,7 +233,7 @@ class _CheckoutPageViewState extends State<CheckoutPageView> {
                                               mainAxisAlignment: MainAxisAlignment.start,
                                               children: [
                                                 Text(
-                                                  "৳ 180",
+                                                 "৳"+ _controller.cartList[index].productPrice.toString(),
                                                   style: TextStyle(
                                                       color: Colors.amber,
                                                       fontSize: 14,
@@ -241,77 +241,71 @@ class _CheckoutPageViewState extends State<CheckoutPageView> {
                                                 ),
                                               ],
                                             ),
-                                            Row(
-                                              children: [
-                                                Text(
-                                                  "৳ 180",
-                                                  style: TextStyle(
-                                                      decoration: TextDecoration.lineThrough,
-                                                      decorationStyle: TextDecorationStyle.solid,
-                                                      color: Colors.black26,
-                                                      fontSize: 14,
-                                                      fontWeight: FontWeight.w500),
-                                                ),
-                                                SizedBox(width: 5,),
-                                                Text(
-                                                    " 20% Off ",
-                                                    overflow: TextOverflow.ellipsis,
-                                                    style: TextStyle(
-                                                      color: Colors.red,
-                                                      fontSize: 14,
-                                                      fontWeight: FontWeight.w400,
-                                                    )
-                                                ),
-                                              ],
-                                            ),
+                                            // Row(
+                                            //   children: [
+                                            //     Text(
+                                            //       "৳ 180",
+                                            //       style: TextStyle(
+                                            //           decoration: TextDecoration.lineThrough,
+                                            //           decorationStyle: TextDecorationStyle.solid,
+                                            //           color: Colors.black26,
+                                            //           fontSize: 14,
+                                            //           fontWeight: FontWeight.w500),
+                                            //     ),
+                                            //     SizedBox(width: 5,),
+                                            //     Text(
+                                            //         " 20% Off ",
+                                            //         overflow: TextOverflow.ellipsis,
+                                            //         style: TextStyle(
+                                            //           color: Colors.red,
+                                            //           fontSize: 14,
+                                            //           fontWeight: FontWeight.w400,
+                                            //         )
+                                            //     ),
+                                            //   ],
+                                            // ),
                                           ],
                                         ),
                                       ),
-                                      OutlinedButton(
-                                          onPressed: () {},
-                                          child:  Container(
-                                            // padding: EdgeInsets.fromLTRB(2, 2, 2, 2),
-                                            child: Row(
-                                              mainAxisAlignment: MainAxisAlignment.end,
-                                              children: [
-                                                ClipOval(
-                                                  child: Material(
-                                                    color: Colors.black54, // Button color
-                                                    child: InkWell(
-                                                      splashColor: Colors.white70, // Splash color
-                                                      onTap: () {},
-                                                      child: Icon(Icons.remove,color: Colors.white,size: 18,),
-                                                    ),
-                                                  ),
+                                      Container(
+                                        // padding: EdgeInsets.fromLTRB(2, 2, 2, 2),
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.end,
+                                          children: [
+                                            ClipOval(
+                                              child: Material(
+                                                color: Colors.red[400], // Button color
+                                                child: InkWell(
+                                                  splashColor: Colors.white70, // Splash color
+                                                  onTap: () {},
+                                                  child: Icon(Icons.remove,color: Colors.white,size: 18,),
                                                 ),
-                                                SizedBox(width: 10,),
-                                                Text(
-                                                   _controller.cartList[index].pQuantity.toString(),
-                                                    maxLines: 2,
-                                                    overflow: TextOverflow.ellipsis,
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 15,
-                                                      fontWeight: FontWeight.w400,
-                                                    )
-                                                ),
-                                                SizedBox(width: 10,),
-                                                ClipOval(
-                                                  child: Material(
-                                                    color: Colors.black54, // Button color
-                                                    child: InkWell(
-                                                      splashColor: Colors.white, // Splash color
-                                                      onTap: () {},
-                                                      child: Icon(Icons.add,color: Colors.white,size: 18,),
-                                                    ),
-                                                  ),
-                                                )
-                                              ],
+                                              ),
                                             ),
-                                          ),
-                                          style: OutlinedButton.styleFrom(
-                                            shape: StadiumBorder(),
-                                          )
+                                            SizedBox(width: 10,),
+                                            Text(
+                                               _controller.cartList[index].pQuantity.toString(),
+                                                maxLines: 2,
+                                                overflow: TextOverflow.ellipsis,
+                                                style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 15,
+                                                  fontWeight: FontWeight.w400,
+                                                )
+                                            ),
+                                            SizedBox(width: 10,),
+                                            ClipOval(
+                                              child: Material(
+                                                color: Colors.green[400], // Button color
+                                                child: InkWell(
+                                                  splashColor: Colors.white, // Splash color
+                                                  onTap: () {},
+                                                  child: Icon(Icons.add,color: Colors.white,size: 18,),
+                                                ),
+                                              ),
+                                            )
+                                          ],
+                                        ),
                                       )
                                     ],
                                   ),

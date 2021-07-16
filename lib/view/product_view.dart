@@ -20,7 +20,7 @@ class ProductView extends StatefulWidget {
 
 class _CreateCategoryState extends State<ProductView> {
   final Controller _controller = Get.put(Controller());
- int quantity = 1;
+ int quantity = 0;
   nothing(){}
   List<String> imgList = List();
   addImageInList(){

@@ -197,6 +197,7 @@ class _LoginPageState extends State<RegistrationPage> {
                     ),
                     GestureDetector(
                       child: Container(
+                        margin: EdgeInsets.only(top: 15),
                         width: MediaQuery.of(context).size.width,
                         child: Center(
                             child: Text(
