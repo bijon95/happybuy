@@ -40,18 +40,18 @@ class AdminDrawer extends StatelessWidget {
               ),
 
 
-              ListTile(
-                  contentPadding: EdgeInsets.only(bottom:0.0,left: 15.0,right: 14.0),
-                  title: Text('Cart'),
-                  leading: Icon(
-                    Icons.shopping_cart_outlined,
-                    size: 24.0,
-                  ),
-                  onTap:(){
-                    Navigator.push(
-                        context, MaterialPageRoute(builder: (context) => CheckoutPageView()));
-                  }
-              ),
+              // ListTile(
+              //     contentPadding: EdgeInsets.only(bottom:0.0,left: 15.0,right: 14.0),
+              //     title: Text('Cart'),
+              //     leading: Icon(
+              //       Icons.shopping_cart_outlined,
+              //       size: 24.0,
+              //     ),
+              //     onTap:(){
+              //       Navigator.push(
+              //           context, MaterialPageRoute(builder: (context) => CheckoutPageView()));
+              //     }
+              // ),
               ListTile(
                   contentPadding: EdgeInsets.only(top:0.0,left: 15.0,right: 14.0),
                   title: Text('Orders'),

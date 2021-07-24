@@ -4,6 +4,7 @@ import 'package:happybuy/GlobalSetting/GlobalColor.dart';
 import 'package:happybuy/Helper/helper.dart';
 import 'package:happybuy/Helper/user_info.dart';
 import 'package:happybuy/view/login_view.dart';
+import 'package:happybuy/view_c/Dashboard_client.dart';
 import 'package:happybuy/view_c/Dashboard_client2.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/services.dart';
@@ -65,7 +66,8 @@ class _LoginPageState extends State<RegistrationPage> {
       });
       // UserInfo user = new UserInfo();
       // user.saveLoginDataToSharedPreference(type, name);
-      Navigator.push(context, MaterialPageRoute(builder: (context) => DashboardClient2()));
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context) => LoginPage()));
       return null;
     } else {
 //show error message

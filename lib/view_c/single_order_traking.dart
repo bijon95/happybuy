@@ -3,8 +3,11 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:happybuy/Helper/SizeConfig.dart';
+import 'package:happybuy/Model/OrderModel.dart';
 
 class Single_Order_Tracking_Page extends StatefulWidget {
+  ModelOrder order;
+  Single_Order_Tracking_Page(this.order);
   @override
   Single_Order_Tracking_PageState createState() =>
       new Single_Order_Tracking_PageState();
@@ -56,7 +59,7 @@ class Single_Order_Tracking_PageState
                         Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
-                            "HB646841",
+                           widget.order.id.toString(),
                             style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 18,
@@ -72,68 +75,72 @@ class Single_Order_Tracking_PageState
                     color: Colors.black12,
                   ),
                   Container(
-                    width: SizeConfig.safeBlockHorizontal * 100,
-                    height: SizeConfig.safeBlockVertical * 12,
-                    // decoration: BoxDecoration(
-                    //   shape: BoxShape.rectangle,
-                    //   // border: Border.all(style: BorderStyle.solid,width: 1)
-                    // ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Container(
-                          width: SizeConfig.blockSizeHorizontal * 59,
-                          height: SizeConfig.safeBlockVertical * 12,
-                          padding: EdgeInsets.only(left: 20, right: 20),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Align(
-                                alignment: Alignment.centerLeft,
-                                child: Text("Product Name",
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.bold,
-                                    )),
-                              ),
-                              SizedBox(
-                                height: SizeConfig.safeBlockVertical * 2,
-                              ),
-                              Align(
-                                alignment: Alignment.centerLeft,
-                                child: Text(
-                                  "৳ 120",
-                                  style: TextStyle(
-                                      color: Colors.redAccent,
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w400),
+                    height: widget.order.details.length * 100.0,
+                    child: Flexible(child: ListView.builder(
+                        itemCount: widget.order.details.length,
+                        itemBuilder: (BuildContext contex, int index){
+                      return Container(
+                        height: 100,
+                        child: Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Container(
+                                  width: SizeConfig.blockSizeHorizontal * 59,
+                                  height: SizeConfig.safeBlockVertical * 12,
+                                  padding: EdgeInsets.only(left: 20, right: 20),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Align(
+                                        alignment: Alignment.centerLeft,
+                                        child: Text(widget.order.details[index].productName,
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.bold,
+                                            )),
+                                      ),
+                                      SizedBox(
+                                        height: SizeConfig.safeBlockVertical * 2,
+                                      ),
+                                      Align(
+                                        alignment: Alignment.centerLeft,
+                                        child: Text(
+                                          "৳ "+widget.order.details[index].price.toString(),
+                                          style: TextStyle(
+                                              color: Colors.redAccent,
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w400),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                              ),
-                            ],
-                          ),
+                              ],
+                            ),
+                            Container(
+                              margin: EdgeInsets.only(top: 4),
+                              height: 1,
+                              width: MediaQuery.of(context).size.width,
+                              color: Colors.grey,
+                            ),
+                          ],
                         ),
-                        Container(
-                          width: SizeConfig.blockSizeHorizontal * 30,
-                          height: SizeConfig.safeBlockVertical * 12,
-                          child: Image.asset(
-                            'images/grocery.png',
-                            fit: BoxFit.contain,
-                            // width: SizeConfig.blockSizeHorizontal * 20,
-                            // height: SizeConfig.safeBlockVertical * 12,
-                          ),
-                        ),
-                      ],
-                    ),
+                      );
+                    })),
                   ),
                   Divider(
                     height: 5,
                     thickness: 1,
                     color: Colors.black12,
                   ),
-               placedOrder()
+               widget.order.status=="placed" ?  placedOrder() : Container(),
+
+
                // confirmOrder()
                 // readyToShipOrder()
                  //orderPickUp()

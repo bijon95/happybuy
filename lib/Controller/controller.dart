@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:happybuy/Model/CartList.dart';
+import 'package:happybuy/Model/OrderModel.dart';
 import 'package:happybuy/Model/ProductListModel.dart';
 import 'package:happybuy/Model/SliderModel.dart';
 import 'package:happybuy/Service/remote_service.dart';
@@ -12,6 +13,8 @@ class Controller extends GetxController{
   var categoryLoading = true.obs;
   var isLoadringSlider = true.obs;
   var isLoadingProduct = true.obs;
+  var orderList = List<ModelOrder>.empty().obs;
+  var allOrderList = List<ModelOrder>.empty().obs;
   var catList = List<ModelCatList>.empty().obs;
   var productList = List<ModelProductList>.empty().obs;
   var catProductList = List<ModelProductList>.empty().obs;
@@ -100,12 +103,37 @@ class Controller extends GetxController{
 
   // call api for category
   void fetchCatroductList(catId) async {
-    print("Controller call");
     try {
       isLoading(true);
       var data = await RemoteServices.getCatProductList(catId);
       if (data != null) {
         catProductList.value = data;
+      }
+    } finally {
+      isLoading(false);
+    }
+  }
+
+  // call for order by id
+  void fetchOrderList(userID) async {
+    try {
+      isLoading(true);
+      var data = await RemoteServices.getOrderList(userID);
+      if (data != null) {
+        orderList.value = data;
+      }
+    } finally {
+      isLoading(false);
+    }
+  }
+
+// call for order
+  void fetchallOrderList() async {
+    try {
+      isLoading(true);
+      var data = await RemoteServices.getAllOrderList();
+      if (data != null) {
+        allOrderList.value = data;
       }
     } finally {
       isLoading(false);

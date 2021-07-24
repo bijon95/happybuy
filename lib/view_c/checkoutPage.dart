@@ -4,8 +4,10 @@ import 'package:get/get.dart';
 import 'package:happybuy/Controller/controller.dart';
 import 'package:happybuy/Helper/SizeConfig.dart';
 import 'package:happybuy/Helper/helper.dart';
+import 'package:happybuy/Helper/user_info.dart';
 import 'package:happybuy/db/dbModel.dart';
 import 'package:happybuy/db/db_helper.dart';
+import 'package:happybuy/view_c/OrderList.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:core';
@@ -16,8 +18,12 @@ class CheckoutPageView extends StatefulWidget {
 }
 
 class _CheckoutPageViewState extends State<CheckoutPageView> {
+
+  TextEditingController ctAddress = TextEditingController();
+  TextEditingController ctPhone = TextEditingController();
   final dbHelper = DatabaseHelper.instance;
   final Controller _controller = Get.put(Controller());
+  UserInfo user = new UserInfo();
   var dbjson =[];
   Future<List> _Dataquery() async {
     _controller.cartList.clear();
@@ -43,6 +49,60 @@ class _CheckoutPageViewState extends State<CheckoutPageView> {
     });
 
   }
+  String token = "";
+
+  Future getUserDataFromSharedPreference() async{
+
+
+
+    Future<String> userName = user.getName();
+    await userName.then((data) {
+      token = data.toString();
+      print(token);
+      print("name print");
+    },onError: (e) {
+      print(e);
+    });
+
+  }
+
+  void indertUpdate(index) async {
+    print("add to card");
+    Map<String, dynamic> row = {
+      DatabaseHelper.proid:   _controller.cartList[index].id,
+      DatabaseHelper.proName:  _controller.cartList[index].productName,
+      DatabaseHelper.proQuantity: _controller.cartList[index].productQuantity,
+      DatabaseHelper.pImg :_controller.cartList[index].productImg,
+      DatabaseHelper.proPrice: _controller.cartList[index].productPrice,
+      DatabaseHelper.discount:  '0',
+      DatabaseHelper.tPrice:(double.parse(_controller.cartList[index].productPrice.toString()) * _controller.cartList[index].productQuantity).toString(),
+
+    };
+    final checkPro =
+    await dbHelper.checkProduct( _controller.cartList[index].id.toString());
+    if (checkPro == null) {
+      final idupdate = await dbHelper.insert(row);
+      print(idupdate.toString() + "insert");
+    } else {
+      final updatedata = await dbHelper.updateCartList(
+          row,  _controller.cartList[index].id);
+      print(updatedata.toString() + "update");
+      setState(() {
+        //  count[index]++;
+      });
+    }
+  }
+int totalAmount=0;
+  getTotal (){
+    totalAmount=0;
+    for(var i = 0; i < _controller.cartList.length; i++){
+      totalAmount += _controller.cartList[i].productPrice*_controller.cartList[i].productQuantity;
+    }
+    setState(() {
+
+    });
+    return totalAmount;
+  }
 
 
 
@@ -58,9 +118,9 @@ class _CheckoutPageViewState extends State<CheckoutPageView> {
 
 
     var testdata = {
-      "user_id": 3,
-      "shipping_address": "sylhey",
-      "total_price": 1220,
+      "user_id": token,
+      "shipping_address": ctAddress.text,
+      "total_price":totalAmount,
       "orders":
       dbjson
 
@@ -77,9 +137,10 @@ class _CheckoutPageViewState extends State<CheckoutPageView> {
 
 
     if (response.statusCode == 200) {
+      _controller.cartList.clear();
       dbHelper.deleteall();
-      // Navigator.push(
-      //     context, MaterialPageRoute(builder: (context) => OrderPage()));
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => OrderList()));
       print(response.body);
    }
   //  this API passes back the id of the new item added to the body
@@ -90,6 +151,7 @@ class _CheckoutPageViewState extends State<CheckoutPageView> {
     // TODO: implement initState
 
     _Dataquery();
+getUserDataFromSharedPreference();
   }
   @override
   Widget build(BuildContext context) {
@@ -103,7 +165,14 @@ class _CheckoutPageViewState extends State<CheckoutPageView> {
         backgroundColor: Colors.green,
         actions: <Widget>[
           TextButton(
-            onPressed: (){},
+            onPressed: (){
+              print("delete");
+              dbHelper.deleteall();
+              _Dataquery();
+              setState(() {
+
+              });
+            },
             child: Text(
                 "Clear",
                 maxLines: 1,
@@ -219,6 +288,7 @@ class _CheckoutPageViewState extends State<CheckoutPageView> {
                                       ),
                                     ],
                                   ),
+                                  SizedBox(height: 10,),
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
@@ -233,7 +303,7 @@ class _CheckoutPageViewState extends State<CheckoutPageView> {
                                               mainAxisAlignment: MainAxisAlignment.start,
                                               children: [
                                                 Text(
-                                                 "৳"+ _controller.cartList[index].productPrice.toString(),
+                                                 "৳"+ (_controller.cartList[index].productPrice*_controller.cartList[index].productQuantity).toString(),
                                                   style: TextStyle(
                                                       color: Colors.amber,
                                                       fontSize: 14,
@@ -277,7 +347,10 @@ class _CheckoutPageViewState extends State<CheckoutPageView> {
                                                 color: Colors.red[400], // Button color
                                                 child: InkWell(
                                                   splashColor: Colors.white70, // Splash color
-                                                  onTap: () {},
+                                                  onTap: () {
+                                                    _controller.cartList[index].pQuantity > 1 ? _controller.cartList[index].pQuantity-- :1;
+                                                    indertUpdate(index);
+                                                  },
                                                   child: Icon(Icons.remove,color: Colors.white,size: 18,),
                                                 ),
                                               ),
@@ -299,7 +372,10 @@ class _CheckoutPageViewState extends State<CheckoutPageView> {
                                                 color: Colors.green[400], // Button color
                                                 child: InkWell(
                                                   splashColor: Colors.white, // Splash color
-                                                  onTap: () {},
+                                                  onTap: () {
+                                                    _controller.cartList[index].pQuantity++;
+                                                    indertUpdate(index);
+                                                  },
                                                   child: Icon(Icons.add,color: Colors.white,size: 18,),
                                                 ),
                                               ),
@@ -320,78 +396,140 @@ class _CheckoutPageViewState extends State<CheckoutPageView> {
             }),
 
             Container(
-              // height: MediaQuery.of(context).size.height * .16,
+
               padding: EdgeInsets.fromLTRB(20,20,20,20),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+               // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //   children: [
+                  //     Text(
+                  //         "Subtotal",
+                  //         maxLines: 1,
+                  //         overflow: TextOverflow.ellipsis,
+                  //         style: TextStyle(
+                  //           color: Colors.black,
+                  //           fontSize: 17,
+                  //           fontWeight: FontWeight.bold,
+                  //         )
+                  //     ),
+                  //     Text(
+                  //       "৳ 180",
+                  //       style: TextStyle(
+                  //           color: Colors.black,
+                  //           fontSize: 16,
+                  //           fontWeight: FontWeight.w400),
+                  //     ),
+                  //   ],
+                  // ),
+                  // SizedBox(height: 10,),
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //   children: [
+                  //     Text(
+                  //         "Discount",
+                  //         maxLines: 1,
+                  //         overflow: TextOverflow.ellipsis,
+                  //         style: TextStyle(
+                  //           color: Colors.black54,
+                  //           fontSize: 15,
+                  //           fontWeight: FontWeight.w400,
+                  //         )
+                  //     ),
+                  //     Text(
+                  //       "- "+"৳36",
+                  //       style: TextStyle(
+                  //           color: Colors.redAccent,
+                  //           fontSize: 15,
+                  //           fontWeight: FontWeight.w400),
+                  //     ),
+                  //   ],
+                  // ),
+                  // SizedBox(height: 10,),
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //   children: [
+                  //     Text(
+                  //         "Delivery fee",
+                  //         maxLines: 1,
+                  //         overflow: TextOverflow.ellipsis,
+                  //         style: TextStyle(
+                  //           color: Colors.black54,
+                  //           fontSize: 15,
+                  //           fontWeight: FontWeight.w400,
+                  //         )
+                  //     ),
+                  //     Text(
+                  //       "৳20",
+                  //       style: TextStyle(
+                  //           color: Colors.black54,
+                  //           fontSize: 15,
+                  //           fontWeight: FontWeight.w400),
+                  //     ),
+                  //   ],
+                  // ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                          "Subtotal",
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 17,
-                            fontWeight: FontWeight.bold,
-                          )
+                      Padding(
+                        padding: EdgeInsets.only(left: 18),
+                        child: Text(
+                            _controller.cartList.length.toString()+" item",
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                            )
+                        ),
                       ),
-                      Text(
-                        "৳ 180",
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 16,
-                            fontWeight: FontWeight.w400),
+                      Padding(
+                        padding: EdgeInsets.only(right: 18),
+                        child: Text(
+                          "Total : "+getTotal().toString(),
+                          style: TextStyle(
+                              color: Colors.green,
+                              fontSize: 17,
+                              fontWeight: FontWeight.w400),
+                        ),
                       ),
                     ],
                   ),
-                  SizedBox(height: 10,),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                          "Discount",
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                            color: Colors.black54,
-                            fontSize: 15,
-                            fontWeight: FontWeight.w400,
-                          )
+                  // Container(
+                  //   //color: Colors.white,
+                  //   padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                  //   child: TextField(
+                  //     style: TextStyle(fontSize: 18),
+                  //     controller: ctPhone,
+                  //     maxLines: 2,
+                  //     keyboardType: TextInputType.phone,
+                  //     decoration: new InputDecoration(
+                  //       contentPadding: EdgeInsets.only(left: 10),
+                  //       labelText: 'Phone',
+                  //       border: new OutlineInputBorder(
+                  //         borderRadius: new BorderRadius.circular(10),
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
+                  Container(
+                    //color: Colors.white,
+                    padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                    child: TextField(
+                      style: TextStyle(fontSize: 18),
+                      controller: ctAddress,
+                      maxLines: 2,
+                      keyboardType: TextInputType.text,
+                      decoration: new InputDecoration(
+                        contentPadding: EdgeInsets.only(left: 10),
+                        labelText: 'Address',
+                        border: new OutlineInputBorder(
+                          borderRadius: new BorderRadius.circular(10),
+                        ),
                       ),
-                      Text(
-                        "- "+"৳36",
-                        style: TextStyle(
-                            color: Colors.redAccent,
-                            fontSize: 15,
-                            fontWeight: FontWeight.w400),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 10,),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                          "Delivery fee",
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                            color: Colors.black54,
-                            fontSize: 15,
-                            fontWeight: FontWeight.w400,
-                          )
-                      ),
-                      Text(
-                        "৳20",
-                        style: TextStyle(
-                            color: Colors.black54,
-                            fontSize: 15,
-                            fontWeight: FontWeight.w400),
-                      ),
-                    ],
+                    ),
                   ),
                 ],
               ),
@@ -404,34 +542,7 @@ class _CheckoutPageViewState extends State<CheckoutPageView> {
           height: SizeConfig.safeBlockVertical * 11,
           child: Column(
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.only(left: 18),
-                    child: Text(
-                        "1 item",
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 14,
-                          fontWeight: FontWeight.bold,
-                        )
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(right: 18),
-                    child: Text(
-                      "Total : "+"৳174",
-                      style: TextStyle(
-                          color: Colors.green,
-                          fontSize: 17,
-                          fontWeight: FontWeight.w400),
-                    ),
-                  ),
-                ],
-              ),
+
               OutlinedButton(
                 onPressed: () {
                   _Dataquery();

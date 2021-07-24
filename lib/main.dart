@@ -67,7 +67,7 @@ class _MyAppState extends State<MyApp>{
     return Scaffold(
       backgroundColor: Color(0xFFe9f5f5),
       body : Container(
-        child: Image.asset("images/grocery.png",height: MediaQuery.of(context).size.height, width: MediaQuery.of(context).size.width),
+        child: Image.asset("images/logo.png",height: MediaQuery.of(context).size.height, width: MediaQuery.of(context).size.width),
       )
     );
   }
