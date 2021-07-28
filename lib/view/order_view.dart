@@ -1,7 +1,13 @@
+import 'dart:convert';
+import 'package:happybuy/Helper/user_info.dart';
+import 'package:happybuy/view_c/order_tracking.dart';
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
+import 'package:happybuy/Helper/helper.dart';
 import 'package:happybuy/Model/OrderModel.dart';
 import 'package:url_launcher/url_launcher.dart';
-
+import 'package:happybuy/Controller/controller.dart';
+import 'package:get/get.dart';
 class OrderView extends StatefulWidget {
   ModelOrder Order;
   OrderView(this.Order);
@@ -10,9 +16,187 @@ class OrderView extends StatefulWidget {
 }
 
 class _CreateCategoryState extends State<OrderView> {
-
+  final Controller _controller = Get.put(Controller());
   Widget orderItemText(txt){
     return Text(txt,style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold),);
+  }
+
+  String token = "";
+  UserInfo user = new UserInfo();
+  Future getUserDataFromSharedPreference() async{
+
+
+
+    Future<String> userName = user.getName();
+    await userName.then((data) {
+      token = data.toString();
+      print(token);
+      print("name print");
+      _controller.orderList.clear();
+      _controller.fetchOrderList(token);
+    },onError: (e) {
+      print(e);
+    });
+
+  }
+
+  Future processing(id) async {
+    setState(() {});
+
+    Uri url = Uri.parse(Helper.baseurl + "processingorder");
+    Map data = {
+      "id": id
+    };
+    //encode Map to JSON
+    var body = json.encode(data);
+    var response = await http.post(
+      url,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: body,
+    );
+    if (response.statusCode == 200) {
+
+      var jsonString = jsonDecode(response.body);
+
+      print(response.body);
+      print(jsonString["status"]);
+      if (jsonString["status"] == 'success') {
+        Navigator.pop(context);
+        Navigator.pop(context);
+        Navigator.pop(context);
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => OrderTracking()));
+        getUserDataFromSharedPreference();
+      }
+
+      return null;
+    } else {
+//show error message
+      return null;
+    }
+  }
+  Future picked(id) async {
+    setState(() {});
+
+    Uri url = Uri.parse(Helper.baseurl + "deliverorder");
+    Map data = {
+      "id": id
+    };
+    //encode Map to JSON
+    var body = json.encode(data);
+    var response = await http.post(
+      url,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: body,
+    );
+    if (response.statusCode == 200) {
+
+      var jsonString = jsonDecode(response.body);
+
+      print(response.body);
+      print(jsonString["status"]);
+      if (jsonString["status"] == 'success') {
+        Navigator.pop(context);
+        Navigator.pop(context);
+        Navigator.pop(context);
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => OrderTracking()));
+        getUserDataFromSharedPreference();
+      }
+
+      return null;
+    } else {
+//show error message
+      return null;
+    }
+  }
+
+  Future complete(id) async {
+    setState(() {});
+
+    Uri url = Uri.parse(Helper.baseurl + "completeorder");
+    Map data = {
+      "id": id
+    };
+    //encode Map to JSON
+    var body = json.encode(data);
+    var response = await http.post(
+      url,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: body,
+    );
+    if (response.statusCode == 200) {
+
+      var jsonString = jsonDecode(response.body);
+
+      print(response.body);
+      print(jsonString["status"]);
+      if (jsonString["status"] == 'success') {
+        Navigator.pop(context);
+        Navigator.pop(context);
+        getUserDataFromSharedPreference();
+        Navigator.pop(context);
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => OrderTracking()));
+      }
+
+      return null;
+    } else {
+//show error message
+      return null;
+    }
+  }
+
+  showAlertDialog(BuildContext context,status,id) {
+
+    // set up the button
+    Widget okButton = TextButton(
+      child: Text("OK"),
+      onPressed: () {
+        if(status=="placed"){
+          processing(id);
+        }
+        if(status=="processing"){
+          picked(id);
+        }
+        if(status=="deliver"){
+          complete(id);
+        }
+
+      },
+    );
+    Widget noButton = TextButton(
+      child: Text("Cancel"),
+      onPressed: () {
+        Navigator.pop(context);
+      },
+    );
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: Text("Order Status"),
+      content: Text("Are you sure to change Status."),
+      actions: [
+
+        noButton,
+        okButton,
+
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
   }
 
   @override
@@ -106,20 +290,25 @@ class _CreateCategoryState extends State<OrderView> {
                 alignment: Alignment.centerRight,
                 child: orderItemText("Total:    ৳"+widget.Order.totalPrice),
               ),
-              Container(
+              widget.Order.status=='complete' ? Container():   Container(
                 margin: EdgeInsets.only(top: 30),
                 child:Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                  Icon(Icons.delete_outline,color: Colors.red[400],),
-                  Container(
-                    height: 40,
-                    width: MediaQuery.of(context).size.width-100,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Colors.amber
+                   GestureDetector(
+                    child: Container(
+                      height: 40,
+                      width: MediaQuery.of(context).size.width-100,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: Colors.amber
+                      ),
+                      child:Center(child: widget.Order.status=="processing" ? orderItemText('Picked Order'):  widget.Order.status=="deliver" ? orderItemText('Complete Order'): orderItemText('Processing Order'),),
                     ),
-                    child:Center(child:  orderItemText('Processing Order'),),
+                    onTap: (){
+                      showAlertDialog(context,widget.Order.status,widget.Order.id);
+                    },
                   )
                 ],) ,
               ),

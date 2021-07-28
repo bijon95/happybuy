@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:happybuy/GlobalSetting/GlobalColor.dart';
 import 'package:happybuy/Helper/helper.dart';
@@ -36,6 +38,8 @@ class _LoginPageState extends State<RegistrationPage> {
 
   // Login view
   Future registrationRequest() async {
+    String token =
+    await FirebaseMessaging.instance.getToken();
     print("calling reg");
     _isLoading = true;
     Uri url = Uri.parse(Helper.baseurl + "registration");
@@ -44,6 +48,7 @@ class _LoginPageState extends State<RegistrationPage> {
       "password": pass.text,
       "name": name.text,
       "type": "user",
+      "token":token,
     };
     //encode Map to JSON
     var body = json.encode(data);
@@ -235,6 +240,12 @@ class _LoginPageState extends State<RegistrationPage> {
     );
   }
 
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Firebase.initializeApp();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(

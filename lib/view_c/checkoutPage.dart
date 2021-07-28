@@ -607,10 +607,10 @@ class _CheckoutPageViewState extends State<CheckoutPageView> {
                           child: TextField(
                             style: TextStyle(fontSize: 18),
                             controller: ctAddress,
-                            maxLines: 2,
+                            maxLines: 1,
                             keyboardType: TextInputType.text,
                             decoration: new InputDecoration(
-                              contentPadding: EdgeInsets.only(left: 10),
+                              contentPadding: EdgeInsets.only(left: 10,),
                               labelText: 'Address',
                               border: new OutlineInputBorder(
                                 borderRadius: new BorderRadius.circular(10),

@@ -154,6 +154,18 @@ class Controller extends GetxController{
       isLoading(false);
     }
   }
+//single user list
+  void singleUser(id) async {
+    try {
+      isLoading(true);
+      var data = await RemoteServices.singleUserData(id);
+      if (data != null) {
+        allUserList.value = data;
+      }
+    } finally {
+      isLoading(false);
+    }
+  }
 
 
 

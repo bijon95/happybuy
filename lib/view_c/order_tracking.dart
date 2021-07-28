@@ -80,7 +80,7 @@ class _OrderTrackingState extends State<OrderTracking> with TickerProviderStateM
                                         splashColor: Colors.transparent,
                                         highlightColor: Colors.transparent,
                                         child: Container(
-                                            width: 95.0,
+
                                             height: 22.0,
                                             decoration: new BoxDecoration(
                                               color: Colors.transparent,
@@ -91,7 +91,7 @@ class _OrderTrackingState extends State<OrderTracking> with TickerProviderStateM
                                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                               children: [
                                                 Container(
-                                                  width: 55.0,
+
                                                   height: 22.0,
                                                   padding: EdgeInsets.only(left: 5,right: 5,top: 2,bottom: 2),
                                                   decoration: new BoxDecoration(
@@ -99,7 +99,7 @@ class _OrderTrackingState extends State<OrderTracking> with TickerProviderStateM
                                                     shape: BoxShape.rectangle,
                                                     borderRadius: BorderRadius.only(topLeft: Radius.circular(6.0),bottomLeft: Radius.circular(6.0)),
                                                   ),
-                                                  child: Text("Placed",
+                                                  child: Text(_controller.allOrderList[index].status,
                                                     style: TextStyle(
                                                         color: Colors.white,
                                                         fontSize: 14,
@@ -116,7 +116,7 @@ class _OrderTrackingState extends State<OrderTracking> with TickerProviderStateM
                                                     shape: BoxShape.rectangle,
                                                     borderRadius: BorderRadius.only(bottomRight: Radius.circular(6.0),topRight: Radius.circular(6)),
                                                   ),
-                                                  child: Text("Paid",
+                                                  child: Text("COD",
                                                     style: TextStyle(
                                                         color: Colors.white,
                                                         fontSize: 14,
@@ -178,96 +178,102 @@ class _OrderTrackingState extends State<OrderTracking> with TickerProviderStateM
                     itemBuilder: (context, index) {
                       return Visibility(
                         visible: _controller.allOrderList[index].status=="processing",
-                        child: Container(
-                          padding: EdgeInsets.only(left: 5,right: 5),
-                          decoration: new BoxDecoration(
-                            color: Colors.white70,
-                            shape: BoxShape.rectangle,
-                            borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                          ),
-                          child : ListTile(
-                              contentPadding: EdgeInsets.symmetric(horizontal: 4.0, vertical:4.0),
-                              title: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text("00"+_controller.allOrderList[index].id.toString(),style: TextStyle(fontSize: 17,fontWeight: FontWeight.w600,),),
-                                    InkWell(
-                                      splashColor: Colors.transparent,
-                                      highlightColor: Colors.transparent,
-                                      child: Container(
-                                          width: 95.0,
-                                          height: 22.0,
-                                          decoration: new BoxDecoration(
-                                            color: Colors.transparent,
-                                            shape: BoxShape.rectangle,
-                                            // borderRadius: BorderRadius.only(topLeft: Radius.circular(6.0),bottomLeft: Radius.circular(6.0),topRight: Radius.circular(7.0),bottomRight: Radius.circular(7.0)),
-                                          ),
-                                          child: Row(
-                                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                            children: [
-                                              Container(
-                                                width: 55.0,
-                                                height: 22.0,
-                                                padding: EdgeInsets.only(left: 5,right: 5,top: 2,bottom: 2),
-                                                decoration: new BoxDecoration(
-                                                  color: Colors.deepPurple,
-                                                  shape: BoxShape.rectangle,
-                                                  borderRadius: BorderRadius.only(topLeft: Radius.circular(6.0),bottomLeft: Radius.circular(6.0)),
-                                                ),
-                                                child: Text("Placed",
-                                                  style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontSize: 14,
-                                                      fontWeight: FontWeight.w400
-                                                  ),
-                                                ),
-                                              ),
-                                              Container(
-                                                width: 40.0,
-                                                height: 22.0,
-                                                padding: EdgeInsets.only(left: 5,right: 5,top: 2,bottom: 2),
-                                                decoration: new BoxDecoration(
-                                                  color: Color(0xFFF47E08),
-                                                  shape: BoxShape.rectangle,
-                                                  borderRadius: BorderRadius.only(bottomRight: Radius.circular(6.0),topRight: Radius.circular(6)),
-                                                ),
-                                                child: Text("Paid",
-                                                  style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontSize: 14,
-                                                      fontWeight: FontWeight.w400
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          )
-                                      ),
-                                    )
-                                  ]
-                              ),
-                              subtitle: Container(
-                                padding: EdgeInsets.only(top: 10),
-                                child: Row(
+                        child: GestureDetector(
+                          child: Container(
+                            padding: EdgeInsets.only(left: 5,right: 5),
+                            decoration: new BoxDecoration(
+                              color: Colors.white70,
+                              shape: BoxShape.rectangle,
+                              borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                            ),
+                            child : ListTile(
+                                contentPadding: EdgeInsets.symmetric(horizontal: 4.0, vertical:4.0),
+                                title: Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Text(
-                                        "৳"+_controller.allOrderList[index].totalPrice,
-                                        style: TextStyle(
-                                            color: Colors.amber,
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w700),
-                                      ),
-                                      Text(
-                                        _controller.allOrderList[index].createAt.toString(),
-                                        style: TextStyle(
-                                            color: Colors.grey,
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w600),
-                                      ),
+                                      Text("00"+_controller.allOrderList[index].id.toString(),style: TextStyle(fontSize: 17,fontWeight: FontWeight.w600,),),
+                                      InkWell(
+                                        splashColor: Colors.transparent,
+                                        highlightColor: Colors.transparent,
+                                        child: Container(
+
+                                            height: 22.0,
+                                            decoration: new BoxDecoration(
+                                              color: Colors.transparent,
+                                              shape: BoxShape.rectangle,
+                                              // borderRadius: BorderRadius.only(topLeft: Radius.circular(6.0),bottomLeft: Radius.circular(6.0),topRight: Radius.circular(7.0),bottomRight: Radius.circular(7.0)),
+                                            ),
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                              children: [
+                                                Container(
+
+                                                  height: 22.0,
+                                                  padding: EdgeInsets.only(left: 5,right: 5,top: 2,bottom: 2),
+                                                  decoration: new BoxDecoration(
+                                                    color: Colors.deepPurple,
+                                                    shape: BoxShape.rectangle,
+                                                    borderRadius: BorderRadius.only(topLeft: Radius.circular(6.0),bottomLeft: Radius.circular(6.0)),
+                                                  ),
+                                                  child: Text(_controller.allOrderList[index].status,
+                                                    style: TextStyle(
+                                                        color: Colors.white,
+                                                        fontSize: 14,
+                                                        fontWeight: FontWeight.w400
+                                                    ),
+                                                  ),
+                                                ),
+                                                Container(
+                                                  width: 40.0,
+                                                  height: 22.0,
+                                                  padding: EdgeInsets.only(left: 5,right: 5,top: 2,bottom: 2),
+                                                  decoration: new BoxDecoration(
+                                                    color: Color(0xFFF47E08),
+                                                    shape: BoxShape.rectangle,
+                                                    borderRadius: BorderRadius.only(bottomRight: Radius.circular(6.0),topRight: Radius.circular(6)),
+                                                  ),
+                                                  child: Text("COD",
+                                                    style: TextStyle(
+                                                        color: Colors.white,
+                                                        fontSize: 14,
+                                                        fontWeight: FontWeight.w400
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            )
+                                        ),
+                                      )
                                     ]
                                 ),
-                              )
+                                subtitle: Container(
+                                  padding: EdgeInsets.only(top: 10),
+                                  child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          "৳"+_controller.allOrderList[index].totalPrice,
+                                          style: TextStyle(
+                                              color: Colors.amber,
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w700),
+                                        ),
+                                        Text(
+                                          _controller.allOrderList[index].createAt.toString(),
+                                          style: TextStyle(
+                                              color: Colors.grey,
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w600),
+                                        ),
+                                      ]
+                                  ),
+                                )
+                            ),
                           ),
+                          onTap: (){
+                            Navigator.push(
+                                context, MaterialPageRoute(builder: (context) => OrderView(_controller.allOrderList[index])));
+                          },
                         ),
                       );
                     }
@@ -286,97 +292,103 @@ class _OrderTrackingState extends State<OrderTracking> with TickerProviderStateM
                     shrinkWrap: false,
                     itemBuilder: (context, index) {
                       return Visibility(
-                        visible: _controller.allOrderList[index].status=="pickup",
-                        child: Container(
-                          padding: EdgeInsets.only(left: 5,right: 5),
-                          decoration: new BoxDecoration(
-                            color: Colors.white70,
-                            shape: BoxShape.rectangle,
-                            borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                          ),
-                          child : ListTile(
-                              contentPadding: EdgeInsets.symmetric(horizontal: 4.0, vertical:4.0),
-                              title: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text("00"+_controller.allOrderList[index].id.toString(),style: TextStyle(fontSize: 17,fontWeight: FontWeight.w600,),),
-                                    InkWell(
-                                      splashColor: Colors.transparent,
-                                      highlightColor: Colors.transparent,
-                                      child: Container(
-                                          width: 95.0,
-                                          height: 22.0,
-                                          decoration: new BoxDecoration(
-                                            color: Colors.transparent,
-                                            shape: BoxShape.rectangle,
-                                            // borderRadius: BorderRadius.only(topLeft: Radius.circular(6.0),bottomLeft: Radius.circular(6.0),topRight: Radius.circular(7.0),bottomRight: Radius.circular(7.0)),
-                                          ),
-                                          child: Row(
-                                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                            children: [
-                                              Container(
-                                                width: 55.0,
-                                                height: 22.0,
-                                                padding: EdgeInsets.only(left: 5,right: 5,top: 2,bottom: 2),
-                                                decoration: new BoxDecoration(
-                                                  color: Colors.deepPurple,
-                                                  shape: BoxShape.rectangle,
-                                                  borderRadius: BorderRadius.only(topLeft: Radius.circular(6.0),bottomLeft: Radius.circular(6.0)),
-                                                ),
-                                                child: Text("Placed",
-                                                  style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontSize: 14,
-                                                      fontWeight: FontWeight.w400
-                                                  ),
-                                                ),
-                                              ),
-                                              Container(
-                                                width: 40.0,
-                                                height: 22.0,
-                                                padding: EdgeInsets.only(left: 5,right: 5,top: 2,bottom: 2),
-                                                decoration: new BoxDecoration(
-                                                  color: Color(0xFFF47E08),
-                                                  shape: BoxShape.rectangle,
-                                                  borderRadius: BorderRadius.only(bottomRight: Radius.circular(6.0),topRight: Radius.circular(6)),
-                                                ),
-                                                child: Text("Paid",
-                                                  style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontSize: 14,
-                                                      fontWeight: FontWeight.w400
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          )
-                                      ),
-                                    )
-                                  ]
-                              ),
-                              subtitle: Container(
-                                padding: EdgeInsets.only(top: 10),
-                                child: Row(
+                        visible: _controller.allOrderList[index].status=="deliver",
+                        child: GestureDetector(
+                          child: Container(
+                            padding: EdgeInsets.only(left: 5,right: 5),
+                            decoration: new BoxDecoration(
+                              color: Colors.white70,
+                              shape: BoxShape.rectangle,
+                              borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                            ),
+                            child : ListTile(
+                                contentPadding: EdgeInsets.symmetric(horizontal: 4.0, vertical:4.0),
+                                title: Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Text(
-                                        "৳"+_controller.allOrderList[index].totalPrice,
-                                        style: TextStyle(
-                                            color: Colors.amber,
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w700),
-                                      ),
-                                      Text(
-                                        _controller.allOrderList[index].createAt.toString(),
-                                        style: TextStyle(
-                                            color: Colors.grey,
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w600),
-                                      ),
+                                      Text("00"+_controller.allOrderList[index].id.toString(),style: TextStyle(fontSize: 17,fontWeight: FontWeight.w600,),),
+                                      InkWell(
+                                        splashColor: Colors.transparent,
+                                        highlightColor: Colors.transparent,
+                                        child: Container(
+
+                                            height: 22.0,
+                                            decoration: new BoxDecoration(
+                                              color: Colors.transparent,
+                                              shape: BoxShape.rectangle,
+                                              // borderRadius: BorderRadius.only(topLeft: Radius.circular(6.0),bottomLeft: Radius.circular(6.0),topRight: Radius.circular(7.0),bottomRight: Radius.circular(7.0)),
+                                            ),
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                              children: [
+                                                Container(
+
+                                                  height: 22.0,
+                                                  padding: EdgeInsets.only(left: 5,right: 5,top: 2,bottom: 2),
+                                                  decoration: new BoxDecoration(
+                                                    color: Colors.deepPurple,
+                                                    shape: BoxShape.rectangle,
+                                                    borderRadius: BorderRadius.only(topLeft: Radius.circular(6.0),bottomLeft: Radius.circular(6.0)),
+                                                  ),
+                                                  child: Text(_controller.allOrderList[index].status,
+                                                    style: TextStyle(
+                                                        color: Colors.white,
+                                                        fontSize: 14,
+                                                        fontWeight: FontWeight.w400
+                                                    ),
+                                                  ),
+                                                ),
+                                                Container(
+                                                  width: 40.0,
+                                                  height: 22.0,
+                                                  padding: EdgeInsets.only(left: 5,right: 5,top: 2,bottom: 2),
+                                                  decoration: new BoxDecoration(
+                                                    color: Color(0xFFF47E08),
+                                                    shape: BoxShape.rectangle,
+                                                    borderRadius: BorderRadius.only(bottomRight: Radius.circular(6.0),topRight: Radius.circular(6)),
+                                                  ),
+                                                  child: Text("COD",
+                                                    style: TextStyle(
+                                                        color: Colors.white,
+                                                        fontSize: 14,
+                                                        fontWeight: FontWeight.w400
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            )
+                                        ),
+                                      )
                                     ]
                                 ),
-                              )
+                                subtitle: Container(
+                                  padding: EdgeInsets.only(top: 10),
+                                  child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          "৳"+_controller.allOrderList[index].totalPrice,
+                                          style: TextStyle(
+                                              color: Colors.amber,
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w700),
+                                        ),
+                                        Text(
+                                          _controller.allOrderList[index].createAt.toString(),
+                                          style: TextStyle(
+                                              color: Colors.grey,
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w600),
+                                        ),
+                                      ]
+                                  ),
+                                )
+                            ),
                           ),
+                          onTap: (){
+                            Navigator.push(
+                                context, MaterialPageRoute(builder: (context) => OrderView(_controller.allOrderList[index])));
+                          },
                         ),
                       );
                     }
@@ -395,97 +407,103 @@ class _OrderTrackingState extends State<OrderTracking> with TickerProviderStateM
                     shrinkWrap: false,
                     itemBuilder: (context, index) {
                       return Visibility(
-                        visible: _controller.allOrderList[index].status=="delivered",
-                        child: Container(
-                          padding: EdgeInsets.only(left: 5,right: 5),
-                          decoration: new BoxDecoration(
-                            color: Colors.white70,
-                            shape: BoxShape.rectangle,
-                            borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                          ),
-                          child : ListTile(
-                              contentPadding: EdgeInsets.symmetric(horizontal: 4.0, vertical:4.0),
-                              title: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text("00"+_controller.allOrderList[index].id.toString(),style: TextStyle(fontSize: 17,fontWeight: FontWeight.w600,),),
-                                    InkWell(
-                                      splashColor: Colors.transparent,
-                                      highlightColor: Colors.transparent,
-                                      child: Container(
-                                          width: 95.0,
-                                          height: 22.0,
-                                          decoration: new BoxDecoration(
-                                            color: Colors.transparent,
-                                            shape: BoxShape.rectangle,
-                                            // borderRadius: BorderRadius.only(topLeft: Radius.circular(6.0),bottomLeft: Radius.circular(6.0),topRight: Radius.circular(7.0),bottomRight: Radius.circular(7.0)),
-                                          ),
-                                          child: Row(
-                                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                            children: [
-                                              Container(
-                                                width: 55.0,
-                                                height: 22.0,
-                                                padding: EdgeInsets.only(left: 5,right: 5,top: 2,bottom: 2),
-                                                decoration: new BoxDecoration(
-                                                  color: Colors.deepPurple,
-                                                  shape: BoxShape.rectangle,
-                                                  borderRadius: BorderRadius.only(topLeft: Radius.circular(6.0),bottomLeft: Radius.circular(6.0)),
-                                                ),
-                                                child: Text("Placed",
-                                                  style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontSize: 14,
-                                                      fontWeight: FontWeight.w400
-                                                  ),
-                                                ),
-                                              ),
-                                              Container(
-                                                width: 40.0,
-                                                height: 22.0,
-                                                padding: EdgeInsets.only(left: 5,right: 5,top: 2,bottom: 2),
-                                                decoration: new BoxDecoration(
-                                                  color: Color(0xFFF47E08),
-                                                  shape: BoxShape.rectangle,
-                                                  borderRadius: BorderRadius.only(bottomRight: Radius.circular(6.0),topRight: Radius.circular(6)),
-                                                ),
-                                                child: Text("Paid",
-                                                  style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontSize: 14,
-                                                      fontWeight: FontWeight.w400
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          )
-                                      ),
-                                    )
-                                  ]
-                              ),
-                              subtitle: Container(
-                                padding: EdgeInsets.only(top: 10),
-                                child: Row(
+                        visible: _controller.allOrderList[index].status=="complete",
+                        child: GestureDetector(
+                          child: Container(
+                            padding: EdgeInsets.only(left: 5,right: 5),
+                            decoration: new BoxDecoration(
+                              color: Colors.white70,
+                              shape: BoxShape.rectangle,
+                              borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                            ),
+                            child : ListTile(
+                                contentPadding: EdgeInsets.symmetric(horizontal: 4.0, vertical:4.0),
+                                title: Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Text(
-                                        "৳"+_controller.allOrderList[index].totalPrice,
-                                        style: TextStyle(
-                                            color: Colors.amber,
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w700),
-                                      ),
-                                      Text(
-                                        _controller.allOrderList[index].createAt.toString(),
-                                        style: TextStyle(
-                                            color: Colors.grey,
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w600),
-                                      ),
+                                      Text("00"+_controller.allOrderList[index].id.toString(),style: TextStyle(fontSize: 17,fontWeight: FontWeight.w600,),),
+                                      InkWell(
+                                        splashColor: Colors.transparent,
+                                        highlightColor: Colors.transparent,
+                                        child: Container(
+
+                                            height: 22.0,
+                                            decoration: new BoxDecoration(
+                                              color: Colors.transparent,
+                                              shape: BoxShape.rectangle,
+                                              // borderRadius: BorderRadius.only(topLeft: Radius.circular(6.0),bottomLeft: Radius.circular(6.0),topRight: Radius.circular(7.0),bottomRight: Radius.circular(7.0)),
+                                            ),
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                              children: [
+                                                Container(
+
+                                                  height: 22.0,
+                                                  padding: EdgeInsets.only(left: 5,right: 5,top: 2,bottom: 2),
+                                                  decoration: new BoxDecoration(
+                                                    color: Colors.deepPurple,
+                                                    shape: BoxShape.rectangle,
+                                                    borderRadius: BorderRadius.only(topLeft: Radius.circular(6.0),bottomLeft: Radius.circular(6.0)),
+                                                  ),
+                                                  child: Text(_controller.allOrderList[index].status,
+                                                    style: TextStyle(
+                                                        color: Colors.white,
+                                                        fontSize: 14,
+                                                        fontWeight: FontWeight.w400
+                                                    ),
+                                                  ),
+                                                ),
+                                                Container(
+                                                  width: 40.0,
+                                                  height: 22.0,
+                                                  padding: EdgeInsets.only(left: 5,right: 5,top: 2,bottom: 2),
+                                                  decoration: new BoxDecoration(
+                                                    color: Color(0xFFF47E08),
+                                                    shape: BoxShape.rectangle,
+                                                    borderRadius: BorderRadius.only(bottomRight: Radius.circular(6.0),topRight: Radius.circular(6)),
+                                                  ),
+                                                  child: Text("COD",
+                                                    style: TextStyle(
+                                                        color: Colors.white,
+                                                        fontSize: 14,
+                                                        fontWeight: FontWeight.w400
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            )
+                                        ),
+                                      )
                                     ]
                                 ),
-                              )
+                                subtitle: Container(
+                                  padding: EdgeInsets.only(top: 10),
+                                  child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          "৳"+_controller.allOrderList[index].totalPrice,
+                                          style: TextStyle(
+                                              color: Colors.amber,
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w700),
+                                        ),
+                                        Text(
+                                          _controller.allOrderList[index].createAt.toString(),
+                                          style: TextStyle(
+                                              color: Colors.grey,
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w600),
+                                        ),
+                                      ]
+                                  ),
+                                )
+                            ),
                           ),
+                          onTap: (){
+                            Navigator.push(
+                                context, MaterialPageRoute(builder: (context) => OrderView(_controller.allOrderList[index])));
+                          },
                         ),
                       );
                     }

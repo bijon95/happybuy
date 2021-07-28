@@ -4,6 +4,7 @@ import 'package:happybuy/view/SliderEdit.dart';
 import 'package:happybuy/view/category_list.dart';
 import 'package:happybuy/view/dashboard.dart';
 import 'package:happybuy/view/login_view.dart';
+import 'package:happybuy/view_c/EditProfile.dart';
 import 'package:happybuy/view_c/OrderList.dart';
 import '../view_c/product_list.dart';
 import 'package:happybuy/view_c/checkoutPage.dart';
@@ -78,15 +79,16 @@ class MainDrawer extends StatelessWidget {
                   }
               ),
               ListTile(
-                title: Text('Rate US'),
+                  contentPadding: EdgeInsets.only(bottom:0.0,left: 15.0,right: 14.0),
+                  title: Text('My Profile'),
                   leading: Icon(
-                    Icons.star_border,
+                    Icons.shopping_cart_outlined,
                     size: 24.0,
                   ),
-                onTap: (){
-                  Navigator.push(
-                      context, MaterialPageRoute(builder: (context) => Rating_Us_PageView()));
-                }
+                  onTap:(){
+                    Navigator.push(
+                        context, MaterialPageRoute(builder: (context) => EditProfile()));
+                  }
               ),
               ListTile(
                   title: Text('Terms & Conditions'),

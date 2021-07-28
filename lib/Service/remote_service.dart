@@ -126,5 +126,21 @@ class RemoteServices {
     }
   }
 
+  static Future<List<UserModel>> singleUserData(id) async {
+    String url =Helper.baseurl+'singleUser/'+id;
+    Uri strurl = Uri.parse(url);
+    var response = await http.get(strurl);
+
+    print(response.statusCode.toString() + "By getx user");
+    if (response.statusCode == 200) {
+      var jsonString = jsonDecode(response.body);
+      var userlist = jsonEncode(jsonString['data']);
+      print(userlist);
+      return userModelFromJson(userlist);
+    } else {
+      return null;
+    }
+  }
+
 
 }
