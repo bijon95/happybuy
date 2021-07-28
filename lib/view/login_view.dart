@@ -1,5 +1,8 @@
 import 'dart:convert';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
+
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:happybuy/GlobalSetting/GlobalColor.dart';
 import 'package:happybuy/Helper/helper.dart';
@@ -18,7 +21,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  // FirebaseMessaging firebaseMessaging = FirebaseMessaging();
+  //FirebaseMessaging firebaseMessaging = FirebaseMessaging.instance;
 
   bool _isLoading = false;
   String msg = "";
@@ -55,15 +58,13 @@ class _LoginPageState extends State<LoginPage> {
         print(id);
         UserInfo user = new UserInfo();
         user.saveLoginDataToSharedPreference(type, id);
-        if(type=='user'){
+        if (type == 'user') {
           Navigator.push(context,
               MaterialPageRoute(builder: (context) => DashboardClient()));
-        }
-        else if(type=='admin'){
+        } else if (type == 'admin') {
           Navigator.push(context,
               MaterialPageRoute(builder: (context) => AdminDashboard()));
         }
-
       }
 
       setState(() {});
@@ -146,7 +147,6 @@ class _LoginPageState extends State<LoginPage> {
                         //color: Colors.blueAccent,
                         padding: EdgeInsets.fromLTRB(30, 10, 30, 10),
                         child: TextField(
-
                           style: TextStyle(fontSize: 18),
                           controller: pass,
                           obscureText: true,
@@ -184,8 +184,11 @@ class _LoginPageState extends State<LoginPage> {
                       child: RaisedButton(
                         //padding: EdgeInsets.fromLTRB(30, 10, 30, 10),
                         color: GlobalColor.buttonColor,
-                        onPressed: () {
-                          loginRequest();
+                        onPressed: () async {
+                          String token =
+                              await FirebaseMessaging.instance.getToken();
+                          print(token);
+                            loginRequest();
                         }, //
                         child: new Text(
                           "Login",
@@ -232,7 +235,8 @@ class _LoginPageState extends State<LoginPage> {
                             child: Text(
                           "Do not have any Account ?",
                           style: TextStyle(
-                              color: GlobalColor.highlightTextColor, fontWeight: FontWeight.bold),
+                              color: GlobalColor.highlightTextColor,
+                              fontWeight: FontWeight.bold),
                         )),
                       ),
                       onTap: () {
@@ -262,13 +266,20 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Firebase.initializeApp();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           backgroundColor: GlobalColor.appbarColor,
           centerTitle: true,
           title: Title(color: Colors.blue, child: Text("Happy Buy")),
-       //   leading: Icon(Icons.arrow_back),
+          //   leading: Icon(Icons.arrow_back),
         ),
         body: getPageView(context));
   }

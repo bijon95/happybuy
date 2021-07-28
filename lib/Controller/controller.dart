@@ -3,6 +3,7 @@ import 'package:happybuy/Model/CartList.dart';
 import 'package:happybuy/Model/OrderModel.dart';
 import 'package:happybuy/Model/ProductListModel.dart';
 import 'package:happybuy/Model/SliderModel.dart';
+import 'package:happybuy/Model/UserModel.dart';
 import 'package:happybuy/Service/remote_service.dart';
 import 'package:happybuy/db/dbModel.dart';
 
@@ -15,6 +16,7 @@ class Controller extends GetxController{
   var isLoadingProduct = true.obs;
   var orderList = List<ModelOrder>.empty().obs;
   var allOrderList = List<ModelOrder>.empty().obs;
+  var allUserList = List<UserModel>.empty().obs;
   var catList = List<ModelCatList>.empty().obs;
   var productList = List<ModelProductList>.empty().obs;
   var catProductList = List<ModelProductList>.empty().obs;
@@ -139,6 +141,20 @@ class Controller extends GetxController{
       isLoading(false);
     }
   }
+
+  // call all user
+  void fetchallUserList() async {
+    try {
+      isLoading(true);
+      var data = await RemoteServices.getAllUserList();
+      if (data != null) {
+        allUserList.value = data;
+      }
+    } finally {
+      isLoading(false);
+    }
+  }
+
 
 
 }

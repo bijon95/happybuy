@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:happybuy/view/Customerlisr.dart';
 import 'package:happybuy/view/SliderEdit.dart';
 import 'package:happybuy/view/category_list.dart';
 import 'package:happybuy/view/dashboard.dart';
@@ -62,6 +63,18 @@ class AdminDrawer extends StatelessWidget {
                   onTap: (){
                     Navigator.push(
                         context, MaterialPageRoute(builder: (context) => OrderTracking()));
+                  }
+              ),
+              ListTile(
+                  contentPadding: EdgeInsets.only(top:0.0,left: 15.0,right: 14.0),
+                  title: Text('Customers'),
+                  leading: Icon(
+                    Icons.person,
+                    size: 24.0,
+                  ),
+                  onTap: (){
+                    Navigator.push(
+                        context, MaterialPageRoute(builder: (context) => CustomerList()));
                   }
               ),
               ListTile(

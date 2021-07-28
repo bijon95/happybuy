@@ -36,6 +36,7 @@ class _LoginPageState extends State<RegistrationPage> {
 
   // Login view
   Future registrationRequest() async {
+    print("calling reg");
     _isLoading = true;
     Uri url = Uri.parse(Helper.baseurl + "registration");
     Map data = {
@@ -53,6 +54,9 @@ class _LoginPageState extends State<RegistrationPage> {
       },
       body: body,
     );
+    print("calling regbbbbbbbbbbbbbbbbbbbbbbbbb");
+    print(response.body);
+    print(response.statusCode);
     if (response.statusCode == 200) {
       _isLoading = false;
       var jsonString = jsonDecode(response.body);

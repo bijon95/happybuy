@@ -73,7 +73,7 @@ class _CreateCategoryState extends State<ProductView> {
     Map<String, dynamic> row = {
       DatabaseHelper.proid:  widget.product.id,
       DatabaseHelper.proName:  widget.product.name,
-      DatabaseHelper.proQuantity: quantity,
+      DatabaseHelper.proQuantity: quantity+1,
       DatabaseHelper.pImg : widget.product.img1,
       DatabaseHelper.proPrice:  widget.product.price,
       DatabaseHelper.discount:  '0',
@@ -98,8 +98,7 @@ class _CreateCategoryState extends State<ProductView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Scaffold(
-      body: Container(
+      body:  Container(
         height: MediaQuery.of(context).size.height,
         color: Colors.white,
         child: Column(
@@ -333,6 +332,10 @@ class _CreateCategoryState extends State<ProductView> {
                       )),
                     ),
                     onTap: (){
+                      indertUpdate();
+                      setState(() {
+                        quantity++;
+                      });
                       Navigator.push(
                           context, MaterialPageRoute(builder: (context) =>CheckoutPageView()));
 
@@ -344,6 +347,6 @@ class _CreateCategoryState extends State<ProductView> {
           ],
         ),
       ),
-    ));
+    );
   }
 }

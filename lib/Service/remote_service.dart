@@ -3,6 +3,7 @@ import 'package:happybuy/Model/CartList.dart';
 import 'package:happybuy/Model/OrderModel.dart';
 import 'package:happybuy/Model/ProductListModel.dart';
 import 'package:happybuy/Model/SliderModel.dart';
+import 'package:happybuy/Model/UserModel.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 class RemoteServices {
@@ -104,6 +105,22 @@ class RemoteServices {
       var jsonString = jsonDecode(response.body);
       print(jsonString);
       return orderModelFromJson(response.body);
+    } else {
+      return null;
+    }
+  }
+
+  static Future<List<UserModel>> getAllUserList() async {
+    String url =Helper.baseurl+'allUserList';
+    Uri strurl = Uri.parse(url);
+    var response = await http.get(strurl);
+
+    print(response.statusCode.toString() + "By getx user");
+    if (response.statusCode == 200) {
+      var jsonString = jsonDecode(response.body);
+      var userlist = jsonEncode(jsonString['data']);
+      print(userlist);
+      return userModelFromJson(userlist);
     } else {
       return null;
     }

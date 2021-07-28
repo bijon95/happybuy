@@ -37,7 +37,7 @@ class ModelOrder {
     createAt: DateTime.parse(json["create_at"]),
     details: List<Detail>.from(json["details"].map((x) => Detail.fromJson(x))),
     user: json["user"] == null ? [] : User.fromJson(json["user"]),
-    shipping: json["shipping"] == null ? [] : Shipping.fromJson(json["shipping"]),
+    shipping: json["shipping"] == null ? '' : Shipping.fromJson(json["shipping"]),
   );
 
   Map<String, dynamic> toJson() => {
