@@ -10,7 +10,7 @@ import 'view_c/product_list.dart';
 import 'package:happybuy/view/product_upload.dart';
 import 'package:happybuy/view/product_view.dart';
 import 'package:happybuy/view_c/Dashboard_client.dart';
-import 'package:happybuy/view_c/Dashboard_client2.dart';
+
 
 void main() {
   runApp(
@@ -65,7 +65,7 @@ class _MyAppState extends State<MyApp>{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFe9f5f5),
+      backgroundColor: Colors.white,
       body : Container(
         child: Image.asset("images/logo.png",height: MediaQuery.of(context).size.height, width: MediaQuery.of(context).size.width),
       )

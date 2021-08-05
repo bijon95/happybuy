@@ -3,6 +3,7 @@ import 'package:happybuy/Model/CartList.dart';
 import 'package:happybuy/Model/OrderModel.dart';
 import 'package:happybuy/Model/ProductListModel.dart';
 import 'package:happybuy/Model/SliderModel.dart';
+import 'package:happybuy/Model/Summary.dart';
 import 'package:happybuy/Model/UserModel.dart';
 import 'package:happybuy/Service/remote_service.dart';
 import 'package:happybuy/db/dbModel.dart';
@@ -14,6 +15,7 @@ class Controller extends GetxController{
   var categoryLoading = true.obs;
   var isLoadringSlider = true.obs;
   var isLoadingProduct = true.obs;
+  var userData = List<UserModel>.empty().obs;
   var orderList = List<ModelOrder>.empty().obs;
   var allOrderList = List<ModelOrder>.empty().obs;
   var allUserList = List<UserModel>.empty().obs;
@@ -21,12 +23,14 @@ class Controller extends GetxController{
   var productList = List<ModelProductList>.empty().obs;
   var catProductList = List<ModelProductList>.empty().obs;
   var cartList = List<Model>().obs;
+  var summary = Summary().obs;
   var sliderlist = List<SliderModel>.empty().obs;
   @override
   void onInit() {
     fetchCatList();
     fetchProductList();
     fetchSliderList();
+    summaryList();
     // TODO: implement onInit
     super.onInit();
   }
@@ -76,6 +80,19 @@ class Controller extends GetxController{
       categoryLoading(false);
     }
   }
+  // call api for csummary
+  void summaryList() async {
+    try {
+      categoryLoading(true);
+      var data = await RemoteServices.getSummry();
+      if (data != null) {
+        summary.value = data;
+      }
+    } finally {
+      categoryLoading(false);
+    }
+  }
+
 
   // call api for category
   void fetchProductList() async {
@@ -160,7 +177,7 @@ class Controller extends GetxController{
       isLoading(true);
       var data = await RemoteServices.singleUserData(id);
       if (data != null) {
-        allUserList.value = data;
+        userData.value = data;
       }
     } finally {
       isLoading(false);

@@ -68,46 +68,51 @@ class _CategoryProductState extends State<CategoryProduct> {
                     return  _controller.catProductList.length==0 ? Center(child: Text("No product Available"),) :
                     GestureDetector(
                       child: Container(
-
-                        margin:
-                        EdgeInsets.only(left: 10, right: 10, bottom: 12),
+                        margin: EdgeInsets.only(
+                            left: 10, right: 10, bottom: 12),
                         width: MediaQuery.of(context).size.width,
                         height: 150,
                         decoration: BoxDecoration(
-                            border: Border.all(color: Colors.grey[300],width: 1),
+                            border: Border.all(
+                                color: Colors.grey[300], width: 1),
                             borderRadius: BorderRadius.circular(15),
-                            color:colorlist[index%10]),
+                            color: colorlist[index % 10]),
                         child: Row(
                           children: [
                             Container(
                               height:
                               MediaQuery.of(context).size.width / 2 -
                                   40,
-                              width: MediaQuery.of(context).size.width / 2-20,
+                              width:
+                              MediaQuery.of(context).size.width / 2 -
+                                  20,
                               child: ClipRRect(
                                 borderRadius: BorderRadius.only(
                                     topLeft: Radius.circular(15),
                                     bottomLeft: Radius.circular(15)),
-                                child:  FadeInImage(
-                                  image: NetworkImage(Helper.baseurl+_controller
-                                      .productList[index].img1),
+                                child:FadeInImage(
+                                  image: NetworkImage(_controller
+                                      .catProductList[index].img1==null ? "https://geagletkd.com/wp-content/uploads/2017/04/default-image-620x600.jpg": Helper.baseurl+_controller.catProductList[index].img1),
                                   placeholder: AssetImage(
                                       'images/gif-logo.gif'),
                                   fit: BoxFit.fill,
                                 ),
+
                               ),
                             ),
                             Container(
                               padding: EdgeInsets.only(
                                   left: 8, top: 10, right: 5),
-                              width: MediaQuery.of(context).size.width / 2-20,
+                              width:
+                              MediaQuery.of(context).size.width / 2 -
+                                  20,
                               child: Column(
                                 mainAxisAlignment:
                                 MainAxisAlignment.spaceBetween,
                                 children: [
                                   Container(
                                     child: Text(
-                                      _controller.productList[index].name,
+                                      _controller.catProductList[index].name,
                                       maxLines: 3,
                                       overflow: TextOverflow.ellipsis,
                                       style: TextStyle(
@@ -118,28 +123,97 @@ class _CategoryProductState extends State<CategoryProduct> {
                                     ),
                                   ),
                                   Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Container(
-                                        width: 90,
+                                      _controller.catProductList[index]
+                                          .selling ==
+                                          null
+                                          ? Container(
+                                        width: 80,
                                         padding: EdgeInsets.only(
-                                            left: 5, top: 8, bottom: 15),
+                                            left: 5,
+                                            top: 8,
+                                            bottom: 15),
                                         child: Text(
-                                          "৳ 5000",
+                                          "৳ " +
+                                              _controller
+                                                  .catProductList[
+                                              index]
+                                                  .price,
                                           style: TextStyle(
                                               fontSize: 20,
-                                              fontWeight: FontWeight.w500,color: Colors.white),
+                                              fontWeight:
+                                              FontWeight.w500,
+                                              color: Colors.white),
                                         ),
+                                      )
+                                          : Column(
+                                        children: [
+                                          Container(
+                                            width: 80,
+                                            padding:
+                                            EdgeInsets.only(
+                                                left: 5,
+                                                top: 8,
+                                                bottom: 0),
+                                            child: Text(
+                                              "৳ " +
+                                                  _controller
+                                                      .catProductList[
+                                                  index]
+                                                      .selling,
+                                              style: TextStyle(
+                                                  fontSize: 20,
+                                                  fontWeight:
+                                                  FontWeight
+                                                      .w500,
+                                                  color:
+                                                  Colors.white),
+                                            ),
+                                          ),
+                                          Container(
+                                            width: 80,
+                                            padding:
+                                            EdgeInsets.only(
+                                                left: 5,
+                                                top: 0,
+                                                bottom: 15),
+                                            child: Text(
+                                              "৳ " +
+                                                  _controller
+                                                      .catProductList[
+                                                  index]
+                                                      .price,
+                                              style: TextStyle(
+                                                  decoration:
+                                                  TextDecoration
+                                                      .lineThrough,
+                                                  fontSize: 16,
+                                                  fontWeight:
+                                                  FontWeight
+                                                      .w500,
+                                                  color:
+                                                  Colors.white),
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                       Container(
-                                        width: 55,
-                                        height:20,
+                                        width: 60,
+                                        height: 20,
                                         decoration: BoxDecoration(
                                             color: Colors.white,
-                                            borderRadius: BorderRadius.circular(15),
-                                            border: Border.all(color: Colors.grey[300],width: 1)
-                                        ),
-                                        child: Center(child: Text("View",style: TextStyle(fontSize: 10),)),
+                                            borderRadius:
+                                            BorderRadius.circular(15),
+                                            border: Border.all(
+                                                color: Colors.grey[300],
+                                                width: 1)),
+                                        child: Center(
+                                            child: Text(
+                                              "View",
+                                              style: TextStyle(fontSize: 10),
+                                            )),
                                       ),
                                     ],
                                   ),
@@ -149,9 +223,12 @@ class _CategoryProductState extends State<CategoryProduct> {
                           ],
                         ),
                       ),
-                      onTap: (){
+                      onTap: () {
                         Navigator.push(
-                            context, MaterialPageRoute(builder: (context) =>ProductView(_controller.productList[index])));
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ProductView(
+                                    _controller.catProductList[index])));
                       },
                     );
                   }),

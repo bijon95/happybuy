@@ -164,8 +164,8 @@ class _CreateCategoryState extends State<ProductListAdmin> {
                                     topLeft: Radius.circular(15),
                                     bottomLeft: Radius.circular(15)),
                                 child:  FadeInImage(
-                                  image: NetworkImage(Helper.baseurl+_controller
-                                      .productList[index].img1),
+                                  image: NetworkImage(_controller
+                                      .productList[index].img1==null ? "https://geagletkd.com/wp-content/uploads/2017/04/default-image-620x600.jpg": Helper.baseurl+_controller.productList[index].img1),
                                   placeholder: AssetImage(
                                       'images/gif-logo.gif'),
                                   fit: BoxFit.fill,

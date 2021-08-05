@@ -216,10 +216,12 @@ class _CreateCategoryState extends State<ProductView> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Container(
-                          margin:
-                              EdgeInsets.only(left: 20, top: 15, bottom: 10),
+                          width: MediaQuery.of(context).size.width,
+                          padding:
+                              EdgeInsets.only(left: 15, top: 15, bottom: 10,right: 10),
                           child: Text(widget.product.description,
-                              style: TextStyle(fontSize: 18)),
+                            maxLines: 10,
+                              style: TextStyle(fontSize: 18),),
                         ),
                         // Container(
                         //   margin:

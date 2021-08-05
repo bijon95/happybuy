@@ -10,11 +10,11 @@ import 'package:happybuy/Helper/user_info.dart';
 import 'package:happybuy/view/dashboard.dart';
 import 'package:happybuy/view/registration_view.dart';
 import 'package:happybuy/view_c/Dashboard_client.dart';
-import 'package:happybuy/view_c/Dashboard_client2.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
+import 'package:happybuy/Controller/controller.dart';
+import 'package:get/get.dart';
 class LoginPage extends StatefulWidget {
   @override
   _LoginPageState createState() => _LoginPageState();
@@ -22,12 +22,48 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   //FirebaseMessaging firebaseMessaging = FirebaseMessaging.instance;
-
+  final Controller _controller = Get.put(Controller());
   bool _isLoading = false;
   String msg = "";
+  Future updatetoken(token,loginID,) async {
+
+    var postUri = Uri.parse(Helper.baseurl+"updatetoken");
+    var request = new http.MultipartRequest("POST", postUri);
+    request.fields['id'] =loginID;
+    request.fields['token'] =token;
+
+    request
+        .send()
+        .then((result) async {
+      http.Response.fromStream(result).then((response) {
+        if (response.statusCode == 200) {
+          print("Uploaded! token  "+loginID+"    "+token);
+          print('response.body ' + response.body);
+          var data = jsonDecode(response.body);
+          print(data);
+          _controller.singleUser(token);
+          setState(() {
+            _isLoading = false;
+
+          });
+
+        } else {
+          setState(() {
+            _isLoading = false;
+          });
+        }
+
+        return response.body;
+      });
+    })
+        .catchError((err) => print('error : ' + err.toString()))
+        .whenComplete(() {
+    });
+
+  }
 
   // Login view
-  Future loginRequest() async {
+  Future loginRequest(token) async {
     setState(() {});
     _isLoading = true;
     Uri url = Uri.parse(Helper.baseurl + "user_login");
@@ -44,6 +80,7 @@ class _LoginPageState extends State<LoginPage> {
       },
       body: body,
     );
+    print(response.body);
     if (response.statusCode == 200) {
       _isLoading = false;
       var jsonString = jsonDecode(response.body);
@@ -53,12 +90,15 @@ class _LoginPageState extends State<LoginPage> {
       if (jsonString["status"] == 'success') {
         String type = jsonString["data"]["type"];
         String id = jsonString["data"]["id"].toString();
+        print("User id "+id);
+        updatetoken(token,id);
         print(jsonString);
 
         print(id);
         UserInfo user = new UserInfo();
         user.saveLoginDataToSharedPreference(type, id);
         if (type == 'user') {
+          _controller.singleUser(id);
           Navigator.push(context,
               MaterialPageRoute(builder: (context) => DashboardClient()));
         } else if (type == 'admin') {
@@ -188,7 +228,7 @@ class _LoginPageState extends State<LoginPage> {
                           String token =
                               await FirebaseMessaging.instance.getToken();
                           print(token);
-                            loginRequest();
+                            loginRequest(token);
                         }, //
                         child: new Text(
                           "Login",

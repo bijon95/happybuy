@@ -3,6 +3,7 @@ import 'package:happybuy/Model/CartList.dart';
 import 'package:happybuy/Model/OrderModel.dart';
 import 'package:happybuy/Model/ProductListModel.dart';
 import 'package:happybuy/Model/SliderModel.dart';
+import 'package:happybuy/Model/Summary.dart';
 import 'package:happybuy/Model/UserModel.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -22,6 +23,21 @@ class RemoteServices {
       var data = jsonEncode(jsonString['data']) ;
       print(data);
       return modelCartListFromJson(data);
+    } else {
+      return null;
+    }
+  }
+//summary
+  static Future<Summary> getSummry() async {
+    String url =Helper.baseurl+'getordersummary';
+    Uri strurl = Uri.parse(url);
+
+    var response = await http.get(strurl);
+
+    print(response.statusCode.toString() + "get summary");
+    if (response.statusCode == 200) {
+      var jsonString = jsonDecode(response.body);
+      return summaryFromJson(response.body);
     } else {
       return null;
     }

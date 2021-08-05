@@ -152,6 +152,16 @@ class _CheckoutPageViewState extends State<CheckoutPageView> {
 
     _Dataquery();
     getUserDataFromSharedPreference();
+    if(_controller.userData.value.length==0){
+      print("no data");
+
+    }
+    else{
+      ctAddress.text=_controller.userData[0].address;
+      print("has data");
+    }
+
+
   }
 
   @override

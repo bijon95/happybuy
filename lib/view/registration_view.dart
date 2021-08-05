@@ -7,7 +7,6 @@ import 'package:happybuy/Helper/helper.dart';
 import 'package:happybuy/Helper/user_info.dart';
 import 'package:happybuy/view/login_view.dart';
 import 'package:happybuy/view_c/Dashboard_client.dart';
-import 'package:happybuy/view_c/Dashboard_client2.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';

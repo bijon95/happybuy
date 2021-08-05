@@ -234,7 +234,7 @@ class _DashboardClientState extends State<DashboardClient> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "Popular Product",
+                      "Popular Product ",
                       style:
                           TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
@@ -288,13 +288,14 @@ class _DashboardClientState extends State<DashboardClient> {
                                             40,
                                     width:
                                         MediaQuery.of(context).size.width / 2 -
-                                            60,
+                                            50,
                                     child: ClipRRect(
                                         borderRadius: BorderRadius.only(
                                             topLeft: Radius.circular(15),
                                             bottomLeft: Radius.circular(15)),
                                         child: FadeInImage(
-                                          image: NetworkImage(Helper.baseurl +
+                                          image: NetworkImage(_controller
+                                              .productList[index].img1 == null ? "":Helper.baseurl +
                                               _controller
                                                   .productList[index].img1),
                                           placeholder:
@@ -361,7 +362,7 @@ class _DashboardClientState extends State<DashboardClient> {
                 }),
               ),
               Container(
-                margin: EdgeInsets.only(top: 5, left: 10, right: 10),
+                margin: EdgeInsets.only(top: 10, left: 10, right: 10,bottom: 10),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -385,190 +386,367 @@ class _DashboardClientState extends State<DashboardClient> {
                   ],
                 ),
               ),
-              Container(
-                height: MediaQuery.of(context).size.height * .6,
-                width: MediaQuery.of(context).size.width,
-                child: Obx(() {
-                  if (_controller.isLoadingProduct.value) {
-                    return Center(
-                      child: CircularProgressIndicator(
-                        valueColor:
-                            new AlwaysStoppedAnimation<Color>(Colors.red),
-                      ),
-                    );
-                  } else {
-                    return ListView.builder(
-                        scrollDirection: Axis.vertical,
-                        itemCount: _controller.productList.length,
-                        itemBuilder: (BuildContext contex, int index) {
-                          return GestureDetector(
-                            child: Container(
-                              margin: EdgeInsets.only(
-                                  left: 10, right: 10, bottom: 12),
-                              width: MediaQuery.of(context).size.width,
-                              height: 150,
-                              decoration: BoxDecoration(
-                                  border: Border.all(
-                                      color: Colors.grey[300], width: 1),
-                                  borderRadius: BorderRadius.circular(15),
-                                  color: colorlist[index % 10]),
-                              child: Row(
-                                children: [
-                                  Container(
-                                    height:
-                                        MediaQuery.of(context).size.width / 2 -
-                                            40,
-                                    width:
-                                        MediaQuery.of(context).size.width / 2 -
-                                            20,
-                                    child: ClipRRect(
-                                        borderRadius: BorderRadius.only(
-                                            topLeft: Radius.circular(15),
-                                            bottomLeft: Radius.circular(15)),
-                                        child: FadeInImage(
-                                          image: NetworkImage(Helper.baseurl +
-                                              _controller
-                                                  .productList[index].img1),
-                                          placeholder:
-                                              AssetImage('images/gif-logo.gif'),
-                                          fit: BoxFit.cover,
-                                        )),
+              Obx(() {
+                if (_controller.isLoadingProduct.value) {
+                  return Center(
+                    child: CircularProgressIndicator(
+                      valueColor:
+                          new AlwaysStoppedAnimation<Color>(Colors.red),
+                    ),
+                  );
+                } else {
+                  // return ListView.builder(
+                  //     scrollDirection: Axis.vertical,
+                  //     itemCount: _controller.productList.length,
+                  //     itemBuilder: (BuildContext contex, int index) {
+                  //       return GestureDetector(
+                  //         child: Container(
+                  //           margin: EdgeInsets.only(
+                  //               left: 10, right: 10, bottom: 12),
+                  //           width: MediaQuery.of(context).size.width,
+                  //           height: 150,
+                  //           decoration: BoxDecoration(
+                  //               border: Border.all(
+                  //                   color: Colors.grey[300], width: 1),
+                  //               borderRadius: BorderRadius.circular(15),
+                  //               color: colorlist[index % 10]),
+                  //           child: Row(
+                  //             children: [
+                  //               Container(
+                  //                 height:
+                  //                     MediaQuery.of(context).size.width / 2 -
+                  //                         40,
+                  //                 width:
+                  //                     MediaQuery.of(context).size.width / 2 -
+                  //                         20,
+                  //                 child: ClipRRect(
+                  //                     borderRadius: BorderRadius.only(
+                  //                         topLeft: Radius.circular(15),
+                  //                         bottomLeft: Radius.circular(15)),
+                  //                     child:FadeInImage(
+                  //                       image: NetworkImage(_controller
+                  //                           .productList[index].img1==null ? "https://geagletkd.com/wp-content/uploads/2017/04/default-image-620x600.jpg": Helper.baseurl+_controller.productList[index].img1),
+                  //                       placeholder: AssetImage(
+                  //                           'images/gif-logo.gif'),
+                  //                       fit: BoxFit.fill,
+                  //                     ),
+                  //
+                  //                 ),
+                  //               ),
+                  //               Container(
+                  //                 padding: EdgeInsets.only(
+                  //                     left: 8, top: 10, right: 5),
+                  //                 width:
+                  //                     MediaQuery.of(context).size.width / 2 -
+                  //                         20,
+                  //                 child: Column(
+                  //                   mainAxisAlignment:
+                  //                       MainAxisAlignment.spaceBetween,
+                  //                   children: [
+                  //                     Container(
+                  //                       child: Text(
+                  //                         _controller.productList[index].name,
+                  //                         maxLines: 3,
+                  //                         overflow: TextOverflow.ellipsis,
+                  //                         style: TextStyle(
+                  //                           fontSize: 18,
+                  //                           color: Colors.white,
+                  //                           fontWeight: FontWeight.w500,
+                  //                         ),
+                  //                       ),
+                  //                     ),
+                  //                     Row(
+                  //                       mainAxisAlignment:
+                  //                           MainAxisAlignment.spaceBetween,
+                  //                       children: [
+                  //                         _controller.productList[index]
+                  //                                     .selling ==
+                  //                                 null
+                  //                             ? Container(
+                  //                                 width: 80,
+                  //                                 padding: EdgeInsets.only(
+                  //                                     left: 5,
+                  //                                     top: 8,
+                  //                                     bottom: 15),
+                  //                                 child: Text(
+                  //                                   "৳ " +
+                  //                                       _controller
+                  //                                           .productList[
+                  //                                               index]
+                  //                                           .price,
+                  //                                   style: TextStyle(
+                  //                                       fontSize: 20,
+                  //                                       fontWeight:
+                  //                                           FontWeight.w500,
+                  //                                       color: Colors.white),
+                  //                                 ),
+                  //                               )
+                  //                             : Column(
+                  //                                 children: [
+                  //                                   Container(
+                  //                                     width: 80,
+                  //                                     padding:
+                  //                                         EdgeInsets.only(
+                  //                                             left: 5,
+                  //                                             top: 8,
+                  //                                             bottom: 0),
+                  //                                     child: Text(
+                  //                                       "৳ " +
+                  //                                           _controller
+                  //                                               .productList[
+                  //                                                   index]
+                  //                                               .selling,
+                  //                                       style: TextStyle(
+                  //                                           fontSize: 20,
+                  //                                           fontWeight:
+                  //                                               FontWeight
+                  //                                                   .w500,
+                  //                                           color:
+                  //                                               Colors.white),
+                  //                                     ),
+                  //                                   ),
+                  //                                   Container(
+                  //                                     width: 80,
+                  //                                     padding:
+                  //                                         EdgeInsets.only(
+                  //                                             left: 5,
+                  //                                             top: 0,
+                  //                                             bottom: 15),
+                  //                                     child: Text(
+                  //                                       "৳ " +
+                  //                                           _controller
+                  //                                               .productList[
+                  //                                                   index]
+                  //                                               .price,
+                  //                                       style: TextStyle(
+                  //                                           decoration:
+                  //                                               TextDecoration
+                  //                                                   .lineThrough,
+                  //                                           fontSize: 16,
+                  //                                           fontWeight:
+                  //                                               FontWeight
+                  //                                                   .w500,
+                  //                                           color:
+                  //                                               Colors.white),
+                  //                                     ),
+                  //                                   ),
+                  //                                 ],
+                  //                               ),
+                  //                         Container(
+                  //                           width: 60,
+                  //                           height: 20,
+                  //                           decoration: BoxDecoration(
+                  //                               color: Colors.white,
+                  //                               borderRadius:
+                  //                                   BorderRadius.circular(15),
+                  //                               border: Border.all(
+                  //                                   color: Colors.grey[300],
+                  //                                   width: 1)),
+                  //                           child: Center(
+                  //                               child: Text(
+                  //                             "View",
+                  //                             style: TextStyle(fontSize: 10),
+                  //                           )),
+                  //                         ),
+                  //                       ],
+                  //                     ),
+                  //                   ],
+                  //                 ),
+                  //               ),
+                  //             ],
+                  //           ),
+                  //         ),
+                  //         onTap: () {
+                  //           Navigator.push(
+                  //               context,
+                  //               MaterialPageRoute(
+                  //                   builder: (context) => ProductView(
+                  //                       _controller.productList[index])));
+                  //         },
+                  //       );
+                  //     });
+                  return GridView.count(
+
+
+                    primary: false,
+                    crossAxisSpacing: 0,
+                    mainAxisSpacing: 0,
+                    crossAxisCount: 1,
+                    childAspectRatio: 2.3,
+                    shrinkWrap: true,
+                    children: List.generate(_controller
+                        .productList.length, (index) {
+
+                      return GestureDetector(
+                        child: Container(
+                          margin: EdgeInsets.only(
+                              left: 10, right: 10, bottom: 12),
+                          width: MediaQuery.of(context).size.width,
+                          height: 150,
+                          decoration: BoxDecoration(
+                              border: Border.all(
+                                  color: Colors.grey[300], width: 1),
+                              borderRadius: BorderRadius.circular(15),
+                              color: colorlist[index % 10]),
+                          child: Row(
+                            children: [
+                              Container(
+                                height:
+                                MediaQuery.of(context).size.width / 2 -
+                                    40,
+                                width:
+                                MediaQuery.of(context).size.width / 2 -
+                                    20,
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(15),
+                                      bottomLeft: Radius.circular(15)),
+                                  child:FadeInImage(
+                                    image: NetworkImage(_controller
+                                        .productList[index].img1==null ? "https://geagletkd.com/wp-content/uploads/2017/04/default-image-620x600.jpg": Helper.baseurl+_controller.productList[index].img1),
+                                    placeholder: AssetImage(
+                                        'images/gif-logo.gif'),
+                                    fit: BoxFit.fill,
                                   ),
-                                  Container(
-                                    padding: EdgeInsets.only(
-                                        left: 8, top: 10, right: 5),
-                                    width:
-                                        MediaQuery.of(context).size.width / 2 -
-                                            20,
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Container(
-                                          child: Text(
-                                            _controller.productList[index].name,
-                                            maxLines: 3,
-                                            overflow: TextOverflow.ellipsis,
-                                            style: TextStyle(
-                                              fontSize: 18,
-                                              color: Colors.white,
-                                              fontWeight: FontWeight.w500,
-                                            ),
-                                          ),
+
+                                ),
+                              ),
+                              Container(
+                                padding: EdgeInsets.only(
+                                    left: 8, top: 10, right: 5),
+                                width:
+                                MediaQuery.of(context).size.width / 2 -
+                                    20,
+                                child: Column(
+                                  mainAxisAlignment:
+                                  MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Container(
+                                      child: Text(
+                                        _controller.productList[index].name,
+                                        maxLines: 3,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(
+                                          fontSize: 18,
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.w500,
                                         ),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
+                                      ),
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        _controller.productList[index]
+                                            .selling ==
+                                            null
+                                            ? Container(
+                                          width: 80,
+                                          padding: EdgeInsets.only(
+                                              left: 5,
+                                              top: 8,
+                                              bottom: 15),
+                                          child: Text(
+                                            "৳ " +
+                                                _controller
+                                                    .productList[
+                                                index]
+                                                    .price,
+                                            style: TextStyle(
+                                                fontSize: 20,
+                                                fontWeight:
+                                                FontWeight.w500,
+                                                color: Colors.white),
+                                          ),
+                                        )
+                                            : Column(
                                           children: [
-                                            _controller.productList[index]
-                                                        .selling ==
-                                                    null
-                                                ? Container(
-                                                    width: 80,
-                                                    padding: EdgeInsets.only(
-                                                        left: 5,
-                                                        top: 8,
-                                                        bottom: 15),
-                                                    child: Text(
-                                                      "৳ " +
-                                                          _controller
-                                                              .productList[
-                                                                  index]
-                                                              .price,
-                                                      style: TextStyle(
-                                                          fontSize: 20,
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                          color: Colors.white),
-                                                    ),
-                                                  )
-                                                : Column(
-                                                    children: [
-                                                      Container(
-                                                        width: 80,
-                                                        padding:
-                                                            EdgeInsets.only(
-                                                                left: 5,
-                                                                top: 8,
-                                                                bottom: 0),
-                                                        child: Text(
-                                                          "৳ " +
-                                                              _controller
-                                                                  .productList[
-                                                                      index]
-                                                                  .selling,
-                                                          style: TextStyle(
-                                                              fontSize: 20,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w500,
-                                                              color:
-                                                                  Colors.white),
-                                                        ),
-                                                      ),
-                                                      Container(
-                                                        width: 80,
-                                                        padding:
-                                                            EdgeInsets.only(
-                                                                left: 5,
-                                                                top: 0,
-                                                                bottom: 15),
-                                                        child: Text(
-                                                          "৳ " +
-                                                              _controller
-                                                                  .productList[
-                                                                      index]
-                                                                  .price,
-                                                          style: TextStyle(
-                                                              decoration:
-                                                                  TextDecoration
-                                                                      .lineThrough,
-                                                              fontSize: 16,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w500,
-                                                              color:
-                                                                  Colors.white),
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
                                             Container(
-                                              width: 60,
-                                              height: 20,
-                                              decoration: BoxDecoration(
-                                                  color: Colors.white,
-                                                  borderRadius:
-                                                      BorderRadius.circular(15),
-                                                  border: Border.all(
-                                                      color: Colors.grey[300],
-                                                      width: 1)),
-                                              child: Center(
-                                                  child: Text(
-                                                "View",
-                                                style: TextStyle(fontSize: 10),
-                                              )),
+                                              width: 80,
+                                              padding:
+                                              EdgeInsets.only(
+                                                  left: 5,
+                                                  top: 8,
+                                                  bottom: 0),
+                                              child: Text(
+                                                "৳ " +
+                                                    _controller
+                                                        .productList[
+                                                    index]
+                                                        .selling,
+                                                style: TextStyle(
+                                                    fontSize: 20,
+                                                    fontWeight:
+                                                    FontWeight
+                                                        .w500,
+                                                    color:
+                                                    Colors.white),
+                                              ),
+                                            ),
+                                            Container(
+                                              width: 80,
+                                              padding:
+                                              EdgeInsets.only(
+                                                  left: 5,
+                                                  top: 0,
+                                                  bottom: 15),
+                                              child: Text(
+                                                "৳ " +
+                                                    _controller
+                                                        .productList[
+                                                    index]
+                                                        .price,
+                                                style: TextStyle(
+                                                    decoration:
+                                                    TextDecoration
+                                                        .lineThrough,
+                                                    fontSize: 16,
+                                                    fontWeight:
+                                                    FontWeight
+                                                        .w500,
+                                                    color:
+                                                    Colors.white),
+                                              ),
                                             ),
                                           ],
                                         ),
+                                        Container(
+                                          width: 60,
+                                          height: 20,
+                                          decoration: BoxDecoration(
+                                              color: Colors.white,
+                                              borderRadius:
+                                              BorderRadius.circular(15),
+                                              border: Border.all(
+                                                  color: Colors.grey[300],
+                                                  width: 1)),
+                                          child: Center(
+                                              child: Text(
+                                                "View",
+                                                style: TextStyle(fontSize: 10),
+                                              )),
+                                        ),
                                       ],
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
-                            ),
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => ProductView(
-                                          _controller.productList[index])));
-                            },
-                          );
-                        });
-                  }
-                }),
-              )
+                            ],
+                          ),
+                        ),
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ProductView(
+                                      _controller.productList[index])));
+                        },
+                      );
+                    }),
+
+                  );
+                }
+              })
               // all list
             ],
           ),

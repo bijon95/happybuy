@@ -7,6 +7,7 @@ import 'package:happybuy/Controller/controller.dart';
 import 'package:happybuy/Helper/helper.dart';
 import 'package:happybuy/Setting/Repositiory.dart' as ripo;
 import 'package:happybuy/view/CategoryEditDelete.dart';
+import 'package:happybuy/view/category_create.dart';
 import 'package:http/http.dart' as http;
 class CategoryList extends StatefulWidget {
   @override
@@ -66,7 +67,8 @@ class _CreateCategoryState extends State<CategoryList> {
         color: ripo.iconColor,
       ),
       onPressed: () {
-        addAlertDialog(context);
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) =>CategoryAdd()));
       },
     )
     ]
@@ -188,7 +190,8 @@ class _CreateCategoryState extends State<CategoryList> {
                                   ),
                                 ),
                                 onTap: (){
-                                  deleteProduct(_controller.catList[index].id);
+                                 // deleteProduct(_controller.catList[index].id);
+                                  deleteAlertDialog(_controller.catList[index].id,_controller.catList[index].name);
                                 },
                               )
                             ],
@@ -215,7 +218,9 @@ class _CreateCategoryState extends State<CategoryList> {
     );
     Widget continueButton = FlatButton(
       child: Text("Add Category"),
-      onPressed:  () {},
+      onPressed:  () {
+
+      },
     );
 
     // set up the AlertDialog
@@ -254,7 +259,7 @@ class _CreateCategoryState extends State<CategoryList> {
       },
     );
   }
-  deleteAlertDialog(BuildContext context,name) {
+  deleteAlertDialog(catID,name) {
 
     // set up the buttons
     Widget cancelButton = FlatButton(
@@ -265,7 +270,10 @@ class _CreateCategoryState extends State<CategoryList> {
     );
     Widget continueButton = FlatButton(
       child: Text("Delete"),
-      onPressed:  () {},
+      onPressed:  () {
+        Navigator.pop(context);
+        deleteProduct(catID);
+      },
     );
 
     // set up the AlertDialog
