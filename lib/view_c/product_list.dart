@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:happybuy/Controller/controller.dart';
 import 'package:happybuy/GlobalSetting/GlobalColor.dart';
@@ -83,13 +84,21 @@ class _CreateCategoryState extends State<ProductList> {
                                 borderRadius: BorderRadius.only(
                                     topLeft: Radius.circular(15),
                                     bottomLeft: Radius.circular(15)),
-                                child:  FadeInImage(
-                                  image: NetworkImage(Helper.baseurl+_controller
-                                      .productList[index].img1),
-                                  placeholder: AssetImage(
-                                      'images/gif-logo.gif'),
+                                child:
+                                CachedNetworkImage(
+                                  imageUrl: _controller
+                                      .productList[index].img1==null ? "https://geagletkd.com/wp-content/uploads/2017/04/default-image-620x600.jpg": Helper.baseurl+ _controller.productList[index].img1,
+                                  placeholder: (context, url) => Center(child: CircularProgressIndicator()),
+                                  errorWidget: (context, url, error) => Icon(Icons.error),
                                   fit: BoxFit.fill,
                                 ),
+                                // FadeInImage(
+                                //   image: NetworkImage(Helper.baseurl+_controller
+                                //       .productList[index].img1),
+                                //   placeholder: AssetImage(
+                                //       'images/gif-logo.gif'),
+                                //   fit: BoxFit.fill,
+                                // ),
                               ),
                             ),
                             Container(
@@ -120,7 +129,8 @@ class _CreateCategoryState extends State<ProductList> {
                                         padding: EdgeInsets.only(
                                             left: 5, top: 8, bottom: 15),
                                         child: Text(
-                                          "৳ 5000",
+                                          _controller
+                                              .productList[index].price,
                                           style: TextStyle(
                                               fontSize: 20,
                                               fontWeight: FontWeight.w500,color: Colors.white),

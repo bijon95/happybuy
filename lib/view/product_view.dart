@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:happybuy/Controller/controller.dart';
@@ -119,12 +120,19 @@ class _CreateCategoryState extends State<ProductView> {
                               return Container(
                                 height: 300,
                                 width: MediaQuery.of(context).size.width,
-                                child: FadeInImage(
+                                child:
+                                FadeInImage(
                                   image: NetworkImage(Helper.baseurl+imgList[index]
                                   ),
                                   placeholder: AssetImage('images/gif-logo.gif'),
                                   fit: BoxFit.cover,
                                 ),
+                                // CachedNetworkImage(
+                                //   imageUrl:NetworkImage(Helper.baseurl+imgList[index]).toString(),
+                                //   placeholder: (context, url) => Center(child: CircularProgressIndicator()),
+                                //   errorWidget: (context, url, error) => Icon(Icons.error),
+                                //   fit: BoxFit.fill,
+                                // ),
                               );
                             },
                             //Slider Container properties

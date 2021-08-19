@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -109,10 +110,18 @@ class _DashboardClientState extends State<DashboardClient> {
                       itemCount: _controller.sliderlist.length,
                       itemBuilder:
                           (BuildContext contex, int index, int realIdx) {
-                        return FadeInImage(
-                          image: NetworkImage(Helper.baseurl +
-                              _controller.sliderlist[index].sliderImage),
-                          placeholder: AssetImage('images/gif-logo.gif'),
+                        return
+                        //   FadeInImage(
+                        //   image: NetworkImage(Helper.baseurl +
+                        //       _controller.sliderlist[index].sliderImage),
+                        //   placeholder: AssetImage('images/gif-logo.gif'),
+                        //   fit: BoxFit.fill,
+                        // );
+                        CachedNetworkImage(
+                          imageUrl: _controller
+                              .productList[index].img1==null ? "https://geagletkd.com/wp-content/uploads/2017/04/default-image-620x600.jpg": Helper.baseurl+ _controller.sliderlist[index].sliderImage,
+                          placeholder: (context, url) => Center(child: CircularProgressIndicator()),
+                          errorWidget: (context, url, error) => Icon(Icons.error),
                           fit: BoxFit.fill,
                         );
                       },
@@ -172,16 +181,25 @@ class _DashboardClientState extends State<DashboardClient> {
                                             child: ClipRRect(
                                               borderRadius:
                                                   BorderRadius.circular(15),
-                                              child: FadeInImage(
-                                                image: NetworkImage(
-                                                    Helper.baseurl +
-                                                        _controller
-                                                            .catList[index]
-                                                            .categoryImage),
-                                                placeholder: AssetImage(
-                                                    'images/gif-logo.gif'),
+                                              child:
+                                              // FadeInImage(
+                                              //   image: NetworkImage(
+                                              //       Helper.baseurl +
+                                              //           _controller
+                                              //               .catList[index]
+                                              //               .categoryImage),
+                                              //   placeholder: AssetImage(
+                                              //       'images/gif-logo.gif'),
+                                              //   fit: BoxFit.fill,
+                                              // ),
+                                              CachedNetworkImage(
+                                                imageUrl: _controller
+                                                    .productList[index].img1==null ? "https://geagletkd.com/wp-content/uploads/2017/04/default-image-620x600.jpg": Helper.baseurl+ _controller.catList[index].categoryImage,
+                                                placeholder: (context, url) => Center(child: CircularProgressIndicator()),
+                                                errorWidget: (context, url, error) => Icon(Icons.error),
                                                 fit: BoxFit.fill,
                                               ),
+
                                             ),
                                           ),
                                     Container(
@@ -293,15 +311,24 @@ class _DashboardClientState extends State<DashboardClient> {
                                         borderRadius: BorderRadius.only(
                                             topLeft: Radius.circular(15),
                                             bottomLeft: Radius.circular(15)),
-                                        child: FadeInImage(
-                                          image: NetworkImage(_controller
-                                              .productList[index].img1 == null ? "":Helper.baseurl +
-                                              _controller
-                                                  .productList[index].img1),
-                                          placeholder:
-                                              AssetImage('images/gif-logo.gif'),
-                                          fit: BoxFit.cover,
-                                        )),
+                                        child:
+                                        // FadeInImage(
+                                        //   image: NetworkImage(_controller
+                                        //       .productList[index].img1 == null ? "":Helper.baseurl +
+                                        //       _controller
+                                        //           .productList[index].img1),
+                                        //   placeholder:
+                                        //       AssetImage('images/gif-logo.gif'),
+                                        //   fit: BoxFit.cover,
+                                        // )
+                                      CachedNetworkImage(
+                                    imageUrl: _controller
+                                        .productList[index].img1==null ? "https://geagletkd.com/wp-content/uploads/2017/04/default-image-620x600.jpg": Helper.baseurl+ _controller.productList[index].img1,
+                                      placeholder: (context, url) => Center(child: CircularProgressIndicator()),
+                                      errorWidget: (context, url, error) => Icon(Icons.error),
+                                      fit: BoxFit.fill,
+                                    ),
+                                    ),
                                   ),
                                   Container(
                                     padding: EdgeInsets.only(
@@ -601,16 +628,22 @@ class _DashboardClientState extends State<DashboardClient> {
                                   borderRadius: BorderRadius.only(
                                       topLeft: Radius.circular(15),
                                       bottomLeft: Radius.circular(15)),
-                                  child:FadeInImage(
-                                    image: NetworkImage(_controller
-                                        .productList[index].img1==null ? "https://geagletkd.com/wp-content/uploads/2017/04/default-image-620x600.jpg": Helper.baseurl+_controller.productList[index].img1),
-                                    placeholder: AssetImage(
-                                        'images/gif-logo.gif'),
-                                    fit: BoxFit.fill,
+                                  child:
+                                    // NetworkImage(_controller
+                                    //     .productList[index].img1==null ? "https://geagletkd.com/wp-content/uploads/2017/04/default-image-620x600.jpg": Helper.baseurl+_controller.productList[index].img1),
+                                    // placeholder: AssetImage(
+                                    //     'images/gif-logo.gif'),
+                                    // fit: BoxFit.fill,
+                                    CachedNetworkImage(
+                                      imageUrl: _controller
+                                          .productList[index].img1==null ? "https://geagletkd.com/wp-content/uploads/2017/04/default-image-620x600.jpg": Helper.baseurl+_controller.productList[index].img1,
+                                      placeholder: (context, url) => Center(child: CircularProgressIndicator()),
+                                      errorWidget: (context, url, error) => Icon(Icons.error),
+                                      fit: BoxFit.fill,
+                                    ),
                                   ),
 
                                 ),
-                              ),
                               Container(
                                 padding: EdgeInsets.only(
                                     left: 8, top: 10, right: 5),
