@@ -225,6 +225,7 @@ class _LoginPageState extends State<LoginPage> {
                         //padding: EdgeInsets.fromLTRB(30, 10, 30, 10),
                         color: GlobalColor.buttonColor,
                         onPressed: () async {
+
                           String token =
                               await FirebaseMessaging.instance.getToken();
                           print(token);
@@ -280,10 +281,13 @@ class _LoginPageState extends State<LoginPage> {
                         )),
                       ),
                       onTap: () {
+
                         Navigator.push(
                             context,
                             MaterialPageRoute(
                                 builder: (context) => RegistrationPage()));
+
+
                       },
                     ),
                     Center(

@@ -24,6 +24,7 @@ class _AllUSerListState extends State<AllUSerList> {
             return Center(child: CircularProgressIndicator(),);
           }
           else{
+            
             return  ListView.builder(
                 itemCount:_controller.allUserList.length ,
                 itemBuilder: (BuildContext context, int index){

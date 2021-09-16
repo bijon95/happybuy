@@ -37,8 +37,7 @@ class _LoginPageState extends State<RegistrationPage> {
 
   // Login view
   Future registrationRequest() async {
-    String token =
-    await FirebaseMessaging.instance.getToken();
+    String token = await FirebaseMessaging.instance.getToken();
     print("calling reg");
     _isLoading = true;
     Uri url = Uri.parse(Helper.baseurl + "registration");
@@ -47,7 +46,7 @@ class _LoginPageState extends State<RegistrationPage> {
       "password": pass.text,
       "name": name.text,
       "type": "user",
-      "token":token,
+      "token": token,
     };
     //encode Map to JSON
     var body = json.encode(data);
@@ -74,8 +73,8 @@ class _LoginPageState extends State<RegistrationPage> {
       });
       // UserInfo user = new UserInfo();
       // user.saveLoginDataToSharedPreference(type, name);
-      Navigator.push(context,
-          MaterialPageRoute(builder: (context) => LoginPage()));
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => LoginPage()));
       return null;
     } else {
 //show error message
@@ -125,7 +124,6 @@ class _LoginPageState extends State<RegistrationPage> {
                         //color: Colors.white,
                         padding: EdgeInsets.fromLTRB(30, 10, 30, 10),
                         child: TextField(
-
                           controller: name,
                           keyboardType: TextInputType.text,
                           decoration: new InputDecoration(
@@ -160,7 +158,6 @@ class _LoginPageState extends State<RegistrationPage> {
                         //color: Colors.blueAccent,
                         padding: EdgeInsets.fromLTRB(30, 10, 30, 10),
                         child: TextField(
-
                           controller: pass,
                           obscureText: true,
                           decoration: new InputDecoration(
@@ -183,16 +180,18 @@ class _LoginPageState extends State<RegistrationPage> {
                         //padding: EdgeInsets.fromLTRB(30, 10, 30, 10),
                         color: GlobalColor.buttonColor,
                         onPressed: () {
-                          registrationRequest();
-                          setState(() {
-                            _isLoading = true;
-                          });
+                          if (phone.text.length == 11) {
+                            registrationRequest();
+                            setState(() {
+                              _isLoading = true;
+                            });
+                          } else {
+                            setState(() {
+                              msg = "Invalid Phone Number";
+                            });
+                          }
 
 //
-                          Text(
-                            "",
-                            style: TextStyle(fontSize: 20.0, color: Colors.red),
-                          );
                         }, //
                         child: new Text(
                           "Registration",
@@ -205,6 +204,15 @@ class _LoginPageState extends State<RegistrationPage> {
                         ),
                       ),
                     ),
+                    Container(
+                      width: MediaQuery.of(context).size.width,
+                      child: Center(
+                        child: Text(
+                          msg,
+                          style: TextStyle(fontSize: 20.0, color: Colors.red),
+                        ),
+                      ),
+                    ),
                     GestureDetector(
                       child: Container(
                         margin: EdgeInsets.only(top: 15),
@@ -213,11 +221,15 @@ class _LoginPageState extends State<RegistrationPage> {
                             child: Text(
                           "Already have an Account ?",
                           style: TextStyle(
-                              color: GlobalColor.highlightTextColor, fontWeight: FontWeight.bold),
+                              color: GlobalColor.highlightTextColor,
+                              fontWeight: FontWeight.bold),
                         )),
                       ),
                       onTap: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => LoginPage()));
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => LoginPage()));
                       },
                     ),
                     Center(
@@ -245,6 +257,7 @@ class _LoginPageState extends State<RegistrationPage> {
     super.initState();
     Firebase.initializeApp();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

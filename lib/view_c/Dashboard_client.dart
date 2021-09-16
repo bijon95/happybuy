@@ -129,10 +129,34 @@ class _DashboardClientState extends State<DashboardClient> {
                   }
                 }),
               ),
-              //cat list
+            //  cat list
+              Container(
+                margin: EdgeInsets.only(top: 5, left: 10, right: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "Choose Category ",
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    ),
+                    // GestureDetector(
+                    //   child: Text(
+                    //     "See All",
+                    //     style: TextStyle(fontWeight: FontWeight.bold),
+                    //   ),
+                    //   onTap: () {
+                    //     Navigator.push(
+                    //         context,
+                    //         MaterialPageRoute(
+                    //             builder: (context) => ProductList()));
+                    //   },
+                    // ),
+                  ],
+                ),
+              ),
               Container(
                 margin: EdgeInsets.only(top: 10),
-                height: MediaQuery.of(context).size.width / 2 - 40,
                 width: MediaQuery.of(context).size.width,
                 child: Obx(() {
                   if (_controller.categoryLoading.value) {
@@ -143,10 +167,17 @@ class _DashboardClientState extends State<DashboardClient> {
                       ),
                     );
                   } else {
-                    return ListView.builder(
-                        itemCount: _controller.catList.length,
-                        scrollDirection: Axis.horizontal,
-                        itemBuilder: (BuildContext context, int index) {
+                    return
+                      GridView.count(
+                        scrollDirection: Axis.vertical,
+                        primary: false,
+                        crossAxisSpacing: 0,
+                        mainAxisSpacing: 10,
+                        crossAxisCount: 2,
+                        childAspectRatio: 1.2,
+                        shrinkWrap: true,
+                        children: List.generate(_controller
+                            .catList.length, (index) {
                           return Visibility(
                             visible: _controller.catList[index].isActive == 1,
                             child: GestureDetector(
@@ -155,7 +186,7 @@ class _DashboardClientState extends State<DashboardClient> {
                                 width:
                                     MediaQuery.of(context).size.width / 2 - 20,
                                 decoration: BoxDecoration(
-                                  color: Colors.red[200],
+
                                   borderRadius: BorderRadius.circular(15),
                                 ),
                                 child: Stack(
@@ -223,12 +254,12 @@ class _DashboardClientState extends State<DashboardClient> {
 
                                     Container(
                                       margin:
-                                          EdgeInsets.only(left: 13, top: 80),
+                                          EdgeInsets.only(left: 13, top: 95),
                                       child: Text(
                                         _controller.catList[index].name,
                                         style: TextStyle(
-                                            fontSize: 20,
-                                            fontWeight: FontWeight.bold),
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold),maxLines: 1,
                                       ),
                                     ),
                                   ],
@@ -242,152 +273,152 @@ class _DashboardClientState extends State<DashboardClient> {
                               },
                             ),
                           );
-                        });
+                        }));
                   }
                 }),
               ),
-              Container(
-                margin: EdgeInsets.only(top: 5, left: 10, right: 10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "Popular Product ",
-                      style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                    ),
-                    GestureDetector(
-                      child: Text(
-                        "See All",
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => ProductList()));
-                      },
-                    ),
-                  ],
-                ),
-              ),
-              // sanitary list
-              Container(
-                margin: EdgeInsets.only(top: 10),
-                height: 150,
-                width: MediaQuery.of(context).size.width,
-                child: Obx(() {
-                  if (_controller.isLoadingProduct.value) {
-                    return Center(
-                      child: CircularProgressIndicator(
-                        valueColor:
-                            new AlwaysStoppedAnimation<Color>(Colors.red),
-                      ),
-                    );
-                  } else {
-                    return ListView.builder(
-                        itemCount: _controller.productList.length,
-                        scrollDirection: Axis.horizontal,
-                        itemBuilder: (BuildContext context, int index) {
-                          return GestureDetector(
-                            child: Container(
-                              margin: EdgeInsets.only(left: 10, right: 10),
-                              width: 300,
-                              decoration: BoxDecoration(
-                                  border: Border.all(
-                                      color: Colors.grey[300], width: 1),
-                                  borderRadius: BorderRadius.circular(15),
-                                  color: colorlist[9 - (index % 10)]),
-                              child: Row(
-                                children: [
-                                  Container(
-                                    height:
-                                        MediaQuery.of(context).size.width / 2 -
-                                            40,
-                                    width:
-                                        MediaQuery.of(context).size.width / 2 -
-                                            50,
-                                    child: ClipRRect(
-                                        borderRadius: BorderRadius.only(
-                                            topLeft: Radius.circular(15),
-                                            bottomLeft: Radius.circular(15)),
-                                        child:
-                                        // FadeInImage(
-                                        //   image: NetworkImage(_controller
-                                        //       .productList[index].img1 == null ? "":Helper.baseurl +
-                                        //       _controller
-                                        //           .productList[index].img1),
-                                        //   placeholder:
-                                        //       AssetImage('images/gif-logo.gif'),
-                                        //   fit: BoxFit.cover,
-                                        // )
-                                      CachedNetworkImage(
-                                    imageUrl: _controller
-                                        .productList[index].img1==null ? "https://geagletkd.com/wp-content/uploads/2017/04/default-image-620x600.jpg": Helper.baseurl+ _controller.productList[index].img1,
-                                      placeholder: (context, url) => Center(child: CircularProgressIndicator()),
-                                      errorWidget: (context, url, error) => Icon(Icons.error),
-                                      fit: BoxFit.fill,
-                                    ),
-                                    ),
-                                  ),
-                                  Container(
-                                    padding: EdgeInsets.only(
-                                        left: 8, top: 10, right: 5),
-                                    width:
-                                        MediaQuery.of(context).size.width / 2 -
-                                            80,
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Container(
-                                          child: Text(
-                                            _controller.productList[index].name,
-                                            maxLines: 3,
-                                            overflow: TextOverflow.ellipsis,
-                                            style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.w500,
-                                            ),
-                                          ),
-                                        ),
-                                        Container(
-                                          width: MediaQuery.of(context)
-                                                      .size
-                                                      .width /
-                                                  2 -
-                                              60,
-                                          padding: EdgeInsets.only(
-                                              left: 5, top: 8, bottom: 15),
-                                          child: Text(
-                                            "৳" +
-                                                _controller
-                                                    .productList[index].price,
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 22,
-                                                fontWeight: FontWeight.w500),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => ProductView(
-                                          _controller.productList[index])));
-                            },
-                          );
-                        });
-                  }
-                }),
-              ),
+              // Container(
+              //   margin: EdgeInsets.only(top: 5, left: 10, right: 10),
+              //   child: Row(
+              //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //     children: [
+              //       Text(
+              //         "Popular Product ",
+              //         style:
+              //             TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              //       ),
+              //       GestureDetector(
+              //         child: Text(
+              //           "See All",
+              //           style: TextStyle(fontWeight: FontWeight.bold),
+              //         ),
+              //         onTap: () {
+              //           Navigator.push(
+              //               context,
+              //               MaterialPageRoute(
+              //                   builder: (context) => ProductList()));
+              //         },
+              //       ),
+              //     ],
+              //   ),
+              // ),
+              // // sanitary list
+              // Container(
+              //   margin: EdgeInsets.only(top: 10),
+              //   height: 150,
+              //   width: MediaQuery.of(context).size.width,
+              //   child: Obx(() {
+              //     if (_controller.isLoadingProduct.value) {
+              //       return Center(
+              //         child: CircularProgressIndicator(
+              //           valueColor:
+              //               new AlwaysStoppedAnimation<Color>(Colors.red),
+              //         ),
+              //       );
+              //     } else {
+              //       return ListView.builder(
+              //           itemCount: _controller.productList.length,
+              //           scrollDirection: Axis.horizontal,
+              //           itemBuilder: (BuildContext context, int index) {
+              //             return GestureDetector(
+              //               child: Container(
+              //                 margin: EdgeInsets.only(left: 10, right: 10),
+              //                 width: 300,
+              //                 decoration: BoxDecoration(
+              //                     border: Border.all(
+              //                         color: Colors.grey[300], width: 1),
+              //                     borderRadius: BorderRadius.circular(15),
+              //                     color: colorlist[9 - (index % 10)]),
+              //                 child: Row(
+              //                   children: [
+              //                     Container(
+              //                       height:
+              //                           MediaQuery.of(context).size.width / 2 -
+              //                               40,
+              //                       width:
+              //                           MediaQuery.of(context).size.width / 2 -
+              //                               50,
+              //                       child: ClipRRect(
+              //                           borderRadius: BorderRadius.only(
+              //                               topLeft: Radius.circular(15),
+              //                               bottomLeft: Radius.circular(15)),
+              //                           child:
+              //                           // FadeInImage(
+              //                           //   image: NetworkImage(_controller
+              //                           //       .productList[index].img1 == null ? "":Helper.baseurl +
+              //                           //       _controller
+              //                           //           .productList[index].img1),
+              //                           //   placeholder:
+              //                           //       AssetImage('images/gif-logo.gif'),
+              //                           //   fit: BoxFit.cover,
+              //                           // )
+              //                         CachedNetworkImage(
+              //                       imageUrl: _controller
+              //                           .productList[index].img1==null ? "https://geagletkd.com/wp-content/uploads/2017/04/default-image-620x600.jpg": Helper.baseurl+ _controller.productList[index].img1,
+              //                         placeholder: (context, url) => Center(child: CircularProgressIndicator()),
+              //                         errorWidget: (context, url, error) => Icon(Icons.error),
+              //                         fit: BoxFit.fill,
+              //                       ),
+              //                       ),
+              //                     ),
+              //                     Container(
+              //                       padding: EdgeInsets.only(
+              //                           left: 8, top: 10, right: 5),
+              //                       width:
+              //                           MediaQuery.of(context).size.width / 2 -
+              //                               80,
+              //                       child: Column(
+              //                         mainAxisAlignment:
+              //                             MainAxisAlignment.spaceBetween,
+              //                         children: [
+              //                           Container(
+              //                             child: Text(
+              //                               _controller.productList[index].name,
+              //                               maxLines: 3,
+              //                               overflow: TextOverflow.ellipsis,
+              //                               style: TextStyle(
+              //                                 color: Colors.white,
+              //                                 fontSize: 16,
+              //                                 fontWeight: FontWeight.w500,
+              //                               ),
+              //                             ),
+              //                           ),
+              //                           Container(
+              //                             width: MediaQuery.of(context)
+              //                                         .size
+              //                                         .width /
+              //                                     2 -
+              //                                 60,
+              //                             padding: EdgeInsets.only(
+              //                                 left: 5, top: 8, bottom: 15),
+              //                             child: Text(
+              //                               "৳" +
+              //                                   _controller
+              //                                       .productList[index].price,
+              //                               style: TextStyle(
+              //                                   color: Colors.white,
+              //                                   fontSize: 22,
+              //                                   fontWeight: FontWeight.w500),
+              //                             ),
+              //                           ),
+              //                         ],
+              //                       ),
+              //                     ),
+              //                   ],
+              //                 ),
+              //               ),
+              //               onTap: () {
+              //                 Navigator.push(
+              //                     context,
+              //                     MaterialPageRoute(
+              //                         builder: (context) => ProductView(
+              //                             _controller.productList[index])));
+              //               },
+              //             );
+              //           });
+              //     }
+              //   }),
+              // ),
               Container(
                 margin: EdgeInsets.only(top: 10, left: 10, right: 10,bottom: 10),
                 child: Row(
@@ -422,179 +453,8 @@ class _DashboardClientState extends State<DashboardClient> {
                     ),
                   );
                 } else {
-                  // return ListView.builder(
-                  //     scrollDirection: Axis.vertical,
-                  //     itemCount: _controller.productList.length,
-                  //     itemBuilder: (BuildContext contex, int index) {
-                  //       return GestureDetector(
-                  //         child: Container(
-                  //           margin: EdgeInsets.only(
-                  //               left: 10, right: 10, bottom: 12),
-                  //           width: MediaQuery.of(context).size.width,
-                  //           height: 150,
-                  //           decoration: BoxDecoration(
-                  //               border: Border.all(
-                  //                   color: Colors.grey[300], width: 1),
-                  //               borderRadius: BorderRadius.circular(15),
-                  //               color: colorlist[index % 10]),
-                  //           child: Row(
-                  //             children: [
-                  //               Container(
-                  //                 height:
-                  //                     MediaQuery.of(context).size.width / 2 -
-                  //                         40,
-                  //                 width:
-                  //                     MediaQuery.of(context).size.width / 2 -
-                  //                         20,
-                  //                 child: ClipRRect(
-                  //                     borderRadius: BorderRadius.only(
-                  //                         topLeft: Radius.circular(15),
-                  //                         bottomLeft: Radius.circular(15)),
-                  //                     child:FadeInImage(
-                  //                       image: NetworkImage(_controller
-                  //                           .productList[index].img1==null ? "https://geagletkd.com/wp-content/uploads/2017/04/default-image-620x600.jpg": Helper.baseurl+_controller.productList[index].img1),
-                  //                       placeholder: AssetImage(
-                  //                           'images/gif-logo.gif'),
-                  //                       fit: BoxFit.fill,
-                  //                     ),
-                  //
-                  //                 ),
-                  //               ),
-                  //               Container(
-                  //                 padding: EdgeInsets.only(
-                  //                     left: 8, top: 10, right: 5),
-                  //                 width:
-                  //                     MediaQuery.of(context).size.width / 2 -
-                  //                         20,
-                  //                 child: Column(
-                  //                   mainAxisAlignment:
-                  //                       MainAxisAlignment.spaceBetween,
-                  //                   children: [
-                  //                     Container(
-                  //                       child: Text(
-                  //                         _controller.productList[index].name,
-                  //                         maxLines: 3,
-                  //                         overflow: TextOverflow.ellipsis,
-                  //                         style: TextStyle(
-                  //                           fontSize: 18,
-                  //                           color: Colors.white,
-                  //                           fontWeight: FontWeight.w500,
-                  //                         ),
-                  //                       ),
-                  //                     ),
-                  //                     Row(
-                  //                       mainAxisAlignment:
-                  //                           MainAxisAlignment.spaceBetween,
-                  //                       children: [
-                  //                         _controller.productList[index]
-                  //                                     .selling ==
-                  //                                 null
-                  //                             ? Container(
-                  //                                 width: 80,
-                  //                                 padding: EdgeInsets.only(
-                  //                                     left: 5,
-                  //                                     top: 8,
-                  //                                     bottom: 15),
-                  //                                 child: Text(
-                  //                                   "৳ " +
-                  //                                       _controller
-                  //                                           .productList[
-                  //                                               index]
-                  //                                           .price,
-                  //                                   style: TextStyle(
-                  //                                       fontSize: 20,
-                  //                                       fontWeight:
-                  //                                           FontWeight.w500,
-                  //                                       color: Colors.white),
-                  //                                 ),
-                  //                               )
-                  //                             : Column(
-                  //                                 children: [
-                  //                                   Container(
-                  //                                     width: 80,
-                  //                                     padding:
-                  //                                         EdgeInsets.only(
-                  //                                             left: 5,
-                  //                                             top: 8,
-                  //                                             bottom: 0),
-                  //                                     child: Text(
-                  //                                       "৳ " +
-                  //                                           _controller
-                  //                                               .productList[
-                  //                                                   index]
-                  //                                               .selling,
-                  //                                       style: TextStyle(
-                  //                                           fontSize: 20,
-                  //                                           fontWeight:
-                  //                                               FontWeight
-                  //                                                   .w500,
-                  //                                           color:
-                  //                                               Colors.white),
-                  //                                     ),
-                  //                                   ),
-                  //                                   Container(
-                  //                                     width: 80,
-                  //                                     padding:
-                  //                                         EdgeInsets.only(
-                  //                                             left: 5,
-                  //                                             top: 0,
-                  //                                             bottom: 15),
-                  //                                     child: Text(
-                  //                                       "৳ " +
-                  //                                           _controller
-                  //                                               .productList[
-                  //                                                   index]
-                  //                                               .price,
-                  //                                       style: TextStyle(
-                  //                                           decoration:
-                  //                                               TextDecoration
-                  //                                                   .lineThrough,
-                  //                                           fontSize: 16,
-                  //                                           fontWeight:
-                  //                                               FontWeight
-                  //                                                   .w500,
-                  //                                           color:
-                  //                                               Colors.white),
-                  //                                     ),
-                  //                                   ),
-                  //                                 ],
-                  //                               ),
-                  //                         Container(
-                  //                           width: 60,
-                  //                           height: 20,
-                  //                           decoration: BoxDecoration(
-                  //                               color: Colors.white,
-                  //                               borderRadius:
-                  //                                   BorderRadius.circular(15),
-                  //                               border: Border.all(
-                  //                                   color: Colors.grey[300],
-                  //                                   width: 1)),
-                  //                           child: Center(
-                  //                               child: Text(
-                  //                             "View",
-                  //                             style: TextStyle(fontSize: 10),
-                  //                           )),
-                  //                         ),
-                  //                       ],
-                  //                     ),
-                  //                   ],
-                  //                 ),
-                  //               ),
-                  //             ],
-                  //           ),
-                  //         ),
-                  //         onTap: () {
-                  //           Navigator.push(
-                  //               context,
-                  //               MaterialPageRoute(
-                  //                   builder: (context) => ProductView(
-                  //                       _controller.productList[index])));
-                  //         },
-                  //       );
-                  //     });
-                  return GridView.count(
-
-
+                  return
+                    GridView.count(
                     primary: false,
                     crossAxisSpacing: 0,
                     mainAxisSpacing: 0,
