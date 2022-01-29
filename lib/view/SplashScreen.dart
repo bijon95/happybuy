@@ -71,7 +71,7 @@ class _SplashScreenState extends State<SplashScreen> {
           decoration: BoxDecoration(
             // image: DecorationImage(image: new ExactAssetImage('images/complain.jpg'))
           ),
-          child: Center(child: Text("Happy Buy",style: TextStyle(fontSize: 36,color: Colors.blue),),)
+          child: Center(child: Text("Snov Buy",style: TextStyle(fontSize: 36,color: Colors.blue),),)
       ),
     );
   }

@@ -322,7 +322,7 @@ class _LoginPageState extends State<LoginPage> {
         appBar: AppBar(
           backgroundColor: GlobalColor.appbarColor,
           centerTitle: true,
-          title: Title(color: Colors.blue, child: Text("Happy Buy")),
+          title: Title(color: Colors.blue, child: Text("Snov Buy")),
           //   leading: Icon(Icons.arrow_back),
         ),
         body: getPageView(context));

@@ -16,7 +16,7 @@ void main() {
   runApp(
     new MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Happy Buy',
+      title: 'Snov Buy',
       theme: ThemeData(
         primarySwatch: Colors.green,
         visualDensity: VisualDensity.adaptivePlatformDensity,

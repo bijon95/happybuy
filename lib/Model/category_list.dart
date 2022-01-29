@@ -24,7 +24,7 @@ class CategoryCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final TextStyle textStyle = Theme.of(context).textTheme.subtitle;
+    final TextStyle textStyle = Theme.of(context).textTheme.bodyText2;
     return ClipRRect(
       borderRadius: BorderRadius.circular(5.0),
       child: Container(

@@ -264,7 +264,7 @@ class _LoginPageState extends State<RegistrationPage> {
         appBar: AppBar(
           backgroundColor: GlobalColor.appbarColor,
           centerTitle: true,
-          title: Title(color: Colors.blue, child: Text("Happy Buy")),
+          title: Title(color: Colors.blue, child: Text("Snov Buy")),
         ),
         body: Center(
             child: _isLoading
